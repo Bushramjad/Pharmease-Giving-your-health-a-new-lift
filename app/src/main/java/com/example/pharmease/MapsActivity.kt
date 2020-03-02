@@ -5,7 +5,6 @@ import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -36,10 +35,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
                 .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
-
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-
-
 //        findViewById<Button>(R.id.open_place_picker_button).setOnClickListener {
 //            val intent = PlacePicker.IntentBuilder()
 //                .setLatLong(40.748672, -73.985628)
@@ -71,7 +67,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
                 lastLocation = location
                 val currentLatLng = LatLng(location.latitude, location.longitude)
                 placeMarkerOnMap(currentLatLng)
-                map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12f))
+                map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 14f))
             }
         }
     }
@@ -139,12 +135,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
     }
     private fun placeMarkerOnMap(location: LatLng) {
         val markerOptions = MarkerOptions().position(location)
-
         val titleStr = getAddress(location)  // add these two lines
         markerOptions.title(titleStr)
 
         map.addMarker(markerOptions)
     }
-
-
 }
