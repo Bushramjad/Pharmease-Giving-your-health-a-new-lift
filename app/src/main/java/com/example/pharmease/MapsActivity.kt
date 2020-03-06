@@ -36,15 +36,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         mapFragment.getMapAsync(this)
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-//        findViewById<Button>(R.id.open_place_picker_button).setOnClickListener {
-//            val intent = PlacePicker.IntentBuilder()
-//                .setLatLong(40.748672, -73.985628)
-//                .showLatLong(true)
-//                .setMapRawResourceStyle(R.raw.map_style)
-//                .setMapType(MapType.NORMAL)
-//                .build(this)
-//            startActivityForResult(intent, Constants.PLACE_PICKER_REQUEST)
-//        }
+
     }
 
     companion object {
@@ -67,60 +59,49 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
                 lastLocation = location
                 val currentLatLng = LatLng(location.latitude, location.longitude)
                 placeMarkerOnMap(currentLatLng)
-                map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 14f))
+                map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15f))
             }
         }
     }
 
 
-
-//    override fun onActivityResult(
-//        requestCode: Int,
-//        resultCode: Int,
-//        data: Intent?
-//    ) {
-//
-//        if (requestCode == Constants.PLACE_PICKER_REQUEST) {
-//            if (resultCode == Activity.RESULT_OK) {
-//                try {
-//                    val addressData = data?.getParcelableExtra<AddressData>(Constants.ADDRESS_INTENT)
-//                    findViewById<TextView>(R.id.address_data_text_view).text = addressData.toString()
-//                } catch (e: Exception) {
-//                    Log.e("MainActivity", e.message)
-//                }
-//            }
-//        } else {
-//            super.onActivityResult(requestCode, resultCode, data)
-//        }
-//
-//    }
-
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
-
-        map.uiSettings.isZoomControlsEnabled = true
+        map.uiSettings.isZoomControlsEnabled = false
+        map.uiSettings.isMyLocationButtonEnabled = false
         map.setOnMarkerClickListener(this)
+
+        val l1 = LatLng(33.648689, 72.873252)
+        map.addMarker(MarkerOptions().position(l1).title("l1"))
+        map.moveCamera(CameraUpdateFactory.newLatLng(l1))
+
+        val l2 = LatLng(33.749687, 72.874452)
+        map.addMarker(MarkerOptions().position(l2).title("l2"))
+        map.moveCamera(CameraUpdateFactory.newLatLng(l2))
+
+        val l3 = LatLng(33.645687, 72.873252)
+        map.addMarker(MarkerOptions().position(l3).title("l3"))
+        map.moveCamera(CameraUpdateFactory.newLatLng(l3))
 
         setUpMap()
     }
 
     override fun onMarkerClick(p0: Marker?): Boolean {
-        map.getUiSettings().setZoomControlsEnabled(true)
+        map.uiSettings.isZoomControlsEnabled = false
+        map.uiSettings.isMyLocationButtonEnabled = false
+
         map.setOnMarkerClickListener(this)
         return false
     }
 
     private fun getAddress(latLng: LatLng): String {
-        // 1
         val geocoder = Geocoder(this)
         val addresses: List<Address>?
         val address: Address?
         var addressText = ""
 
         try {
-            // 2
             addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1)
-            // 3
             if (null != addresses && !addresses.isEmpty()) {
                 address = addresses[0]
                 for (i in 0 until address.maxAddressLineIndex) {
@@ -135,9 +116,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
     }
     private fun placeMarkerOnMap(location: LatLng) {
         val markerOptions = MarkerOptions().position(location)
-        val titleStr = getAddress(location)  // add these two lines
+        val titleStr = getAddress(location)
         markerOptions.title(titleStr)
 
         map.addMarker(markerOptions)
     }
+
 }

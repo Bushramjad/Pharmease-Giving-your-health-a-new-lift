@@ -6,41 +6,44 @@
     android:orientation="vertical"
     tools:context=".MapsActivity" >
 
+
     <fragment
         android:id="@+id/map"
         class="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:layout_centerVertical="true" />
 
-
-    <androidx.appcompat.widget.AppCompatImageButton
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="15dp"
-
-        android:layout_marginTop="20dp"
-        android:src="@drawable/hamburger"
-        android:layout_marginLeft="30dp"></androidx.appcompat.widget.AppCompatImageButton>
 
     <EditText
         android:id="@+id/et_location"
         android:layout_width="376dp"
         android:layout_height="53dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="80dp"
-        android:background="@color/grey"
-        android:ems="15"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/rounded_edittext"
         android:hint="@string/hnt_et_location"
         android:imeOptions="actionSearch"
         android:inputType="text"
-        android:padding="7dp" />
+        android:padding="7dp"/>
 
-</RelativeLayout><!--<?xml version="1.0" encoding="utf-8"?>-->
-<!--<fragment xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--    xmlns:map="http://schemas.android.com/apk/res-auto"-->
-<!--    xmlns:tools="http://schemas.android.com/tools"-->
-<!--    android:id="@+id/map"-->
-<!--    android:name="com.google.android.gms.maps.SupportMapFragment"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="match_parent"-->
-<!--    tools:context=".MapsActivity" />-->
+    <Button
+        android:id="@+id/button"
+        android:layout_width="378dp"
+        android:layout_height="61dp"
+        android:layout_alignBottom="@+id/et_location"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="-643dp"
+        android:background="@drawable/rounded_edittext"
+        android:text="Button"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="bold" />
+
+    <!--        android:shadowColor="#0000ff"-->
+<!--        android:shadowDx="2"-->
+<!--        android:shadowDy="4"-->
+<!--        android:shadowRadius="2" />-->
+
+
+</RelativeLayout>
