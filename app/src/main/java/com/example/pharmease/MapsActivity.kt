@@ -16,7 +16,9 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import android.location.Address
 import android.location.Geocoder
+import androidx.fragment.app.FragmentActivity
 import com.google.android.gms.maps.model.MarkerOptions
+import kotlinx.android.synthetic.main.activity_maps.*
 
 import java.io.IOException
 
@@ -36,6 +38,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         mapFragment.getMapAsync(this)
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+
+       
 
     }
 
