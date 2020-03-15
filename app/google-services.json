@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1044834117898",
+    "firebase_url": "https://pharmase-e9a4a.firebaseio.com",
+    "project_id": "pharmase-e9a4a",
+    "storage_bucket": "pharmase-e9a4a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1044834117898:android:8b935b25facf27dd58f2f3",
+        "android_client_info": {
+          "package_name": "com.example.pharmease"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1044834117898-lt9s07nhni2rq4v89cqk24q3rgo7fdut.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.pharmease",
+            "certificate_hash": "47e3c5bb2cb16af0cfafcad18b053d140ddad6af"
+          }
+        },
+        {
+          "client_id": "1044834117898-g917rvl5gn5h2es60b6ufoqemq9i1v53.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQTT11O2pl6T8kfrdGEFKEXiPpfPp3CFU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1044834117898-g917rvl5gn5h2es60b6ufoqemq9i1v53.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

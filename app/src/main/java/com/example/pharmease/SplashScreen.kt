@@ -21,7 +21,7 @@ class SplashScreen : AppCompatActivity() {
             // This method will be executed once the timer is over
             // Start your app main activity
 
-            startActivity(Intent(this,Login::class.java))
+            startActivity(Intent(this,BottomNavigation::class.java))
 
             // close this activity
             finish()

@@ -22,27 +22,28 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="Welcome"
+            android:text=" P H A R M E A S E"
             android:textAllCaps="false"
             android:textColor="#fff"
-            android:textSize="26sp" />
+            android:textSize="26sp"
+            android:layout_marginBottom="50dp"/>
 
     </LinearLayout>
 
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="40dp"
-        android:layout_marginTop="5dp"
-        android:padding="0dp"
-        android:src="@drawable/whiteuser"/>
+<!--    <ImageView-->
+<!--        android:layout_width="100dp"-->
+<!--        android:layout_height="100dp"-->
+<!--        android:layout_gravity="center_horizontal"-->
+<!--        android:layout_marginBottom="40dp"-->
+<!--        android:layout_marginTop="5dp"-->
+<!--        android:padding="0dp"-->
+<!--        android:src="@drawable/whiteuser"/>-->
 
 
     <LinearLayout
         android:layout_width="379dp"
         android:layout_height="60dp"
-        android:background="@drawable/rounded_edittext"
+        android:background="@android:color/transparent"
         android:gravity="center">
 
 
@@ -50,21 +51,21 @@
             android:id="@+id/imageView"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            app:srcCompat="@drawable/user"
-
-            />
+            app:srcCompat="@drawable/whiteuser"
+            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp" />
 
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.05"
-
-            android:background="@android:color/transparent"
             android:ems="10"
             android:hint="Email"
             android:inputType="textEmailAddress"
             android:maxLines="1"
-            android:textColorHint="@color/colorPrimary"
+            android:textColor="@color/grey"
+            android:textColorHint="@color/grey"
+            android:textColorLink="@color/grey"
             android:textSize="18sp" />
 
     </LinearLayout>
@@ -76,16 +77,12 @@
        >
 
    </LinearLayout>
-<!--    <view-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="1dp"-->
-<!--        android:layout_marginTop="5dp"-->
-<!--        android:background="#fff" />-->
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="@drawable/rounded_edittext"
+        android:background="@android:color/transparent"
 
         android:gravity="center">
 
@@ -93,58 +90,65 @@
             android:id="@+id/imageView1"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            app:srcCompat="@drawable/password" />
+            app:srcCompat="@drawable/whitepassword"
+            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"/>
 
         <EditText
-            android:layout_width="wrap_content"
+
             android:layout_height="wrap_content"
             android:layout_weight="0.05"
-            android:background="@android:color/transparent"
+            android:layout_width="0dp"
             android:ems="10"
             android:hint="Password"
             android:inputType="textEmailAddress"
             android:maxLines="1"
-
-            android:textColorHint="@color/colorPrimary"
+            android:textColor="@color/grey"
+            android:textColorHint="@color/grey"
+            android:textColorLink="@color/grey"
             android:textSize="16sp" />
 
     </LinearLayout>
-
-<!--    <view-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="1dp"-->
-<!--        android:layout_marginTop="5dp"-->
-<!--        android:background="#fff" />-->
-
     <Button
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:background="@drawable/rounded_edittext"
         android:clickable="true"
+        android:focusable="true"
+        android:onClick="click"
         android:padding="16dp"
         android:text="login"
         android:textAllCaps="true"
         android:textColor="@color/colorPrimary"
-        android:textSize="18sp"
-        android:onClick="click"/>
+        android:textSize="18sp" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="25dp"
         android:gravity="center"
         android:text="create new account"
         android:textAllCaps="true"
         android:textColor="#fff"
         android:textSize="12sp" />
 
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/google_button"
+        android:layout_width="177dp"
+        android:layout_height="44dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:onClick="googlesignin"/>
+
     <com.facebook.login.widget.LoginButton
         android:id="@+id/login_button"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="186dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="30dp"
-        />
+            android:layout_marginTop="30dp"/>
+<!--        android:layout_marginBottom="30dp"-->
+
+
+
 </LinearLayout>

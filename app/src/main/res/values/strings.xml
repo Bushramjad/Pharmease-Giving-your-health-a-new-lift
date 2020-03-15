@@ -4,6 +4,10 @@
     <string name="title">P H A R M E A S E</string>
     <string name="facebook_app_id">2895489153899420</string>
     <string name="fb_login_protocol_scheme">fb2895489153899420</string>
+    <string name="title_activity_bottom_navigation">BottomNavigation</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 
 
 </resources>
