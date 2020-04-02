@@ -16,12 +16,11 @@ class SplashScreen : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
 
-
         Handler().postDelayed({
             // This method will be executed once the timer is over
             // Start your app main activity
 
-            startActivity(Intent(this,BottomNavigation::class.java))
+            startActivity(Intent(this,FirstScreenActivity::class.java))
 
             // close this activity
             finish()

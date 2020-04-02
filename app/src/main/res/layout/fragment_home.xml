@@ -27,4 +27,5 @@
         android:imeOptions="actionSearch"
         android:inputType="text"
         android:padding="7dp"/>
+
 </RelativeLayout>
