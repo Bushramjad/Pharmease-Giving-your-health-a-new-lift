@@ -12,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -23,12 +24,13 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import java.io.IOException
 
-class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener  {
+class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener ,  GoogleMap.OnInfoWindowClickListener  {
 
     private lateinit var homeViewModel: HomeViewModel
     private lateinit var map: GoogleMap
@@ -85,11 +87,28 @@ class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
         map = googleMap
         map.uiSettings.isZoomControlsEnabled = false
         map.uiSettings.isMyLocationButtonEnabled = false
+
         map.setOnMarkerClickListener(this)
+        map.setOnInfoWindowClickListener(this)
+
 
         val l1 = LatLng(33.648689, 72.873252)
-        map.addMarker(MarkerOptions().position(l1).title("l1"))
+        val markerOptions = MarkerOptions()
+        markerOptions.position(l1).title("Location Details")
+            .snippet("I am custom Location Marker.")
+            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
+
+        val info = InfoWindowData("Pharmacy name", "Pharmacy address")
+        val customInfoWindow = infoWindowAdaptar(this.requireActivity())
+
+        map.setInfoWindowAdapter(customInfoWindow)
+
+        val marker = map.addMarker(markerOptions)
+        marker.tag = info
+
         map.moveCamera(CameraUpdateFactory.newLatLng(l1))
+
+
 
         val l2 = LatLng(33.749687, 72.874452)
         map.addMarker(MarkerOptions().position(l2).title("l2"))
@@ -101,7 +120,12 @@ class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
 
         setUpMap()
 
+    }
 
+    override fun onInfoWindowClick(marker: Marker)
+    {
+            //startActivity(Intent(this,Congratulations::class.java))
+            Toast.makeText(activity, "Window in progress!", Toast.LENGTH_SHORT).show()
 
     }
 

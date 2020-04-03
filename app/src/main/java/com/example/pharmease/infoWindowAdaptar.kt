@@ -1,37 +1,30 @@
 package com.example.pharmease
 
+import android.app.Activity
 import android.content.Context
-import android.view.LayoutInflater
+import android.content.Intent
 import android.view.View
-import android.widget.TextView
+import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
+import kotlinx.android.synthetic.main.info_window.view.*
 
 
-class infoWindowAdaptar : GoogleMap.InfoWindowAdapter {
-    var context : Context? = null
+class infoWindowAdaptar(val context: Context) : GoogleMap.InfoWindowAdapter {
 
-
-    fun MarkerInfoWindowAdapter(context: Context) {
-        this.context = context.applicationContext
-    }
 
     override fun getInfoContents(p0: Marker?): View {
-        val inflater =
-            context?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val v: View = inflater.inflate(R.layout.info_window, null)
+        var mInfoView = (context as Activity).layoutInflater.inflate(R.layout.info_window, null)
+        var mInfoWindow: InfoWindowData? = p0?.tag as InfoWindowData?
 
-        val latLng: LatLng? = p0?.position
-        val tvLat = v.findViewById<View>(R.id.tv_lat) as TextView
-        val tvLng = v.findViewById<View>(R.id.tv_lng) as TextView
-        if (latLng != null) {
-            tvLat.text = "Latitude:" + latLng.latitude
-        }
-        if (latLng != null) {
-            tvLng.text = "Longitude:" + latLng.longitude
-        }
-        return v    }
+        mInfoView.t1.text = mInfoWindow?.text1
+        mInfoView.t2.text = mInfoWindow?.text2
+
+
+
+        return mInfoView
+    }
 
     override fun getInfoWindow(p0: Marker?): View? {
         return null
