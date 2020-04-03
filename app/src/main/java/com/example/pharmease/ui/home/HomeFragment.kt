@@ -77,6 +77,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
             val currentLatLng = LatLng(location.latitude, location.longitude)
             placeMarkerOnMap(currentLatLng)
             map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15f))
+
           }
         }
 
@@ -159,13 +160,12 @@ class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
         return addressText
     }
     private fun placeMarkerOnMap(location: LatLng) {
+
         val markerOptions = MarkerOptions().position(location)
         val titleStr = getAddress(location)
         markerOptions.title(titleStr)
 
         map.addMarker(markerOptions)
     }
-
-
 
 }
