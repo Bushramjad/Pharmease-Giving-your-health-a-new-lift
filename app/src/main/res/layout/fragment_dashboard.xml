@@ -86,4 +86,40 @@
         android:background="@drawable/selector"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
+    <RelativeLayout
+        android:id="@+id/showCart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="80dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/basketButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_shopping_basket"
+            android:tint="@android:color/white"
+            app:fabSize="normal" />
+
+        <TextView
+            android:id="@+id/cart_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@id/basketButton"
+            android:layout_alignRight="@id/basketButton"
+            android:layout_marginEnd="0dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/item_count"
+            android:elevation="50dp"
+            android:padding="8dp"
+            android:textColor="@android:color/white"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:layout_editor_absoluteY="659dp"
+            tools:targetApi="lollipop" />
+
+    </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

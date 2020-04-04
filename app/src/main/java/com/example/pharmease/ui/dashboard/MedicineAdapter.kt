@@ -17,7 +17,8 @@ class MedicineAdapter (val items : ArrayList<String>, val context: Context) : Re
 
     // Inflates the item views
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(context).inflate(R.layout.pharmacy_list_item, parent, false))    }
+        return ViewHolder(LayoutInflater.from(context).inflate(R.layout.pharmacy_list_item, parent, false))
+    }
 
 
     // Binds each animal in the ArrayList to a view

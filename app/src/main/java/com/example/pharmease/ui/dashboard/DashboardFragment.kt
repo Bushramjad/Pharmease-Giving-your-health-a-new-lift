@@ -1,5 +1,6 @@
 package com.example.pharmease.ui.dashboard
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,9 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.pharmease.OnItemClickListener
-import com.example.pharmease.R
-import com.example.pharmease.addOnItemClickListener
+import com.example.pharmease.*
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 
 class DashboardFragment : Fragment() {
@@ -41,7 +40,9 @@ class DashboardFragment : Fragment() {
         medicine_list.adapter = MedicineAdapter(medicines, requireActivity())
         medicine_list.addOnItemClickListener(object: OnItemClickListener {
             override fun onItemClicked(position: Int, view: View) {
-                Toast.makeText(activity, "List view in progress!", Toast.LENGTH_SHORT).show()
+               // Toast.makeText(activity, "List view in progress!", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(activity, CartActivity::class.java))
+
             }
         })
     }
