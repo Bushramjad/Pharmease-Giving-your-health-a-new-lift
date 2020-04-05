@@ -1,4 +1,4 @@
-package com.example.pharmease.ui.dashboard
+package com.example.pharmease
 
 import android.content.Context
 import android.view.LayoutInflater

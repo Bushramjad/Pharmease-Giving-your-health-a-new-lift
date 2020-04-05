@@ -1,16 +1,10 @@
-package com.example.pharmease
+package com.example.pharmease.cart
 
-import android.content.Intent
-import android.graphics.PorterDuff
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.MenuItem
-import android.view.View
-import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.pharmease.ui.dashboard.MedicineAdapter
+import com.example.pharmease.R
 import kotlinx.android.synthetic.main.cart.*
 
 
@@ -25,7 +19,8 @@ class CartActivity : AppCompatActivity() {
         addMedicine()
 
         shopping_cart_recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        shopping_cart_recyclerView.adapter = CartAdaptar(this, medicines)
+        shopping_cart_recyclerView.adapter =
+            CartAdaptar(this, medicines)
 
     }
 
@@ -53,7 +48,6 @@ class CartActivity : AppCompatActivity() {
         medicines.add("Ativan.")
         medicines.add("Amoxicillin.")
         Log.e("array", medicines.toString())
-
     }
 
 }

@@ -55,7 +55,7 @@ class Login : AppCompatActivity() {
     fun click(view:View)
     {
        // addArtist()
-        startActivity(Intent(this,BottomNavigation::class.java))
+        startActivity(Intent(this,Drawer::class.java))
 
     }
 

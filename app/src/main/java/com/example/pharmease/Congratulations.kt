@@ -11,7 +11,7 @@ class Congratulations : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.congratulation)
         next.setOnClickListener() {
-            startActivity(Intent(this,BottomNavigation::class.java))
+            startActivity(Intent(this,Drawer::class.java))
 
         }
     }

@@ -78,7 +78,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
             placeMarkerOnMap(currentLatLng)
             map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15f))
 
-          }
+        }
         }
 
     }
@@ -97,7 +97,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
         val markerOptions = MarkerOptions()
         markerOptions.position(l1).title("Location Details")
             .snippet("I am custom Location Marker.")
-            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
+            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
 
         val info = InfoWindowData("Pharmacy name", "Pharmacy address")
         val customInfoWindow = infoWindowAdaptar(this.requireActivity())
@@ -125,8 +125,8 @@ class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
 
     override fun onInfoWindowClick(marker: Marker)
     {
-            //startActivity(Intent(this,Congratulations::class.java))
-            Toast.makeText(activity, "Window in progress!", Toast.LENGTH_SHORT).show()
+        //startActivity(Intent(this,Congratulations::class.java))
+        Toast.makeText(activity, "Window in progress!", Toast.LENGTH_SHORT).show()
 
     }
 
