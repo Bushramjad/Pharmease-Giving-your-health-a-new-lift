@@ -24,7 +24,6 @@
             android:label="@string/title_activity_drawer"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".cart.CartActivity" />
-        <activity android:name=".PharmacyProfile" />
         <activity android:name=".Congratulations" />
         <activity android:name=".FirstScreenActivity" />
         <activity
@@ -60,9 +59,7 @@
         <!-- <data android:scheme="@string/fb_login_protocol_scheme" /> -->
         <!-- </intent-filter> -->
         <!-- </activity> -->
-        <activity
-            android:name=".MapsActivity"
-            android:label="@string/title_activity_maps" />
+
     </application>
 
 </manifest>

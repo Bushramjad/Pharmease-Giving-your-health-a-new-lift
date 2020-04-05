@@ -1,4 +1,4 @@
-package com.example.pharmease.ui.gallery
+package com.example.pharmease.ui.profile
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

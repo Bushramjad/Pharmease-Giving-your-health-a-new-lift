@@ -12,33 +12,27 @@
         tools:layout="@layout/fragment_home">
 
         <action
-            android:id="@+id/action_HomeFragment_to_HomeSecondFragment"
-            app:destination="@id/nav_home_second" />
+            android:id="@+id/action_nav_home_to_nav_cart2"
+            app:destination="@id/nav_cart" />
     </fragment>
-    <fragment
-        android:id="@+id/nav_home_second"
-        android:name="com.example.pharmease.ui.home.HomeSecondFragment"
-        android:label="@string/home_second"
-        tools:layout="@layout/fragment_home_second">
-        <action
-            android:id="@+id/action_HomeSecondFragment_to_HomeFragment"
-            app:destination="@id/nav_home" />
 
-        <argument
-            android:name="myArg"
-            app:argType="string" />
-    </fragment>
 
     <fragment
         android:id="@+id/nav_gallery"
-        android:name="com.example.pharmease.ui.gallery.GalleryFragment"
+        android:name="com.example.pharmease.ui.profile.MyProfile"
         android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        tools:layout="@layout/my_profile" />
 
     <fragment
         android:id="@+id/nav_slideshow"
         android:name="com.example.pharmease.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
+
+    <fragment
+        android:id="@+id/nav_cart"
+        android:name="com.example.pharmease.cart.CartActivity"
+        android:label="Cart"
+        tools:layout="@layout/cart"/>
 
 </navigation>

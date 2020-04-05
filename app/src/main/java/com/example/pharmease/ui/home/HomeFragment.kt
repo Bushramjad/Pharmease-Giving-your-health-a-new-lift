@@ -57,9 +57,9 @@ class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
 
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
-        fun getLaunchIntent(from: Context) = Intent(from, MapsActivity::class.java).apply {
-            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-        }
+//        fun getLaunchIntent(from: Context) = Intent(from, MapsActivity::class.java).apply {
+//            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+//        }
 
     }
 
