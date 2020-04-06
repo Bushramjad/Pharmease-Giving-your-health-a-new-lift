@@ -11,25 +11,23 @@
         <item
             android:id="@+id/nav_gallery"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/menu_gallery" />
+            android:title="@string/my_profile" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_pharmacies"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/menu_slideshow" />
+            android:title="@string/all_pharmacies" />
         <item
+            android:id="@+id/nav_order"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Show all Pharmacies" />
-        <item
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="My order history" />
+            android:title="@string/my_order_history" />
         <item
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Terms and conditions" />
+            android:title="@string/help"/>
         <item
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Contact Us" />
+            android:title="@string/settings" />
         <item
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Logout" />
+            android:title="@string/sign_out" />
     </group>
 </menu>

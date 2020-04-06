@@ -1,6 +1,5 @@
 package com.example.pharmease
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -16,7 +15,6 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import com.example.pharmease.cart.CartActivity
 
 class Drawer : AppCompatActivity() {
 
@@ -42,7 +40,7 @@ class Drawer : AppCompatActivity() {
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow
+                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_pharmacies,R.id.nav_order
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -65,9 +63,9 @@ class Drawer : AppCompatActivity() {
             }
             R.id.action_cart -> {
                 Toast.makeText(applicationContext, "Cart in progress!", Toast.LENGTH_SHORT).show()
-                val i = Intent(this, CartActivity::class.java)
-                startActivity(i)
-             //   this.findNavController(R.id.nav_host_fragment).navigate(R.id.action_nav_home_to_nav_cart2)
+//                val i = Intent(this, CartActivity::class.java)
+//                startActivity(i)
+                this.findNavController(R.id.nav_host_fragment).navigate(R.id.action_nav_home_to_nav_cart2)
                 return true;
             }
         }

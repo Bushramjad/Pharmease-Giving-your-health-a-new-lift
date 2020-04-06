@@ -1,10 +1,7 @@
-package com.example.pharmease
+package com.example.pharmease.login
 
-import android.content.Context
 import android.content.Intent
-import android.content.QuickViewConstants
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
 import android.view.View
 import android.widget.EditText
@@ -13,20 +10,12 @@ import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.AuthFailureError
 import com.android.volley.Request
 import com.android.volley.Response
-import com.android.volley.VolleyError
 import com.android.volley.toolbox.StringRequest
-
-import com.facebook.FacebookSdk;
-import com.facebook.appevents.AppEventsLogger;
+import com.example.pharmease.Drawer
+import com.example.pharmease.EndPoints
 import com.example.pharmease.R
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.GoogleAuthProvider
+import com.example.pharmease.VolleySingleton
+
 import kotlinx.android.synthetic.main.activity_login2.*
 import org.json.JSONException
 import org.json.JSONObject
@@ -55,7 +44,7 @@ class Login : AppCompatActivity() {
     fun click(view:View)
     {
        // addArtist()
-        startActivity(Intent(this,Drawer::class.java))
+        startActivity(Intent(this, Drawer::class.java))
 
     }
 
@@ -65,7 +54,8 @@ class Login : AppCompatActivity() {
         val pword = password?.text.toString()
 
         //creating volley string request
-        val stringRequest = object : StringRequest(Request.Method.POST, EndPoints.URL_ADD_ARTIST,
+        val stringRequest = object : StringRequest(Request.Method.POST,
+            EndPoints.URL_ADD_ARTIST,
             Response.Listener<String> { response ->
                 Log.d("xyz",name)
                 try {

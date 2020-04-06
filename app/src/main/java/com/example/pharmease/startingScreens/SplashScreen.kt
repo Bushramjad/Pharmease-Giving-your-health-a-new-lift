@@ -1,10 +1,10 @@
-package com.example.pharmease
+package com.example.pharmease.startingScreens
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.content.Intent
 import android.os.Handler
-import kotlinx.android.synthetic.main.activity_splash_screen.*
+import com.example.pharmease.R
 
 
 class SplashScreen : AppCompatActivity() {
@@ -20,7 +20,8 @@ class SplashScreen : AppCompatActivity() {
             // This method will be executed once the timer is over
             // Start your app main activity
 
-            startActivity(Intent(this,FirstScreenActivity::class.java))
+            startActivity(Intent(this,
+                FirstScreenActivity::class.java))
 
             // close this activity
             finish()

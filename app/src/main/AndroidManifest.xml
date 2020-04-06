@@ -23,14 +23,14 @@
             android:name=".Drawer"
             android:label="@string/title_activity_drawer"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".cart.CartActivity" />
-        <activity android:name=".Congratulations" />
-        <activity android:name=".FirstScreenActivity" />
+
+        <activity android:name=".startingScreens.Congratulations" />
+        <activity android:name=".startingScreens.FirstScreenActivity" />
         <activity
-            android:name=".ForgetPassword"
+            android:name=".login.ForgetPassword"
             android:label="Reset Password" />
         <activity
-            android:name=".SplashScreen"
+            android:name=".startingScreens.SplashScreen"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

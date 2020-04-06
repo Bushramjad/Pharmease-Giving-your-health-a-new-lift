@@ -1,8 +1,9 @@
-package com.example.pharmease
+package com.example.pharmease.login
 
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.pharmease.R
 import kotlinx.android.synthetic.main.forget_password.*
 
 class ForgetPassword : AppCompatActivity() {

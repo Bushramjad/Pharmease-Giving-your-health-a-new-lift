@@ -1,11 +1,9 @@
-package com.example.pharmease
+package com.example.pharmease.ui.home
 
 import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.view.View
-import android.widget.Toast
-import androidx.core.content.ContextCompat.startActivity
+import com.example.pharmease.R
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.Marker
 import kotlinx.android.synthetic.main.info_window.view.*

@@ -20,7 +20,7 @@
     <fragment
         android:id="@+id/nav_gallery"
         android:name="com.example.pharmease.ui.profile.MyProfile"
-        android:label="@string/menu_gallery"
+        android:label="Profile"
         tools:layout="@layout/my_profile" />
 
     <fragment
@@ -31,8 +31,28 @@
 
     <fragment
         android:id="@+id/nav_cart"
-        android:name="com.example.pharmease.cart.CartActivity"
+        android:name="com.example.pharmease.cart.CartFragment"
         android:label="Cart"
         tools:layout="@layout/cart"/>
+    <fragment
+        android:id="@+id/nav_pharmacies"
+        android:name="com.example.pharmease.pharmacy.AllPharmacies"
+        android:label="Pharmacies"
+        tools:layout="@layout/all_pharmacies">
+        <action
+            android:id="@+id/action_nav_pharmacies_to_nav_pharmacy_profile"
+            app:destination="@id/nav_pharmacy_profile" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_pharmacy_profile"
+        android:name="com.example.pharmease.pharmacy.pharmacy_profile"
+        android:label="Pharmacy"
+        tools:layout="@layout/pharmacy_profile"/>
+
+    <fragment
+        android:id="@+id/nav_order"
+        android:name="com.example.pharmease.order.OrderFragment"
+        android:label="Order History"
+        tools:layout="@layout/order_history"/>
 
 </navigation>
