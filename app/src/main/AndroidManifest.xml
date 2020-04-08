@@ -19,16 +19,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+
         <activity
             android:name=".Drawer"
             android:label="@string/title_activity_drawer"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
 
-        <activity android:name=".startingScreens.Congratulations" />
-        <activity android:name=".startingScreens.FirstScreenActivity" />
-        <activity
-            android:name=".login.ForgetPassword"
-            android:label="Reset Password" />
+        <activity android:name=".startingScreens.Host"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
         <activity
             android:name=".startingScreens.SplashScreen"
             android:theme="@style/AppTheme.NoActionBar">
@@ -49,17 +50,7 @@
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:label="@string/app_name" /> <!-- <activity -->
-        <!-- android:name="com.facebook.CustomTabActivity" -->
-        <!-- android:exported="true"> -->
-        <!-- <intent-filter> -->
-        <!-- <action android:name="android.intent.action.VIEW" /> -->
-        <!-- <category android:name="android.intent.category.DEFAULT" /> -->
-        <!-- <category android:name="android.intent.category.BROWSABLE" /> -->
-        <!-- <data android:scheme="@string/fb_login_protocol_scheme" /> -->
-        <!-- </intent-filter> -->
-        <!-- </activity> -->
-
+            android:label="@string/app_name" />
     </application>
 
 </manifest>

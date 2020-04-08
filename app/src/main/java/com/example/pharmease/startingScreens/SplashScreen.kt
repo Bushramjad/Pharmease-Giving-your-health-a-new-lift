@@ -19,10 +19,7 @@ class SplashScreen : AppCompatActivity() {
         Handler().postDelayed({
             // This method will be executed once the timer is over
             // Start your app main activity
-
-            startActivity(Intent(this,
-                FirstScreenActivity::class.java))
-
+            startActivity(Intent(this, Host::class.java))
             // close this activity
             finish()
         }, SPLASH_TIME_OUT)

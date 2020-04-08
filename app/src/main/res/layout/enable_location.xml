@@ -54,7 +54,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/enable"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -77,6 +77,6 @@
         android:layout_marginBottom="32dp"
         android:text="Do not allow"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/button4"
-        app:layout_constraintStart_toStartOf="@+id/button4" />
+        app:layout_constraintEnd_toEndOf="@+id/enable"
+        app:layout_constraintStart_toStartOf="@+id/enable" />
 </androidx.constraintlayout.widget.ConstraintLayout>

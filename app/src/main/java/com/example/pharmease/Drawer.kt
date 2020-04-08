@@ -31,6 +31,7 @@ class Drawer : AppCompatActivity() {
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }
+
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
 
         val navView: NavigationView = findViewById(R.id.nav_view)
@@ -65,6 +66,7 @@ class Drawer : AppCompatActivity() {
                 Toast.makeText(applicationContext, "Cart in progress!", Toast.LENGTH_SHORT).show()
 //                val i = Intent(this, CartActivity::class.java)
 //                startActivity(i)
+
                 this.findNavController(R.id.nav_host_fragment).navigate(R.id.action_nav_home_to_nav_cart2)
                 return true;
             }

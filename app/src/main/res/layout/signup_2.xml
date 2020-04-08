@@ -11,94 +11,100 @@
 
 
     <EditText
-        android:id="@+id/username"
-        android:layout_width="0dp"
+        android:id="@+id/email"
+        android:layout_width="379dp"
         android:layout_height="50dp"
         android:layout_marginTop="120dp"
         android:layout_weight="0.05"
         android:background="@color/com_facebook_button_border_color_focused"
         android:ems="10"
-        android:hint="Username"
+        android:hint="First name"
         android:inputType="textEmailAddress"
         android:maxLines="1"
         android:textColor="@color/com_facebook_device_auth_text"
         android:textColorHint="@color/com_facebook_button_background_color_focused_disabled"
         android:textColorLink="@color/grey"
         android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/password"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/password"
-        android:layout_width="0dp"
+        android:layout_width="379dp"
         android:layout_height="50dp"
         android:layout_marginTop="16dp"
         android:layout_weight="0.05"
         android:background="@color/com_facebook_button_border_color_focused"
         android:ems="10"
-        android:hint="Password"
+        android:hint="Last Name"
         android:inputType="textEmailAddress"
         android:maxLines="1"
         android:textColor="@color/com_facebook_button_background_color_focused_disabled"
         android:textColorHint="@color/com_facebook_button_background_color_focused_disabled"
         android:textColorLink="@color/grey"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/username"
-        app:layout_constraintStart_toStartOf="@+id/username"
-        app:layout_constraintTop_toBottomOf="@+id/username" />
+        app:layout_constraintBottom_toTopOf="@+id/cpassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/email" />
+
+    <EditText
+        android:id="@+id/cpassword"
+        android:layout_width="379dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        android:layout_weight="0.05"
+        android:background="@color/com_facebook_button_border_color_focused"
+        android:ems="10"
+        android:hint="@android:string/emptyPhoneNumber"
+        android:maxLines="1"
+        android:textColor="@color/com_facebook_button_background_color_focused_disabled"
+        android:textColorHint="@color/com_facebook_button_background_color_focused_disabled"
+        android:textColorLink="@color/grey"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/signup2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password" />
 
     <Button
-        android:id="@+id/loginButton"
-        android:layout_width="0dp"
+        android:id="@+id/signup2"
+        android:layout_width="379dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:background="@color/colorPrimary"
         android:clickable="true"
         android:focusable="true"
         android:onClick="click"
         android:padding="16dp"
-        android:text="login"
+        android:text="@string/sign_up"
         android:textAllCaps="true"
         android:textColor="@color/grey"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/password"
-        app:layout_constraintStart_toStartOf="@+id/password"
-        app:layout_constraintTop_toBottomOf="@+id/password" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cpassword" />
 
-    <com.google.android.gms.common.SignInButton
-        android:id="@+id/google_button"
+    <TextView
+        android:id="@+id/textView7"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:onClick="googlesignin"
-        app:layout_constraintBottom_toTopOf="@+id/login_button"
-        app:layout_constraintEnd_toEndOf="@+id/loginButton"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/loginButton"
-        app:layout_constraintTop_toBottomOf="@+id/forget"
-        app:layout_constraintVertical_bias="0.912" />
-
-    <com.facebook.login.widget.LoginButton
-        android:id="@+id/login_button"
-        android:layout_width="0dp"
-        android:layout_height="45dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
         android:layout_marginBottom="32dp"
+        android:gravity="center"
+        android:text="By signing up or Loging in you agree with our Terms and Conditions"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/google_button"
-        app:layout_constraintStart_toStartOf="@+id/google_button" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/forget"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@android:color/background_light"
-        android:text="Forget Password?"
-        android:textColor="@color/com_facebook_button_background_color_focused_disabled"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/loginButton"
-        app:layout_constraintStart_toStartOf="@+id/loginButton"
-        app:layout_constraintTop_toBottomOf="@+id/loginButton"
-        app:layout_constraintVertical_bias="0.029" />
     <!--        android:layout_marginBottom="30dp"-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

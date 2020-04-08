@@ -27,9 +27,9 @@ class CartAdaptar (var context: Context, var cartItems: ArrayList<String>) : Rec
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val name = view.product_name
-        val company = view.product_price
-        val quantity = view.product_quantity
+        val name = view.date
+        val company = view.name
+        val quantity = view.status
 
 
     }

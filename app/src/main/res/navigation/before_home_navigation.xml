@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/before_home_navigation"
+    app:startDestination="@+id/nav_firstscreen">
+
+    <fragment
+        android:id="@+id/nav_firstscreen"
+        android:name="com.example.pharmease.startingScreens.FirstScreenActivity"
+        android:label="@string/menu_home"
+        tools:layout="@layout/firstscreen">
+        <action
+            android:id="@+id/action_nav_firstscreen_to_nav_login"
+            app:destination="@id/nav_login" />
+        <action
+            android:id="@+id/action_nav_firstscreen_to_nav_signup1"
+            app:destination="@id/nav_signup1" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_login"
+        android:name="com.example.pharmease.login.Login"
+        android:label="Login"
+        tools:layout="@layout/activity_login2">
+        <action
+            android:id="@+id/action_nav_login_to_nav_forget_password"
+            app:destination="@id/nav_forget_password" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_forget_password"
+        android:name="com.example.pharmease.login.ForgetPassword"
+        android:label="Reset Password"
+        tools:layout="@layout/forget_password">
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_signup1"
+        android:name="com.example.pharmease.signup.SignupFirst"
+        android:label="Sign Up"
+        tools:layout="@layout/signup_1">
+        <action
+            android:id="@+id/action_nav_signup1_to_nav_signup2"
+            app:destination="@id/nav_signup2" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_signup2"
+        android:name="com.example.pharmease.signup.SignupSecond"
+        android:label="Sign Up"
+        tools:layout="@layout/signup_2">
+        <action
+            android:id="@+id/action_nav_signup2_to_nav_enable_location_notification"
+            app:destination="@id/nav_enable_location_notification" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_enable_location"
+        android:name="com.example.pharmease.signup.SignupFirst"
+        tools:layout="@layout/enable_location"/>
+
+    <fragment
+        android:id="@+id/nav_enable_location_notification"
+        android:name="com.example.pharmease.startingScreens.NotificationFragment"
+        tools:layout="@layout/enable_notification">
+        <action
+            android:id="@+id/action_nav_enable_location_notification_to_nav_congratulation"
+            app:destination="@id/nav_congratulation" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_congratulation"
+        android:name="com.example.pharmease.startingScreens.Congratulations"
+        tools:layout="@layout/congratulation">
+    </fragment>
+</navigation>
