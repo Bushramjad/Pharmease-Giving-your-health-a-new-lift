@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.pharmease.Drawer
 import com.example.pharmease.R
 import kotlinx.android.synthetic.main.activity_login2.*
+import kotlinx.android.synthetic.main.congratulation.*
 
 
 class Login : Fragment() {
@@ -24,8 +25,12 @@ class Login : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        progressBar3.visibility = View.GONE
+
         loginButton.setOnClickListener() {
-           // findNavController().navigate(R.id.action_nav_firstscreen_to_nav_login)
+
+            progressBar3.visibility = View.VISIBLE
+
             startActivity(Intent(activity, Drawer::class.java))
         }
 
