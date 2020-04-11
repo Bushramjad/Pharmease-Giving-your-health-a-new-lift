@@ -8,7 +8,6 @@
     <fragment
         android:id="@+id/nav_firstscreen"
         android:name="com.example.pharmease.startingScreens.FirstScreenActivity"
-        android:label="@string/menu_home"
         tools:layout="@layout/firstscreen">
         <action
             android:id="@+id/action_nav_firstscreen_to_nav_login"
@@ -57,16 +56,19 @@
 
     <fragment
         android:id="@+id/nav_enable_location"
+        android:label="Enable Location"
         android:name="com.example.pharmease.signup.SignupFirst"
         tools:layout="@layout/enable_location"/>
 
     <fragment
         android:id="@+id/nav_enable_location_notification"
+        android:label="Enable Notification"
         android:name="com.example.pharmease.startingScreens.NotificationFragment"
         tools:layout="@layout/enable_notification">
         <action
             android:id="@+id/action_nav_enable_location_notification_to_nav_congratulation"
-            app:destination="@id/nav_congratulation" />
+            app:destination="@id/nav_congratulation"
+            app:popUpTo="@id/nav_firstscreen" />
     </fragment>
 
     <fragment
