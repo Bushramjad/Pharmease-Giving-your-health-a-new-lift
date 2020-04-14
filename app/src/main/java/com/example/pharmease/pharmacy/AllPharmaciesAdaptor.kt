@@ -23,7 +23,7 @@ class AllPharmaciesAdaptor (val items : ArrayList<String>, val context: Context)
 
     // Binds each animal in the ArrayList to a view
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.name?.text = "My pharmacy"
+        holder.name?.text = "My pharmacy, complete address"
         holder.location?.text = "Islamabad"
         holder.hour?.text = "9 am -10 pm"
 

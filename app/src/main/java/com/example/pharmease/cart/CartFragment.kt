@@ -45,11 +45,6 @@ class CartFragment : Fragment() {
         medicines.add("Ativan.")
         medicines.add("Acetaminophen.")
         medicines.add("Adderall.")
-        medicines.add("Ativan.")
-        medicines.add("Acetaminophen")
-        medicines.add("Adderall.")
-        medicines.add("Ativan.")
-        medicines.add("Amoxicillin.")
     }
 
 }

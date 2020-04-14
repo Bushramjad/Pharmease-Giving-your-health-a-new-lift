@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardUseCompatPadding="true"
-    app:cardElevation="1.5dp"
+    app:cardElevation="2.5dp"
     android:layout_margin="2dp"
     app:cardBackgroundColor="@android:color/white"
     app:cardCornerRadius="2dp">
@@ -14,21 +14,22 @@
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="3dp">
 
 
         <TextView
             android:id="@+id/date"
             android:layout_width="0dp"
             android:layout_height="36dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
-            android:text="Pharmacy name"
-            android:textColor="@color/colorPrimary"
-            android:textSize="20sp"
+            android:text="Pharmacy name, Complete address"
+            android:textColor="?android:attr/colorForeground"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

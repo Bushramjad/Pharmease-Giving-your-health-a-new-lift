@@ -9,25 +9,28 @@
             android:icon="@drawable/ic_menu_camera"
             android:title="@string/menu_home" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/profilr"
             android:title="@string/my_profile" />
         <item
             android:id="@+id/nav_pharmacies"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/all_pharmacy"
             android:title="@string/all_pharmacies" />
         <item
             android:id="@+id/nav_order"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/history"
             android:title="@string/my_order_history" />
         <item
-            android:icon="@drawable/ic_menu_slideshow"
+            android:id="@+id/nav_help"
+            android:icon="@drawable/help"
             android:title="@string/help"/>
         <item
-            android:icon="@drawable/ic_menu_slideshow"
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/settings"
             android:title="@string/settings" />
         <item
-            android:icon="@drawable/ic_menu_slideshow"
+            android:id="@+id/nav_signout"
+            android:icon="@drawable/logout"
             android:title="@string/sign_out" />
     </group>
 </menu>

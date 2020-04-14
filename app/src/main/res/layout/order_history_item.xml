@@ -4,29 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardUseCompatPadding="true"
-    app:cardElevation="1.5dp"
     android:layout_margin="2dp"
     app:cardBackgroundColor="@android:color/white"
-    app:cardCornerRadius="2dp">
+    app:cardCornerRadius="2dp"
+    app:cardElevation="2.5dp"
+    app:cardUseCompatPadding="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="3dp">
 
 
         <TextView
             android:id="@+id/date"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
             android:text="5 Mar, 4:50 PM"
             android:textColor="?android:attr/colorForeground"
-            android:textSize="18sp"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -61,19 +62,19 @@
             app:layout_constraintBottom_toBottomOf="@+id/name"
             app:layout_constraintEnd_toStartOf="@+id/name"
             app:layout_constraintStart_toStartOf="@+id/date"
-            app:srcCompat="@drawable/pharmacy" />
+            app:srcCompat="@drawable/my_pharmacy" />
 
         <ImageView
             android:id="@+id/imageView10"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
             app:layout_constraintBottom_toBottomOf="@+id/status"
             app:layout_constraintDimensionRatio="w,1:1"
             app:layout_constraintEnd_toEndOf="@+id/imageView9"
             app:layout_constraintStart_toStartOf="@+id/imageView9"
             app:layout_constraintTop_toTopOf="@+id/status"
             app:layout_constraintVertical_bias="0.0"
-            app:srcCompat="@drawable/hour" />
+            app:srcCompat="@drawable/status" />
 
         <TextView
             android:id="@+id/price"
@@ -84,7 +85,7 @@
             android:gravity="right"
             android:text="PKR 350"
             android:textColor="?android:attr/colorForeground"
-            android:textSize="18sp"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/date"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/date"
