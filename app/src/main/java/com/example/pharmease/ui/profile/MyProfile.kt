@@ -2,6 +2,7 @@ package com.example.pharmease.ui.profile
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
@@ -14,6 +15,11 @@ class MyProfile : Fragment() {
 
     private lateinit var galleryViewModel: GalleryViewModel
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -23,5 +29,10 @@ class MyProfile : Fragment() {
         val root = inflater.inflate(R.layout.my_profile, container, false)
 
         return root
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        //super.onPrepareOptionsMenu(menu)
+        menu.clear();
     }
 }

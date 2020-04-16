@@ -21,12 +21,17 @@
         android:usesCleartextTraffic="true">
 
         <activity
+            android:name=".Thankyou">
+        </activity>
+
+        <activity
             android:name=".Drawer"
             android:label="@string/title_activity_drawer"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
-        <activity android:name=".startingScreens.Host"
+        <activity
+            android:name=".startingScreens.Host"
             android:theme="@style/AppTheme.ActionBar">
         </activity>
 

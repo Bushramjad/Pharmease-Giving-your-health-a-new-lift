@@ -70,8 +70,9 @@ class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
         fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->   if (location != null) {
             lastLocation = location
             val currentLatLng = LatLng(location.latitude, location.longitude)
-            placeMarkerOnMap(currentLatLng)
+           // placeMarkerOnMap(currentLatLng)
             map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15f))
+
 
         }
         }
@@ -98,8 +99,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
             "Pharmacy name",
             "Pharmacy address"
         )
-        val customInfoWindow =
-            infoWindowAdaptar(this.requireActivity())
+        val customInfoWindow = infoWindowAdaptar(this.requireActivity())
 
         map.setInfoWindowAdapter(customInfoWindow)
 
@@ -111,11 +111,13 @@ class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
 
 
         val l2 = LatLng(33.749687, 72.874452)
-        map.addMarker(MarkerOptions().position(l2).title("l2"))
+        val m = map.addMarker(MarkerOptions().position(l2).title("l2"))
+        m.tag = info
         map.moveCamera(CameraUpdateFactory.newLatLng(l2))
 
         val l3 = LatLng(33.645687, 72.873252)
-        map.addMarker(MarkerOptions().position(l3).title("l3"))
+       val n = map.addMarker(MarkerOptions().position(l3).title("l3"))
+        n.tag = info
         map.moveCamera(CameraUpdateFactory.newLatLng(l3))
 
         setUpMap()
@@ -158,6 +160,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
 
         return addressText
     }
+
     private fun placeMarkerOnMap(location: LatLng) {
 
         val markerOptions = MarkerOptions().position(location)

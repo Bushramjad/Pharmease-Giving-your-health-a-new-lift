@@ -33,7 +33,11 @@
         android:id="@+id/nav_cart"
         android:name="com.example.pharmease.cart.CartFragment"
         android:label="Cart"
-        tools:layout="@layout/cart"/>
+        tools:layout="@layout/cart">
+        <action
+            android:id="@+id/action_nav_cart_to_nav_verify_details"
+            app:destination="@id/nav_verify_details" />
+    </fragment>
     <fragment
         android:id="@+id/nav_pharmacies"
         android:name="com.example.pharmease.pharmacy.AllPharmacies"
@@ -54,5 +58,11 @@
         android:name="com.example.pharmease.order.OrderFragment"
         android:label="Order History"
         tools:layout="@layout/order_history"/>
+
+    <fragment
+    android:id="@+id/nav_verify_details"
+    android:name="com.example.pharmease.VerifyDetailsFragment"
+    android:label="Verify details"
+    tools:layout="@layout/verify_details"/>
 
 </navigation>

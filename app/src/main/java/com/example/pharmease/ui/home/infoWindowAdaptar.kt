@@ -17,10 +17,6 @@ class infoWindowAdaptar(val context: Context) : GoogleMap.InfoWindowAdapter {
         var mInfoWindow: InfoWindowData? = p0?.tag as InfoWindowData?
 
         mInfoView.t1.text = mInfoWindow?.text1
-        mInfoView.t2.text = mInfoWindow?.text2
-
-
-
         return mInfoView
     }
 
