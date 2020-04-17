@@ -18,12 +18,12 @@
         android:text="Please tell a little more about yourself..."
         android:textColor="#595757"
         android:textSize="22sp"
-        app:layout_constraintBottom_toTopOf="@+id/email"
-        app:layout_constraintEnd_toEndOf="@+id/email"
-        app:layout_constraintStart_toStartOf="@+id/email" />
+        app:layout_constraintBottom_toTopOf="@+id/fname"
+        app:layout_constraintEnd_toEndOf="@+id/fname"
+        app:layout_constraintStart_toStartOf="@+id/fname" />
 
     <EditText
-        android:id="@+id/email"
+        android:id="@+id/fname"
         android:layout_width="379dp"
         android:layout_height="50dp"
         android:layout_marginTop="150dp"
@@ -31,20 +31,21 @@
         android:background="@drawable/rounded_edittext"
         android:ems="10"
         android:hint="First name"
-        android:inputType="textEmailAddress"
         android:maxLines="1"
+        android:inputType="text"
+
         android:textColor="@android:color/black"
         android:textColorHint="@color/com_facebook_button_background_color_focused_disabled"
         android:textColorLink="@color/grey"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/password"
+        app:layout_constraintBottom_toTopOf="@+id/lname"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/password"
+        android:id="@+id/lname"
         android:layout_width="379dp"
         android:layout_height="50dp"
         android:layout_marginTop="8dp"
@@ -52,20 +53,21 @@
         android:background="@drawable/rounded_edittext"
         android:ems="10"
         android:hint="Last Name"
-        android:inputType="textEmailAddress"
         android:maxLines="1"
+        android:inputType="text"
+
         android:textColor="@android:color/black"
         android:textColorHint="@color/com_facebook_button_background_color_focused_disabled"
         android:textColorLink="@color/grey"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/cpassword"
+        app:layout_constraintBottom_toTopOf="@+id/phone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email" />
+        app:layout_constraintTop_toBottomOf="@+id/fname" />
 
     <EditText
-        android:id="@+id/cpassword"
+        android:id="@+id/phone"
         android:layout_width="379dp"
         android:layout_height="50dp"
         android:layout_marginTop="8dp"
@@ -82,7 +84,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password" />
+        app:layout_constraintTop_toBottomOf="@+id/lname" />
 
     <Button
         android:id="@+id/signup2"
@@ -100,7 +102,7 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cpassword" />
+        app:layout_constraintTop_toBottomOf="@+id/phone" />
 
     <TextView
         android:id="@+id/textView7"

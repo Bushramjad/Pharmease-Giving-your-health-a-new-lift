@@ -11,7 +11,7 @@
 
 
     <EditText
-        android:id="@+id/email"
+        android:id="@+id/fname"
         android:layout_width="379dp"
         android:layout_height="50dp"
         android:layout_marginTop="150dp"
@@ -25,14 +25,14 @@
         android:textColorHint="@color/com_facebook_button_background_color_focused_disabled"
         android:textColorLink="@color/grey"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/password"
+        app:layout_constraintBottom_toTopOf="@+id/lname"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/password"
+        android:id="@+id/lname"
         android:layout_width="379dp"
         android:layout_height="50dp"
         android:layout_marginTop="8dp"
@@ -46,14 +46,14 @@
         android:textColorHint="@color/com_facebook_button_background_color_focused_disabled"
         android:textColorLink="@color/grey"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/cpassword"
+        app:layout_constraintBottom_toTopOf="@+id/phone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email" />
+        app:layout_constraintTop_toBottomOf="@+id/fname" />
 
     <EditText
-        android:id="@+id/cpassword"
+        android:id="@+id/phone"
         android:layout_width="379dp"
         android:layout_height="50dp"
         android:layout_marginTop="8dp"
@@ -70,7 +70,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password" />
+        app:layout_constraintTop_toBottomOf="@+id/lname" />
 
     <Button
         android:id="@+id/next"
@@ -88,7 +88,7 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cpassword" />
+        app:layout_constraintTop_toBottomOf="@+id/phone" />
 
     <com.facebook.login.widget.LoginButton
         android:id="@+id/login_button"
