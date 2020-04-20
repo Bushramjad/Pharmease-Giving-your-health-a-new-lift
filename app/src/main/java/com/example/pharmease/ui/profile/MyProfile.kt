@@ -13,8 +13,6 @@ import com.example.pharmease.R
 
 class MyProfile : Fragment() {
 
-    private lateinit var galleryViewModel: GalleryViewModel
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)

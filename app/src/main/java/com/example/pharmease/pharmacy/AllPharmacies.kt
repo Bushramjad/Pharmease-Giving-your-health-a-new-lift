@@ -8,19 +8,29 @@ import android.view.LayoutInflater
 import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.Toast
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import com.example.pharmease.OnItemClickListener
 import com.example.pharmease.R
 import com.example.pharmease.addOnItemClickListener
-import com.example.pharmease.pharmacy.AllPharmaciesAdaptor
+import com.example.pharmease.api.EndPoints
+//import com.example.pharmease.pharmacy.AllPharmaciesAdaptor
+import com.facebook.FacebookSdk.getApplicationContext
 import kotlinx.android.synthetic.main.all_pharmacies.*
+import org.json.JSONException
+import org.json.JSONObject
 
 
 class AllPharmacies : Fragment() {
 
-    private val medicines: ArrayList<String> = ArrayList()
+
+    //private var PharmaciesList: ArrayList<AllPharmaciesModel>? = null
+    private var PharmaciesList: MutableList<AllPharmaciesModel>? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,10 +49,13 @@ class AllPharmacies : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        addMedicine()
 
+        //recycler_view.adapter = AllPharmaciesAdaptor(medicines, requireActivity())
         recycler_view.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
-        recycler_view.adapter = AllPharmaciesAdaptor(medicines, requireActivity())
+
+        PharmaciesList = mutableListOf<AllPharmaciesModel>()
+
+        loadPharmacies()
 
         recycler_view.addOnItemClickListener(object: OnItemClickListener {
             override fun onItemClicked(position: Int, view: View) {
@@ -54,33 +67,45 @@ class AllPharmacies : Fragment() {
         })
     }
 
-    fun addMedicine() {
-        medicines.add("Acetaminophen.")
-        medicines.add("Adderall.")
-        medicines.add("Amoxicillin.")
-        medicines.add("Ativan.")
-        medicines.add("Acetaminophen.")
-        medicines.add("Adderall.")
-        medicines.add("Ativan.")
-        medicines.add("Acetaminophen")
-        medicines.add("Adderall.")
-        medicines.add("Ativan.")
-        medicines.add("Amoxicillin.")
-        medicines.add("Acetaminophen.")
-        medicines.add("Adderall.")
-        medicines.add("Amoxicillin.")
-        medicines.add("Ativan.")
-        medicines.add("Acetaminophen.")
-        medicines.add("Adderall.")
-        medicines.add("Ativan.")
-        medicines.add("doAcetaminophen.g7")
-        medicines.add("Adderall.")
-        medicines.add("Ativan.")
-        medicines.add("Amoxicillin.")
-    }
     override fun onPrepareOptionsMenu(menu: Menu) {
         //super.onPrepareOptionsMenu(menu)
         menu.clear();
+    }
+
+    private fun loadPharmacies() {
+
+
+        val stringRequest = StringRequest(Request.Method.POST, EndPoints.URL_GET_PHARMACIES,
+            Response.Listener<String> { s ->
+                try {
+                    val obj = JSONObject(s)
+                    if (!obj.getBoolean("error")) {
+                        val array = obj.getJSONArray("pharmacies")
+
+                        for (i in 0 until array.length()) {
+                            val objectPharmacy = array.getJSONObject(i)
+                            val pharmacy = AllPharmaciesModel(
+                                objectPharmacy.getString("name"),
+                                objectPharmacy.getString("address"),
+                                objectPharmacy.getString("sector"),
+                                objectPharmacy.getString("openinghours")
+                            )
+                            PharmaciesList?.add(pharmacy)
+
+                            val adapter = AllPharmaciesAdaptor(requireActivity(), PharmaciesList!!)
+                            recycler_view.adapter = adapter
+
+                        }
+                    } else {
+                        Toast.makeText(getApplicationContext(), obj.getString("message"), Toast.LENGTH_LONG).show()
+                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+            }, Response.ErrorListener { volleyError -> Toast.makeText(activity, volleyError.message, Toast.LENGTH_LONG).show() })
+
+        val requestQueue = Volley.newRequestQueue(this.requireActivity())
+        requestQueue.add<String>(stringRequest)
     }
 
 }

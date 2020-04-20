@@ -24,6 +24,7 @@ class SignupSecond : Fragment() {
 
     private val SPLASH_TIME_OUT:Long = 1000 // 1 sec
 
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         (activity as AppCompatActivity?)!!.supportActionBar!!.show()
@@ -36,6 +37,9 @@ class SignupSecond : Fragment() {
 
         progressBar4.visibility = View.GONE
 
+        val email = arguments?.getString("email")
+        val password = arguments?.getString("password")
+
         signup2.setOnClickListener() {
 
             progressBar4.visibility = View.VISIBLE
@@ -44,7 +48,6 @@ class SignupSecond : Fragment() {
 //            }, SPLASH_TIME_OUT)
 
             addUser()
-
             findNavController().navigate(R.id.action_nav_signup2_to_nav_enable_location_notification)
         }
     }
@@ -54,7 +57,6 @@ class SignupSecond : Fragment() {
         val fname = fname.text.toString().trim()
         val lname = lname.text.toString().trim()
         val phone = phone.text.toString().trim()
-
 
         //creating volley string request
         val stringRequest = object : StringRequest(Request.Method.POST, EndPoints.CREATE_USER,
@@ -70,7 +72,8 @@ class SignupSecond : Fragment() {
                 override fun onErrorResponse(volleyError: VolleyError) {
                     Toast.makeText(activity, volleyError.message, Toast.LENGTH_LONG).show()
                 }
-            }) {
+            })
+        {
             @Throws(AuthFailureError::class)
             override fun getParams(): Map<String, String> {
                 val params = HashMap<String, String>()
@@ -82,10 +85,7 @@ class SignupSecond : Fragment() {
                 return params
             }
         }
-
         //adding request to queue
         VolleySingleton.instance?.addToRequestQueue(stringRequest)
     }
-
-
 }

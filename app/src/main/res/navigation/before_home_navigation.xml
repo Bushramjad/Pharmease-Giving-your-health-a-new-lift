@@ -21,7 +21,7 @@
         android:id="@+id/nav_login"
         android:name="com.example.pharmease.login.Login"
         android:label="Login"
-        tools:layout="@layout/activity_login2">
+        tools:layout="@layout/login">
         <action
             android:id="@+id/action_nav_login_to_nav_forget_password"
             app:destination="@id/nav_forget_password" />
@@ -52,6 +52,12 @@
         <action
             android:id="@+id/action_nav_signup2_to_nav_enable_location_notification"
             app:destination="@id/nav_enable_location_notification" />
+        <argument
+            android:name="email"
+            app:argType="string" />
+        <argument
+            android:name="password"
+            app:argType="string" />
     </fragment>
 
     <fragment

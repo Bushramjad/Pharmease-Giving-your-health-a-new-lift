@@ -9,8 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.pharmease.Drawer
 import com.example.pharmease.R
-import kotlinx.android.synthetic.main.activity_login2.*
-import kotlinx.android.synthetic.main.congratulation.*
+import kotlinx.android.synthetic.main.login.*
 
 
 class Login : Fragment() {
@@ -18,7 +17,7 @@ class Login : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.activity_login2, container, false)
+        val root = inflater.inflate(R.layout.login, container, false)
         return root
     }
 
@@ -29,14 +28,17 @@ class Login : Fragment() {
 
         loginButton.setOnClickListener() {
 
+            val email = email.text.toString().trim()
+            val password = password.text.toString().trim()
+
             progressBar3.visibility = View.VISIBLE
 
             startActivity(Intent(activity, Drawer::class.java))
         }
 
         forget.setOnClickListener() {
+
             findNavController().navigate(R.id.action_nav_login_to_nav_forget_password)
         }
-
     }
 }

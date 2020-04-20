@@ -1,6 +1,7 @@
 package com.example.pharmease.pharmacy
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,11 +9,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.pharmease.R
 import kotlinx.android.synthetic.main.all_pharmacies_item.view.*
 
-class AllPharmaciesAdaptor (val items : ArrayList<String>, val context: Context) : RecyclerView.Adapter<ViewHolder>() {
+class AllPharmaciesAdaptor ( val context: Context, internal var pharmacies: MutableList<AllPharmaciesModel>) : RecyclerView.Adapter<ViewHolder>() {
 
     // Gets the number of animals in the list
     override fun getItemCount(): Int {
-        return items.size
+        Log.d("pharmacycount", pharmacies.size.toString())
+
+        return pharmacies.size
     }
 
     // Inflates the item views
@@ -23,12 +26,14 @@ class AllPharmaciesAdaptor (val items : ArrayList<String>, val context: Context)
 
     // Binds each animal in the ArrayList to a view
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.name?.text = "My pharmacy, complete address"
-        holder.location?.text = "Islamabad"
-        holder.hour?.text = "9 am -10 pm"
+        val pharmacy = pharmacies[position]
+        holder.name?.text = pharmacy.name
+        holder.location?.text = pharmacy.date
+        holder.hour?.text = pharmacy.status
 
     }
 }
+
 
 class ViewHolder (view: View) : RecyclerView.ViewHolder(view) {
     // Holds the TextView that will add each animal to
