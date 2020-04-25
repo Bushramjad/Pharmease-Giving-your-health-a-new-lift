@@ -1,5 +1,6 @@
 package com.example.pharmease
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -112,7 +113,10 @@ class Drawer : AppCompatActivity() {
             dialog.show()
     }
 
-
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
+    }
 }
 
 

@@ -77,5 +77,6 @@ class Login : Fragment() {
 
     private fun updateUI() {
         startActivity(Intent(activity, Drawer::class.java))
+        activity?.finish()
     }
 }

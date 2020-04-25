@@ -11,8 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.pharmease.R
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.my_profile.*
 
 class MyProfile : Fragment() {
@@ -50,22 +49,20 @@ class MyProfile : Fragment() {
     override fun onStart() {
         super.onStart()
 
+        val mUser = mAuth!!.currentUser
+        val mUserReference = mDatabaseReference!!.child(mUser!!.uid)
+
+        email.text = mUser.email
 
 
-//        val mUser = mAuth!!.currentUser
-//        val mUserReference = mDatabaseReference!!.child(mUser!!.uid)
-//
-//        tvEmail!!.text = mUser.email
-//        tvEmailVerifiied!!.text = mUser.isEmailVerified.toString()
-//
-//        mUserReference.addValueEventListener(object : ValueEventListener {
-//            override fun onDataChange(snapshot: DataSnapshot) {
-//                tvFirstName!!.text = snapshot.child("firstName").value as String
-//                tvLastName!!.text = snapshot.child("lastName").value as String
-//            }
-//
-//            override fun onCancelled(databaseError: DatabaseError) {}
-//        })
+        mUserReference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                name.text = snapshot.child("fname").value as String
+                phone.text = snapshot.child("phone").value as String
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {}
+        })
     }
 
     override fun onPrepareOptionsMenu(menu: Menu) {
