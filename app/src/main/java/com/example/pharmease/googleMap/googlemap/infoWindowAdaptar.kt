@@ -1,4 +1,4 @@
-package com.example.pharmease.ui.home
+package com.example.pharmease.googleMap.googlemap
 
 import android.app.Activity
 import android.content.Context

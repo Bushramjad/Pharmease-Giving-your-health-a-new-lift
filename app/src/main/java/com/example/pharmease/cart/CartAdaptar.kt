@@ -22,14 +22,14 @@ class CartAdaptar (var context: Context, var cartItems: ArrayList<String>) : Rec
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.name?.text = cartItems[position]
-        holder.company?.text = "Phillips Pharmaceuticals"
+        holder.medicine?.text = "Phillips Pharmaceuticals"
         holder.quantity?.text = "5"
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val name = view.date
-        val company = view.name
-        val quantity = view.status
+        val name = view.pname
+        val medicine = view.mname
+        val quantity = view.quantity
 
 
     }

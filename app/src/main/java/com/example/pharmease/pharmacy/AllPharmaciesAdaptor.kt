@@ -28,8 +28,8 @@ class AllPharmaciesAdaptor ( val context: Context, internal var pharmacies: Muta
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val pharmacy = pharmacies[position]
         holder.name?.text = pharmacy.name
-        holder.location?.text = pharmacy.date
-        holder.hour?.text = pharmacy.status
+        holder.location?.text = pharmacy.location
+        holder.hour?.text = pharmacy.hours
 
     }
 }
@@ -37,8 +37,8 @@ class AllPharmaciesAdaptor ( val context: Context, internal var pharmacies: Muta
 
 class ViewHolder (view: View) : RecyclerView.ViewHolder(view) {
     // Holds the TextView that will add each animal to
-    val name = view.date
-    val location = view.name
-    val hour = view.status
+    val name = view.fname
+    val location = view.location
+    val hour = view.hours
 
 }

@@ -1,29 +1,26 @@
 package com.example.pharmease.pharmacy
 
-import android.content.Intent
+//import com.example.pharmease.pharmacy.AllPharmaciesAdaptor
+
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.os.Message
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.android.volley.Request
-import com.android.volley.Response
-import com.android.volley.toolbox.StringRequest
-import com.android.volley.toolbox.Volley
 import com.example.pharmease.OnItemClickListener
 import com.example.pharmease.R
 import com.example.pharmease.addOnItemClickListener
-import com.example.pharmease.api.EndPoints
-//import com.example.pharmease.pharmacy.AllPharmaciesAdaptor
-import com.facebook.FacebookSdk.getApplicationContext
+import com.google.firebase.database.*
+import com.google.firebase.database.ktx.getValue
 import kotlinx.android.synthetic.main.all_pharmacies.*
-import org.json.JSONException
-import org.json.JSONObject
+import org.w3c.dom.Comment
 
 
 class AllPharmacies : Fragment() {
@@ -31,6 +28,9 @@ class AllPharmacies : Fragment() {
 
     //private var PharmaciesList: ArrayList<AllPharmaciesModel>? = null
     private var PharmaciesList: MutableList<AllPharmaciesModel>? = null
+
+    private var mDatabaseReference: DatabaseReference? = null
+    private var mDatabase: FirebaseDatabase? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,6 +55,9 @@ class AllPharmacies : Fragment() {
 
         PharmaciesList = mutableListOf<AllPharmaciesModel>()
 
+        mDatabase = FirebaseDatabase.getInstance()
+        mDatabaseReference = mDatabase!!.reference!!.child("pharma")
+
         loadPharmacies()
 
         recycler_view.addOnItemClickListener(object: OnItemClickListener {
@@ -72,40 +75,36 @@ class AllPharmacies : Fragment() {
         menu.clear();
     }
 
+
+
     private fun loadPharmacies() {
 
+        val postListener = object : ValueEventListener {
 
-        val stringRequest = StringRequest(Request.Method.POST, EndPoints.URL_GET_PHARMACIES,
-            Response.Listener<String> { s ->
-                try {
-                    val obj = JSONObject(s)
-                    if (!obj.getBoolean("error")) {
-                        val array = obj.getJSONArray("pharmacies")
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
 
-                        for (i in 0 until array.length()) {
-                            val objectPharmacy = array.getJSONObject(i)
-                            val pharmacy = AllPharmaciesModel(
-                                objectPharmacy.getString("name"),
-                                objectPharmacy.getString("address"),
-                                objectPharmacy.getString("sector"),
-                                objectPharmacy.getString("openinghours")
-                            )
-                            PharmaciesList?.add(pharmacy)
-
-                            val adapter = AllPharmaciesAdaptor(requireActivity(), PharmaciesList!!)
-                            recycler_view.adapter = adapter
-
-                        }
-                    } else {
-                        Toast.makeText(getApplicationContext(), obj.getString("message"), Toast.LENGTH_LONG).show()
+                for(i in dataSnapshot.children)
+                {
+                    val post = i.getValue<AllPharmaciesModel>()
+                    post?.let {
+                        val pharmacy = AllPharmaciesModel(post.name, post.location, post.hours)
+                        PharmaciesList?.add(pharmacy)
                     }
-                } catch (e: JSONException) {
-                    e.printStackTrace()
                 }
-            }, Response.ErrorListener { volleyError -> Toast.makeText(activity, volleyError.message, Toast.LENGTH_LONG).show() })
 
-        val requestQueue = Volley.newRequestQueue(this.requireActivity())
-        requestQueue.add<String>(stringRequest)
+                val adapter = AllPharmaciesAdaptor(requireActivity(), PharmaciesList!!)
+                recycler_view.adapter = adapter
+            }
+
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Getting Post failed, log a message
+                Log.w(TAG, "loadPost:onCancelled", databaseError.toException())
+                // ...
+            }
+        }
+        mDatabaseReference?.addValueEventListener(postListener)
+
     }
-
 }
+

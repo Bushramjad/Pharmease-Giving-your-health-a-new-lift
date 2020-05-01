@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.example.pharmease.ui.home.HomeFragment"
+        android:name="com.example.pharmease.googleMap.googlemap.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home">
 
@@ -19,15 +19,11 @@
 
     <fragment
         android:id="@+id/nav_profile"
-        android:name="com.example.pharmease.ui.profile.MyProfile"
+        android:name="com.example.pharmease.profile.MyProfile"
         android:label="Profile"
         tools:layout="@layout/my_profile" />
 
-    <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.example.pharmease.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+
 
     <fragment
         android:id="@+id/nav_cart"

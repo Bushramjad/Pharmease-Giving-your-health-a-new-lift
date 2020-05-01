@@ -19,7 +19,7 @@
 
 
         <TextView
-            android:id="@+id/date"
+            android:id="@+id/fname"
             android:layout_width="0dp"
             android:layout_height="36dp"
             android:layout_marginStart="8dp"
@@ -35,26 +35,26 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/name"
+            android:id="@+id/location"
             android:layout_width="0dp"
             android:layout_height="17dp"
             android:layout_marginTop="8dp"
             android:text="Location"
-            app:layout_constraintEnd_toEndOf="@+id/date"
+            app:layout_constraintEnd_toEndOf="@+id/fname"
             app:layout_constraintStart_toEndOf="@+id/imageView9"
-            app:layout_constraintTop_toBottomOf="@+id/date" />
+            app:layout_constraintTop_toBottomOf="@+id/fname" />
 
         <TextView
-            android:id="@+id/status"
+            android:id="@+id/hours"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:text="Opening hours"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/name"
-            app:layout_constraintStart_toStartOf="@+id/name"
-            app:layout_constraintTop_toBottomOf="@+id/name" />
+            app:layout_constraintEnd_toEndOf="@+id/location"
+            app:layout_constraintStart_toStartOf="@+id/location"
+            app:layout_constraintTop_toBottomOf="@+id/location" />
 
         <ImageView
             android:id="@+id/imageView9"
@@ -62,20 +62,20 @@
             android:layout_height="17dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/name"
-            app:layout_constraintEnd_toStartOf="@+id/name"
-            app:layout_constraintStart_toStartOf="@+id/date"
+            app:layout_constraintBottom_toBottomOf="@+id/location"
+            app:layout_constraintEnd_toStartOf="@+id/location"
+            app:layout_constraintStart_toStartOf="@+id/fname"
             app:srcCompat="@drawable/location" />
 
         <ImageView
             android:id="@+id/imageView10"
             android:layout_width="17dp"
             android:layout_height="17dp"
-            app:layout_constraintBottom_toBottomOf="@+id/status"
+            app:layout_constraintBottom_toBottomOf="@+id/hours"
             app:layout_constraintDimensionRatio="w,1:1"
             app:layout_constraintEnd_toEndOf="@+id/imageView9"
             app:layout_constraintStart_toStartOf="@+id/imageView9"
-            app:layout_constraintTop_toTopOf="@+id/status"
+            app:layout_constraintTop_toTopOf="@+id/hours"
             app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/hour" />
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,14 +1,11 @@
-package com.example.pharmease.ui.profile
+package com.example.pharmease.profile
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.example.pharmease.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -43,7 +40,6 @@ class MyProfile : Fragment() {
         mDatabaseReference = mDatabase!!.reference!!.child("Users")
         mAuth = FirebaseAuth.getInstance()
 
-
     }
 
     override fun onStart() {
@@ -53,7 +49,6 @@ class MyProfile : Fragment() {
         val mUserReference = mDatabaseReference!!.child(mUser!!.uid)
 
         email.text = mUser.email
-
 
         mUserReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
