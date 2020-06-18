@@ -1,4 +1,7 @@
 package com.example.pharmease.cart
 
-data class Cartmodel (val fname: String = "", val mname: String = "", val quantity: Long ) {
+import com.example.pharmease.pharmacy.MedicineDataClass
+
+data class Cartmodel(var product: MedicineDataClass, var quantity: Int = 0 ) {
 }
+

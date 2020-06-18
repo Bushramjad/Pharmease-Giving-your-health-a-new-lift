@@ -9,12 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.pharmease.R
 import kotlinx.android.synthetic.main.all_pharmacies_item.view.*
 
-class AllPharmaciesAdaptor ( val context: Context, internal var pharmacies: MutableList<AllPharmaciesModel>) : RecyclerView.Adapter<ViewHolder>() {
+class AllPharmaciesAdaptor ( val context: Context, internal var pharmacies: List<AllPharmaciesModel>) : RecyclerView.Adapter<ViewHolder>() {
 
-    // Gets the number of animals in the list
+
+
     override fun getItemCount(): Int {
-        Log.d("pharmacycount", pharmacies.size.toString())
-
         return pharmacies.size
     }
 
@@ -26,19 +25,19 @@ class AllPharmaciesAdaptor ( val context: Context, internal var pharmacies: Muta
 
     // Binds each animal in the ArrayList to a view
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val pharmacy = pharmacies[position]
-        holder.name?.text = pharmacy.name
-        holder.location?.text = pharmacy.location
-        holder.hour?.text = pharmacy.hours
+
+        holder.bindProduct(pharmacies[position])
 
     }
 }
 
-
 class ViewHolder (view: View) : RecyclerView.ViewHolder(view) {
-    // Holds the TextView that will add each animal to
-    val name = view.fname
-    val location = view.location
-    val hour = view.hours
+
+    fun bindProduct(product: AllPharmaciesModel) {
+
+        itemView.fname.text = product.name
+        itemView.location.text = product.location
+        itemView.hours.text = product.hours
+    }
 
 }

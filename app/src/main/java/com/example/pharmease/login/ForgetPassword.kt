@@ -53,7 +53,7 @@ class ForgetPassword : Fragment() {
                         Toast.makeText(requireActivity(), message, Toast.LENGTH_SHORT).show()
                         updateUI()
                     } else {
-                        Log.w("TAG", task.exception!!.message)
+                        //Log.w("TAG", task.exception!!.message)
                         Toast.makeText(requireActivity(), "No user found with this email.", Toast.LENGTH_SHORT).show()
                     }
                 }

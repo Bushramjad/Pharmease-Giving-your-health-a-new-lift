@@ -54,7 +54,7 @@ class Login : Fragment() {
 
 //            Log.d(activity, "Logging in user.")
 
-            mAuth!!.signInWithEmailAndPassword(email!!, password!!)
+            mAuth!!.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(requireActivity()) { task ->
 
 //                    mProgressBar!!.hide()

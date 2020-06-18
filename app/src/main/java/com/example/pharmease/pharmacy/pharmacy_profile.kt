@@ -11,6 +11,7 @@ import com.example.pharmease.R
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pharmease.*
+import com.example.pharmease.cart.ShoppingCart
 import kotlinx.android.synthetic.main.pharmacy_profile.*
 
 /**
@@ -19,7 +20,8 @@ import kotlinx.android.synthetic.main.pharmacy_profile.*
 class pharmacy_profile : Fragment() {
 
 
-        private val medicines: ArrayList<String> = ArrayList()
+       // private val medicines: ArrayList<String> = ArrayList()
+       private var medicines = ArrayList<MedicineDataClass>()
 
         override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
         ): View? {
@@ -32,8 +34,12 @@ class pharmacy_profile : Fragment() {
             super.onViewCreated(view, savedInstanceState)
             addMedicine()
 
-            medicine_list.layoutManager = LinearLayoutManager(context!!, LinearLayoutManager.VERTICAL, false)
+            cart_size.text = ShoppingCart.getShoppingCartSize().toString()
+
+            medicine_list.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+
             medicine_list.adapter = MedicineAdapter(medicines, requireActivity())
+
             medicine_list.addOnItemClickListener(object: OnItemClickListener {
                 override fun onItemClicked(position: Int, view: View) {
                      Toast.makeText(activity, "Good to go!", Toast.LENGTH_SHORT).show()
@@ -44,29 +50,11 @@ class pharmacy_profile : Fragment() {
         }
 
         fun addMedicine() {
-            medicines.add("Acetaminophen.")
-            medicines.add("Adderall.")
-            medicines.add("Amoxicillin.")
-            medicines.add("Ativan.")
-            medicines.add("Acetaminophen.")
-            medicines.add("Adderall.")
-            medicines.add("Ativan.")
-            medicines.add("Acetaminophen")
-            medicines.add("Adderall.")
-            medicines.add("Ativan.")
-            medicines.add("Amoxicillin.")
-            medicines.add("Acetaminophen.")
-            medicines.add("Adderall.")
-            medicines.add("Amoxicillin.")
-            medicines.add("Ativan.")
-            medicines.add("Acetaminophen.")
-            medicines.add("Adderall.")
-            medicines.add("Ativan.")
-            medicines.add("doAcetaminophen.g7")
-            medicines.add("Adderall.")
-            medicines.add("Ativan.")
-            medicines.add("Amoxicillin.")
-        }
+            medicines.add(0, MedicineDataClass("A","120"))
+            medicines.add(1, MedicineDataClass("B","125"))
+            medicines.add(2, MedicineDataClass("C","126"))
+            medicines.add(3, MedicineDataClass("D","127"))
 
+        }
     }
 

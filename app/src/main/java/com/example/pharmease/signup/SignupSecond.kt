@@ -45,7 +45,7 @@ class SignupSecond : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         mDatabase = FirebaseDatabase.getInstance()
-        mDatabaseReference = mDatabase!!.reference!!.child("Users")
+        mDatabaseReference = mDatabase!!.reference.child("Users")
         mAuth = FirebaseAuth.getInstance()
 
         progressBar4.visibility = View.GONE

@@ -35,7 +35,7 @@ class SignupFirst : Fragment() {
 
             val email = email.text.toString().trim()
             val password = password.text.toString().trim()
-            val cpassword = cpassword.text.toString().trim()
+//            val cpassword = cpassword.text.toString().trim()
 
 
             if (it.findNavController().currentDestination?.id == R.id.nav_signup1) {
