@@ -13,17 +13,28 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.example.pharmease.map.GetNearbyPlacesData;
+import com.example.pharmease.pharmacy.AllPharmaciesModel;
+import com.example.pharmease.pharmacy.MedicineDataClass;
+import com.example.pharmease.pharmacy.pharmacymodel;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -35,6 +46,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.Projection;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
@@ -42,11 +54,23 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.example.pharmease.R;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import io.paperdb.Paper;
-
 import org.jetbrains.annotations.NotNull;
 
-import io.paperdb.Paper;
+import java.util.ArrayList;
+import java.util.HashSet;
 
 
 public class MapsActivity extends Fragment implements OnMapReadyCallback,
@@ -59,11 +83,24 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback,
     double latitude;
     double longitude;
     private int PROXIMITY_RADIUS = 10000;
-    GoogleApiClient mGoogleApiClient;
-    Location mLastLocation;
-    Marker mCurrLocationMarker;
-    LocationRequest mLocationRequest;
-    Button btnHospital;
+    private GoogleApiClient mGoogleApiClient;
+    private Location mLastLocation;
+    private Marker mCurrLocationMarker;
+    private LocationRequest mLocationRequest;
+    private Button btnHospital;
+
+//    private DatabaseReference mDatabase;
+
+    private ArrayList<String> pharmacylist = new ArrayList<>();
+
+    private final FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private DatabaseReference ref = database.getReference().child("GooglePlacesPharmacy");
+
+    private DatabaseReference pharma = database.getReference().child("pharmacies");
+
+
+    private TextView pharmacySearch ;
+
 
 
     @Override
@@ -72,12 +109,33 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback,
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
 
-
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w("notif", "getInstanceId failed", task.getException());
+                            return;
+                        }
+
+                        // Get new Instance ID token
+                        String token = task.getResult().getToken();
+                        Log.d("notif", token);
+
+                    }
+                });
+
+
         return rootView;
     }
+    private static final String[] PHARMACIES = new String[] {
+            "Medi Green Pharmacy", "B&S Pharmacy 2", "The Pharmacist Pharmacy", "Medmart Pharmacy", "Suleman Ali shah Pharmacy","Al Khidmat Medical Store & Clinic","Shah medicos Thatta","Zyaan Pharmacy","Spain","Spain","Spain"
+    };
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -85,8 +143,146 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback,
         Paper.init(this.requireActivity());
 
         btnHospital = view.findViewById(R.id.signout);
+        pharmacySearch = view.findViewById(R.id.et_location);
+
+        Log.i("search",pharmacySearch.toString());
+
+//        String p_search = pharmacySearch.toString();
+
+
+        AutoCompleteTextView textV = view.findViewById(R.id.autoCompleteTextView);
+
+        ArrayAdapter<String> adapt = new ArrayAdapter<String>(this.requireActivity(), android.R.layout.select_dialog_item, PHARMACIES);
+        textV.setThreshold(1); //will start working from first character
+        textV.setAdapter(adapt);
+
+
+
+        pharmacySearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+
+//                  Query query = pharma.child("GooglePlacesPharmacy").orderByChild("place_name").equalTo("Medi Green Pharmacy");
+
+
+
+                    pharma.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot snapshot) {
+
+                            for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+
+                                DatabaseReference a = database.getReference().child("pharmacies").child(postSnapshot.getKey()).child("medicines");
+                                a.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot mSnapshot) {
+
+                                        for (DataSnapshot postshot : mSnapshot.getChildren()) {
+
+                                            MedicineDataClass post = postshot.getValue(MedicineDataClass.class);
+                                            String name = post.getName();
+
+                                            if(pharmacySearch.getText().toString().equals(name))
+                                            {
+                                                String keypharmacy = postshot.getKey();
+
+                                                DatabaseReference b = database.getReference().child("pharmacies").child(postSnapshot.getKey());
+
+                                                b.addValueEventListener(new ValueEventListener() {
+                                                    @Override
+                                                    public void onDataChange(@NonNull DataSnapshot nSnapshot) {
+
+                                                        for (DataSnapshot postSnap : nSnapshot.getChildren()) {
+
+                                                            pharmacymodel p = nSnapshot.getValue(pharmacymodel.class);
+                                                            String pname = p.getName();
+
+                                                            if (!pharmacylist.contains(pname))
+                                                            {
+                                                                pharmacylist.add(pname);
+                                                            }
+                                                        }
+                                                    }
+
+                                                    @Override
+                                                    public void onCancelled(@NonNull DatabaseError databaseError) { }
+                                                });
+                                            }
+
+                                        }
+                                        }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) { }
+                                });
+
+                            }
+                        }
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            System.out.println("The read failed: " + databaseError.getCode());
+                        }
+                    });
+
+                    Log.e("pharmacydata", String.valueOf(pharmacylist));
+
+
+
+
+//                    query.addValueEventListener(new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(DataSnapshot snapshot) {
+//                            Log.e("Count ", "" + snapshot.getChildrenCount());
+//                            for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+//                                NearByPharmacy post = postSnapshot.getValue(NearByPharmacy.class);
+//
+//                                String placeName = post.getPlace_name();
+//                                LatLng latLng = new LatLng(post.getLat(), post.getLng());
+//                                String vicinity = post.getVicinity();
+//
+//
+//                                infoWindowAdaptar markerInfoWindowAdapter = new infoWindowAdaptar(getContext());
+//                                InfoWindowData info = new InfoWindowData();
+//                                info.setPlace_name(placeName);
+//                                info.setVicinity(vicinity);
+//                                MarkerOptions markerOptions = new MarkerOptions();
+//                                markerOptions.position(latLng);
+//                                markerOptions.title(placeName + " : " + vicinity);
+//                                Marker m = mMap.addMarker(markerOptions);
+//                                mMap.setInfoWindowAdapter(markerInfoWindowAdapter);
+//                                m.setTag(info);
+//                                m.showInfoWindow();
+//
+//                                mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+//                                mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+//
+//                                Polyline line = mMap.addPolyline(new PolylineOptions()
+//                                        .add(new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude()), new LatLng(post.getLat(), post.getLng()))
+//                                        .width(5)
+//                                        .color(Color.RED));
+//
+//                            }
+//                        }
+//                        @Override
+//                        public void onCancelled(DatabaseError databaseError) {
+//                            System.out.println("The read failed: " + databaseError.getCode());
+//                        }
+//                    });
+                    return true;
+                }
+                return false;
+            }
+
+
+        });
+
+
+
+
 
     }
+
 
     private boolean CheckGooglePlayServices()
     {
@@ -105,48 +301,81 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback,
 
 
     @Override
-    public void onMapReady(GoogleMap googleMap)
-    {
+    public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
         //Initialize Google Play Services
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-        {
-            if (ContextCompat.checkSelfPermission(this.requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
-            {
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(this.requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                 buildGoogleApiClient();
                 mMap.setMyLocationEnabled(true);
             }
-        }
-        else
-        {
+        } else {
             buildGoogleApiClient();
             mMap.setMyLocationEnabled(true);
         }
 
 
-
         btnHospital.setOnClickListener(new View.OnClickListener() {
-            String Hospital = "pharmacy";
+
             @Override
             public void onClick(View v) {
-                Log.d("onClick", "Button is Clicked");
-                mMap.clear();
-                String url = getUrl(latitude, longitude, Hospital);
-                Object[] DataTransfer = new Object[2];
-                DataTransfer[0] = mMap;
-                DataTransfer[1] = url;
-                Log.d("onClick", url);
-                GetNearbyPlacesData getNearbyPlacesData = new GetNearbyPlacesData();
-                getNearbyPlacesData.execute(DataTransfer);
-                Toast.makeText(getActivity(),"Nearby Hospitals", Toast.LENGTH_LONG).show();
+                MarkerOptions markerOptions = new MarkerOptions();
+
+                ref.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot snapshot) {
+                        Log.e("Count ", "" + snapshot.getChildrenCount());
+                        for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                            NearByPharmacy post = postSnapshot.getValue(NearByPharmacy.class);
+                            Log.e("Get Data", post.toString());
+
+                            String placeName = post.getPlace_name();
+                            LatLng latLng = new LatLng(post.getLat(), post.getLng());
+                            String vicinity = post.getVicinity();
+//                            String g = "k";
+
+//                            Log.i("vicinity", vicinity);
+
+                            infoWindowAdaptar markerInfoWindowAdapter = new infoWindowAdaptar(getContext());
+                            InfoWindowData info = new InfoWindowData();
+                            info.setPlace_name(placeName);
+                            info.setVicinity(vicinity);
+
+
+                            markerOptions.position(latLng);
+                            markerOptions.title(placeName + " : " + vicinity);
+                            Marker m = mMap.addMarker(markerOptions);
+
+                            mMap.setInfoWindowAdapter(markerInfoWindowAdapter);
+
+                            m.setTag(info);
+//                            m.showInfoWindow();
+
+                            mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+                            mMap.animateCamera(CameraUpdateFactory.zoomTo(14));
+
+
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        System.out.println("The read failed: " + databaseError.getCode());
+                    }
+                });
             }
+
+
         });
 
 
-
     }
+
+
+
 
     protected synchronized void buildGoogleApiClient()
     {
@@ -178,8 +407,8 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback,
         googlePlacesUrl.append("&radius=" + PROXIMITY_RADIUS);
         googlePlacesUrl.append("&type=" + nearbyPlace);
         googlePlacesUrl.append("&sensor=true");
-//        googlePlacesUrl.append("&key=" + "AIzaSSDFSDF8Kv2eP0PM8adf5dSDFysdfas323SD3HA");
-        googlePlacesUrl.append("&key=" + "AIzaSyATuUiZUkEc_UgHuqsBJa1oqaODI-3mLs0");
+//        googlePlacesUrl.append("&key=" + "AIzaSyCF-c39wcyMQ9myCVzq1TtCF1Bw_K_LwJE");
+        googlePlacesUrl.append("&key=" + "AIzaSyAq6r49usffhc7KvK9YW9KNg-TmrBNBDd4");
         Log.d("getUrl", googlePlacesUrl.toString());
         return (googlePlacesUrl.toString());
     }
@@ -202,14 +431,14 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback,
         longitude = location.getLongitude();
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
         MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(latLng);
-        markerOptions.title("Current Position");
-        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
-        mCurrLocationMarker = mMap.addMarker(markerOptions);
+//        markerOptions.position(latLng);
+//        markerOptions.title("Current Position");
+//        markerOptions.icon(BitmapDescriptorFactory.defaultMarker());
+//        mCurrLocationMarker = mMap.addMarker(markerOptions);
 
         //move map camera
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(14));
         Toast.makeText(getActivity(),"Your Current Location", Toast.LENGTH_LONG).show();
 
         Log.d("onLocationChanged", String.format("latitude:%.3f longitude:%.3f",latitude,longitude));
@@ -250,14 +479,6 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback,
         }
     }
 
-//    public void statusCheck()
-//    {
-//        final LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-//        if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER))
-//        {
-//            buildAlertMessageNoGps();
-//        }
-//    }
 
     private void buildAlertMessageNoGps() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this.requireActivity());

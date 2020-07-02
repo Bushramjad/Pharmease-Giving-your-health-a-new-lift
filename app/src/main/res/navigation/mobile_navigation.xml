@@ -42,12 +42,20 @@
         <action
             android:id="@+id/action_nav_pharmacies_to_nav_pharmacy_profile"
             app:destination="@id/nav_pharmacy_profile" />
+
+
     </fragment>
     <fragment
         android:id="@+id/nav_pharmacy_profile"
         android:name="com.example.pharmease.pharmacy.pharmacy_profile"
         android:label="Pharmacy"
-        tools:layout="@layout/pharmacy_profile"/>
+        tools:layout="@layout/pharmacy_profile">
+
+        <argument
+            android:name="pharmacy_name"
+            android:defaultValue="abc"
+            app:argType="string" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_order"

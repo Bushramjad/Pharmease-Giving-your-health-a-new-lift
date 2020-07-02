@@ -64,24 +64,20 @@ public class GetNearbyPlacesData extends AsyncTask<Object, String, String> {
 
             double lat = Double.parseDouble(googlePlace.get("lat"));
             double lng = Double.parseDouble(googlePlace.get("lng"));
+
             String placeName = googlePlace.get("place_name");
             String vicinity = googlePlace.get("vicinity");
 
             LatLng latLng = new LatLng(lat, lng);
+
             markerOptions.position(latLng);
             markerOptions.title(placeName + " : " + vicinity);
             mMap.addMarker(markerOptions);
             markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
             //move map camera
+
             mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
             mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
-
-            AllPharmaciesModel post = null;
-            assert placeName != null;
-            assert vicinity != null;
-            post = new AllPharmaciesModel(placeName, vicinity, "9-10");
-
-            //StaticObject.PharmaciesList.add(post);
 
         }
 

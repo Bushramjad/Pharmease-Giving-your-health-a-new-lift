@@ -13,10 +13,11 @@ class infoWindowAdaptar(val context: Context) : GoogleMap.InfoWindowAdapter {
 
 
     override fun getInfoContents(p0: Marker?): View {
-        var mInfoView = (context as Activity).layoutInflater.inflate(R.layout.info_window, null)
-        var mInfoWindow: InfoWindowData? = p0?.tag as InfoWindowData?
+        val mInfoView = (context as Activity).layoutInflater.inflate(R.layout.info_window, null)
+        val mInfoWindow: InfoWindowData? = p0?.tag as InfoWindowData?
 
-        mInfoView.t1.text = mInfoWindow?.text1
+        mInfoView.name.text = mInfoWindow?.place_name
+        mInfoView.vicinity.text = mInfoWindow?.vicinity
         return mInfoView
     }
 

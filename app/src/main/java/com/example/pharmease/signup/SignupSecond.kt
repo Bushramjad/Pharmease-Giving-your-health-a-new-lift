@@ -50,7 +50,6 @@ class SignupSecond : Fragment() {
 
         progressBar4.visibility = View.GONE
 
-
         signup2.setOnClickListener() {
 
 //            progressBar4.visibility = View.VISIBLE
