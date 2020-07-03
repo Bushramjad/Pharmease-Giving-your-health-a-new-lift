@@ -1,9 +1,13 @@
 package com.example.pharmease.pharmacy
 
-data class AllPharmaciesModel(
-    val hours: String = "",
-    val location: String = "",
-    val name: String = "")
-{
+import android.location.Address
 
-}
+data class AllPharmaciesModel(
+    var key : String = "",
+    val hours: String = "",
+    val address: String = "",
+    val name: String = "")
+
+    {
+
+    }

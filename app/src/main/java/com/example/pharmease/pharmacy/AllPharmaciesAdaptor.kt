@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.pharmease.R
 import kotlinx.android.synthetic.main.all_pharmacies_item.view.*
 
-class AllPharmaciesAdaptor ( val context: Context, internal var pharmacies: List<AllPharmaciesModel>) : RecyclerView.Adapter<ViewHolder>() {
+class AllPharmaciesAdaptor ( val context: Context, var pharmacies: ArrayList<AllPharmaciesModel>) : RecyclerView.Adapter<ViewHolder>() {
 
 
 
@@ -36,7 +36,7 @@ class ViewHolder (view: View) : RecyclerView.ViewHolder(view) {
     fun bindProduct(product: AllPharmaciesModel) {
 
         itemView.fname.text = product.name
-        itemView.location.text = product.location
+        itemView.location.text = product.address
         itemView.hours.text = product.hours
     }
 

@@ -46,8 +46,8 @@ class ViewHolder (view: View) : RecyclerView.ViewHolder(view) {
     fun bindProduct(product: MedicineDataClass) {
 
         //itemView.name.text = product.toString()
-
-        itemView.name.text = product.name
+        itemView.date.text = product.name
+        itemView.name.text = product.brand
         itemView.price.text = "$${product.price.toString()}"
 
         Observable.create(ObservableOnSubscribe<MutableList<Cartmodel>> {
@@ -55,7 +55,6 @@ class ViewHolder (view: View) : RecyclerView.ViewHolder(view) {
             itemView.addtocart.setOnClickListener { view ->
 
                 val item = Cartmodel(product)
-
                 ShoppingCart.addItem(item)
                 //notify users
 //                Snackbar.make(
@@ -65,13 +64,11 @@ class ViewHolder (view: View) : RecyclerView.ViewHolder(view) {
 //                ).show()
 
                 it.onNext(ShoppingCart.getCart())
-
             }
 
             itemView.removeitem.setOnClickListener { view ->
 
                 val item = Cartmodel(product)
-
                 ShoppingCart.removeItem(item, itemView.context)
 
 //                Snackbar.make(
@@ -82,9 +79,7 @@ class ViewHolder (view: View) : RecyclerView.ViewHolder(view) {
                 it.onNext(ShoppingCart.getCart())
 
             }
-
-        })
-            .subscribe { cart ->
+        }).subscribe { cart ->
 
             var quantity = 0
 
@@ -95,9 +90,6 @@ class ViewHolder (view: View) : RecyclerView.ViewHolder(view) {
             (itemView.context as Drawer).cart_size.text = quantity.toString()
             Toast.makeText(itemView.context, "Cart size $quantity", Toast.LENGTH_SHORT).show()
 
-
         }
-
     }
-
 }

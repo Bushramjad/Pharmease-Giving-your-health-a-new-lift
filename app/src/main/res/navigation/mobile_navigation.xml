@@ -50,10 +50,8 @@
         android:name="com.example.pharmease.pharmacy.pharmacy_profile"
         android:label="Pharmacy"
         tools:layout="@layout/pharmacy_profile">
-
         <argument
-            android:name="pharmacy_name"
-            android:defaultValue="abc"
+            android:name="key"
             app:argType="string" />
     </fragment>
 

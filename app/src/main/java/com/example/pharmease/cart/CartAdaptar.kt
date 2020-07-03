@@ -38,7 +38,7 @@ class CartAdaptar (var context: Context, var cartItems: List<Cartmodel> ) : Recy
 
         fun bindItem(cartItem: Cartmodel) {
 
-            itemView.pname.text = cartItem.product.name
+            itemView.pname.text = "Pharmacy name"
             itemView.mname.text = cartItem.product.name
             itemView.price.text = "$${cartItem.product.price}"
             itemView.quantity.text = cartItem.quantity.toString()

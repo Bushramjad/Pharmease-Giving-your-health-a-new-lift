@@ -41,32 +41,18 @@ class pharmacy_profile : Fragment() {
 
         override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
             super.onViewCreated(view, savedInstanceState)
-            //addMedicine()
 
 
-          //  val tv = view.findViewById<TextView>(R.id.textViewAmount)
+            val key = arguments?.getString("key")
 
-            val pharmacy = arguments?.getString("pharmacy")
-
-            Log.i("test", pharmacy)
-
+            Log.e("key2", key!!)
 
             mDatabase = FirebaseDatabase.getInstance()
-            mDatabaseReference = mDatabase!!.reference.child("pharma")
-
-
-
-                if (pharmacy != null) {
-                getMedicines(pharmacy)
-            }
-
-
-
-
+            mDatabaseReference = mDatabase!!.reference.child("pharmacies").child(key).child("medicines")
+            getMedicines()
         }
 
-
-    fun getMedicines( pharmacy_name  : String)
+    private fun getMedicines()
     {
 
             val postListener = object : ValueEventListener {
@@ -75,19 +61,20 @@ class pharmacy_profile : Fragment() {
 
                     for (i in dataSnapshot.children) {
 
-                        val post = i.getValue<AllPharmaciesModel>()
+                        val post = i.getValue<MedicineDataClass>()
+
                         post?.let {
 
+                            val pharm = MedicineDataClass()
+                            pharm.brand = post.brand
+                            pharm.name = post.name
+                            pharm.supplier = post.supplier
+                            pharm.quantity = post.quantity
+                            pharm.price = post.price
+                            pharm.location = post.location
 
-                            Log.i("data", dataSnapshot.value.toString())
+                            medicines.add(pharm)
 
-
-                            if (post.name == pharmacy_name) {
-
-//                                val pharmacy = MedicineDataClass(i.name, i.price)
-//                                medicines.add(pharmacy)
-
-                            }
                         }
                     }
 
@@ -96,6 +83,7 @@ class pharmacy_profile : Fragment() {
 
                     medicine_list.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
                     medicine_list.adapter = MedicineAdapter(medicines, requireActivity())
+
                     medicine_list.addOnItemClickListener(object: OnItemClickListener {
                         override fun onItemClicked(position: Int, view: View) {
                             Toast.makeText(activity, "Good to go!", Toast.LENGTH_SHORT).show()

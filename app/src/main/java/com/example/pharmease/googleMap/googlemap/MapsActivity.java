@@ -140,147 +140,158 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback,
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         Paper.init(this.requireActivity());
 
         btnHospital = view.findViewById(R.id.signout);
-        pharmacySearch = view.findViewById(R.id.et_location);
-
-        Log.i("search",pharmacySearch.toString());
-
-//        String p_search = pharmacySearch.toString();
+//        pharmacySearch = view.findViewById(R.id.et_location);
 
 
-        AutoCompleteTextView textV = view.findViewById(R.id.autoCompleteTextView);
+        AutoCompleteTextView SearchTextView = view.findViewById(R.id.searchTextView);
 
         ArrayAdapter<String> adapt = new ArrayAdapter<String>(this.requireActivity(), android.R.layout.select_dialog_item, PHARMACIES);
-        textV.setThreshold(1); //will start working from first character
-        textV.setAdapter(adapt);
+        SearchTextView.setThreshold(1); //will start working from first character
+        SearchTextView.setAdapter(adapt);
 
 
+        SearchTextView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 
-        pharmacySearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
 
-//                  Query query = pharma.child("GooglePlacesPharmacy").orderByChild("place_name").equalTo("Medi Green Pharmacy");
+                    String search = SearchTextView.getText().toString();
+                    searchByMedicine(search);
+                    searchByPharmacy(search);
 
-
-
-                    pharma.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot snapshot) {
-
-                            for (DataSnapshot postSnapshot : snapshot.getChildren()) {
-
-                                DatabaseReference a = database.getReference().child("pharmacies").child(postSnapshot.getKey()).child("medicines");
-                                a.addValueEventListener(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot mSnapshot) {
-
-                                        for (DataSnapshot postshot : mSnapshot.getChildren()) {
-
-                                            MedicineDataClass post = postshot.getValue(MedicineDataClass.class);
-                                            String name = post.getName();
-
-                                            if(pharmacySearch.getText().toString().equals(name))
-                                            {
-                                                String keypharmacy = postshot.getKey();
-
-                                                DatabaseReference b = database.getReference().child("pharmacies").child(postSnapshot.getKey());
-
-                                                b.addValueEventListener(new ValueEventListener() {
-                                                    @Override
-                                                    public void onDataChange(@NonNull DataSnapshot nSnapshot) {
-
-                                                        for (DataSnapshot postSnap : nSnapshot.getChildren()) {
-
-                                                            pharmacymodel p = nSnapshot.getValue(pharmacymodel.class);
-                                                            String pname = p.getName();
-
-                                                            if (!pharmacylist.contains(pname))
-                                                            {
-                                                                pharmacylist.add(pname);
-                                                            }
-                                                        }
-                                                    }
-
-                                                    @Override
-                                                    public void onCancelled(@NonNull DatabaseError databaseError) { }
-                                                });
-                                            }
-
-                                        }
-                                        }
-
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError databaseError) { }
-                                });
-
-                            }
-                        }
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-                            System.out.println("The read failed: " + databaseError.getCode());
-                        }
-                    });
-
-                    Log.e("pharmacydata", String.valueOf(pharmacylist));
-
-
-
-
-//                    query.addValueEventListener(new ValueEventListener() {
-//                        @Override
-//                        public void onDataChange(DataSnapshot snapshot) {
-//                            Log.e("Count ", "" + snapshot.getChildrenCount());
-//                            for (DataSnapshot postSnapshot : snapshot.getChildren()) {
-//                                NearByPharmacy post = postSnapshot.getValue(NearByPharmacy.class);
-//
-//                                String placeName = post.getPlace_name();
-//                                LatLng latLng = new LatLng(post.getLat(), post.getLng());
-//                                String vicinity = post.getVicinity();
-//
-//
-//                                infoWindowAdaptar markerInfoWindowAdapter = new infoWindowAdaptar(getContext());
-//                                InfoWindowData info = new InfoWindowData();
-//                                info.setPlace_name(placeName);
-//                                info.setVicinity(vicinity);
-//                                MarkerOptions markerOptions = new MarkerOptions();
-//                                markerOptions.position(latLng);
-//                                markerOptions.title(placeName + " : " + vicinity);
-//                                Marker m = mMap.addMarker(markerOptions);
-//                                mMap.setInfoWindowAdapter(markerInfoWindowAdapter);
-//                                m.setTag(info);
-//                                m.showInfoWindow();
-//
-//                                mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-//                                mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
-//
-//                                Polyline line = mMap.addPolyline(new PolylineOptions()
-//                                        .add(new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude()), new LatLng(post.getLat(), post.getLng()))
-//                                        .width(5)
-//                                        .color(Color.RED));
-//
-//                            }
-//                        }
-//                        @Override
-//                        public void onCancelled(DatabaseError databaseError) {
-//                            System.out.println("The read failed: " + databaseError.getCode());
-//                        }
-//                    });
                     return true;
                 }
                 return false;
             }
 
-
         });
 
+    }
+
+    private void searchByPharmacy(String search)
+    {
+        mMap.clear();
+        Query query = ref.orderByChild("place_name").equalTo(search);
+        Log.e("search ", "" + search);
 
 
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                Log.e("Count ", "" + snapshot.getChildrenCount());
+                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                    NearByPharmacy post = postSnapshot.getValue(NearByPharmacy.class);
 
+                    String placeName = post.getPlace_name();
+                    LatLng latLng = new LatLng(post.getLat(), post.getLng());
+                    String vicinity = post.getVicinity();
 
+                    showMarkerOnSearch(placeName, vicinity, latLng);
+
+                    Polyline line = mMap.addPolyline(new PolylineOptions()
+                            .add(new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude()), new LatLng(post.getLat(), post.getLng()))
+                            .width(5)
+                            .color(Color.RED));
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+    }
+
+    private void searchByMedicine(String search) {
+
+        mMap.clear();
+
+        pharma.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+
+                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+
+                    DatabaseReference a = database.getReference().child("pharmacies").child(postSnapshot.getKey()).child("medicines");
+                    a.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot mSnapshot) {
+
+                            for (DataSnapshot postshot : mSnapshot.getChildren()) {
+
+                                MedicineDataClass post = postshot.getValue(MedicineDataClass.class);
+                                String name = post.getName();
+
+                                Log.e("search",search);
+                                if (search.equals(name)) {
+                                    String keypharmacy = postshot.getKey();
+
+                                    DatabaseReference b = database.getReference().child("pharmacies").child(postSnapshot.getKey());
+
+                                    b.addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot nSnapshot) {
+
+                                            for (DataSnapshot postSnap : nSnapshot.getChildren()) {
+
+                                                pharmacymodel p = nSnapshot.getValue(pharmacymodel.class);
+                                                String pname = p.getName();
+
+                                                if (!pharmacylist.contains(pname)) {
+                                                    pharmacylist.add(pname);
+                                                }
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                                        }
+                                    });
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+
+        Log.e("pharmacydata", String.valueOf(pharmacylist));
+
+        for (int i = 0; i < pharmacylist.size(); i++) {
+            searchByPharmacy(pharmacylist.get(i));
+        }
+
+    }
+
+    private void showMarkerOnSearch(String placeName, String vicinity, LatLng latLng)
+    {
+        infoWindowAdaptar markerInfoWindowAdapter = new infoWindowAdaptar(getContext());
+        InfoWindowData info = new InfoWindowData();
+        info.setPlace_name(placeName);
+        info.setVicinity(vicinity);
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(latLng);
+        markerOptions.title(placeName + " : " + vicinity);
+        Marker m = mMap.addMarker(markerOptions);
+        mMap.setInfoWindowAdapter(markerInfoWindowAdapter);
+        m.setTag(info);
+        m.showInfoWindow();
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
     }
 
 

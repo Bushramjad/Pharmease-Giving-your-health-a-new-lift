@@ -91,6 +91,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-database-ktx:19.3.0'
     implementation 'com.schibstedspain.android:leku:6.4.0'
 
+    implementation 'ch.acra:acra:4.6.2'
+
     implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:9.2.0'
 
     implementation('com.schibstedspain.android:leku:6.4.0') {
