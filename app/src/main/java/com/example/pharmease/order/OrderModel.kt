@@ -6,6 +6,7 @@ data class OrderModel (
     val name: String = "",
     val status: String = "",
     val date: String = "",
-    val price : String = "",
-    var id : String = "") {
+    val amount : String = "",
+    var phone : String = "",
+    var address : String = "") {
 }

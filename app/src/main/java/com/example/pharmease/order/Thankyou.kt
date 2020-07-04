@@ -1,8 +1,10 @@
-package com.example.pharmease
+package com.example.pharmease.order
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.pharmease.Drawer
+import com.example.pharmease.R
 import kotlinx.android.synthetic.main.thankyou.*
 
 class Thankyou : AppCompatActivity() {

@@ -1,29 +1,39 @@
-package com.example.pharmease
+package com.example.pharmease.order
 
 import android.app.Activity
+import android.content.ContentValues
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import bolts.Task
-import com.example.pharmease.order.OrderModel
+import androidx.annotation.RequiresApi
+import androidx.fragment.app.Fragment
+import com.example.pharmease.R
+import com.example.pharmease.cart.ShoppingCart
+import com.example.pharmease.pharmacy.AllPharmaciesAdaptor
+import com.example.pharmease.pharmacy.AllPharmaciesModel
+import com.example.pharmease.pharmacy.MedicineDataClass
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
+import com.google.firebase.database.ktx.getValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
-import kotlinx.android.synthetic.main.activity_splash_screen.*
+import kotlinx.android.synthetic.main.all_pharmacies.*
 import kotlinx.android.synthetic.main.verify_details.*
 import java.io.IOException
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
 import java.util.*
 
 
@@ -33,10 +43,11 @@ class VerifyDetailsFragment : Fragment() {
     private var filePath: Uri? = null
     private var firebaseStore: FirebaseStorage? = null
     private var storageReference: StorageReference? = null
-    private var mDatabaseReference: DatabaseReference? = null
+    private lateinit var mDatabaseReference: DatabaseReference
     private var mDatabase: FirebaseDatabase? = null
+    val cart = ShoppingCart.getCart()
 
-
+    var medicines = ArrayList<MedicineDataClass>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,6 +61,7 @@ class VerifyDetailsFragment : Fragment() {
         return root
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         progressBar5.visibility = View.GONE
@@ -61,9 +73,7 @@ class VerifyDetailsFragment : Fragment() {
         mDatabase = FirebaseDatabase.getInstance()
         mDatabaseReference = mDatabase!!.reference
 
-        val name = name.text.toString().trim()
-        val phone = phone.text.toString().trim()
-        val address = address.text.toString().trim()
+        mDatabaseReference = mDatabase!!.reference.child("pharmacies")
 
 
         upload.setOnClickListener {
@@ -74,11 +84,73 @@ class VerifyDetailsFragment : Fragment() {
             uploadImage()
         }
 
-//        confirm.setOnClickListener() {
-//            // findNavController().navigate(R.id.action_nav_firstscreen_to_nav_login)
-//           // Toast.makeText(activity,"Pressed", Toast.LENGTH_SHORT).show()
+
+        val current = LocalDateTime.now()
+        val formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)
+
+
+        val name = name.text.toString().trim()
+        val phone = phone.text.toString().trim()
+        val address = address.text.toString().trim()
+        val amount : String = ""
+        val date : String = current.format(formatter)
+        val status : String = "Pending"
+
+        val orderdetails : OrderModel = OrderModel(name,status,date,amount,phone,address)
+
+        Log.e("product", medicines.toString())
+        confirm.setOnClickListener() {
+            // findNavController().navigate(R.id.action_nav_firstscreen_to_nav_login)
+           // Toast.makeText(activity,"Pressed", Toast.LENGTH_SHORT).show()
+
+//            submitOrder(orderdetails)
 //            startActivity(Intent(activity, Thankyou::class.java))
-//        }
+        }
+    }
+
+    private fun submitOrder(orderdetails : OrderModel) {
+
+        val orderkey: String? = mDatabaseReference.push().key
+
+        for(i in 0 until cart.size) {
+            val med = MedicineDataClass()
+            val medicinekey : String? = mDatabaseReference.push().key
+            med.brand = cart[i].product.brand
+            med.name = cart[i].product.name
+            med.supplier = cart[i].product.supplier
+            med.quantity = cart[i].product.quantity
+            med.price = cart[i].product.price
+            med.location = cart[i].product.location
+            medicines.add(med)
+        }
+
+//        mDatabaseReference.child("testcustomer").child("testorder").child(orderkey!!)
+//            .child("medicines").child(medicinekey!!).setValue(medicines)
+
+        mDatabaseReference.child("-MApc9XFV3g5SDugXx5a").child("orders")
+            .child(orderkey!!).setValue(orderdetails)
+
+        val postListener = object : ValueEventListener {
+
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+
+                for (i in dataSnapshot.children) {
+
+                    val pharmacykey = i.key.toString()
+
+
+                    mDatabaseReference.child(pharmacykey).child("orders")
+                        .child(orderkey!!).child("medicines").setValue(medicines)
+                }
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                Log.w(ContentValues.TAG, "loadPost:onCancelled", databaseError.toException())
+            }
+        }
+        mDatabaseReference.addValueEventListener(postListener)
+
+
 
     }
 
@@ -91,11 +163,11 @@ class VerifyDetailsFragment : Fragment() {
         )
         orderhistory.forEach {
             val key = mDatabaseReference?.child("orders")?.push()?.key
-            if (key != null) {
-                it.id = key
-                mDatabaseReference?.child("salads")?.child(key)?.setValue(it)
-
-            }
+//            if (key != null) {
+//                it.id = key
+//                mDatabaseReference?.child("salads")?.child(key)?.setValue(it)
+//
+//            }
         }
     }
 

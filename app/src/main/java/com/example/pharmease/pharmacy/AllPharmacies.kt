@@ -48,6 +48,7 @@ class AllPharmacies() : Fragment() {
 
         mDatabase = FirebaseDatabase.getInstance()
         mDatabaseReference = mDatabase!!.reference.child("pharmacies")
+
         recycler_view.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
 
         loadPharmacies()
@@ -66,7 +67,6 @@ class AllPharmacies() : Fragment() {
             }
         })
     }
-
 
 
     override fun onPrepareOptionsMenu(menu: Menu) {

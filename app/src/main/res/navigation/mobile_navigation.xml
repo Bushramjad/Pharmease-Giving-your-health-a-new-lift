@@ -63,7 +63,7 @@
 
     <fragment
     android:id="@+id/nav_verify_details"
-    android:name="com.example.pharmease.VerifyDetailsFragment"
+    android:name="com.example.pharmease.order.VerifyDetailsFragment"
     android:label="Verify details"
     tools:layout="@layout/verify_details"/>
 

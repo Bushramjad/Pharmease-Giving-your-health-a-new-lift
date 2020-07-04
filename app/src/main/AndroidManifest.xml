@@ -29,7 +29,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:theme">
-        <activity android:name=".directionhelpers.MapActivity" />
+<!--        <activity android:name=".directionhelpers.MapActivity" />-->
         <activity android:name=".MainActivity">
 
             <!-- <intent-filter> -->
@@ -44,7 +44,7 @@
         <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
         <!-- </intent-filter> -->
         <!-- </activity> -->
-        <activity android:name=".Thankyou" />
+        <activity android:name=".order.Thankyou" />
         <activity
             android:name=".Drawer"
             android:label="@string/title_activity_drawer"
