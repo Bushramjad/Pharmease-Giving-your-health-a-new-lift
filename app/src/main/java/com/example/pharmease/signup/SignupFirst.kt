@@ -57,10 +57,12 @@ class SignupFirst : Fragment() {
 
 
         facebook.setOnClickListener {
-            login_button.setReadPermissions("email")
-            login_button.setFragment(this);
 
             login_button.performClick()
+            login_button.setReadPermissions("email")
+            login_button.fragment = this;
+//            throw RuntimeException("Test Crash")
+
             facebookSignin()
         }
 
@@ -99,24 +101,33 @@ class SignupFirst : Fragment() {
 
     private fun facebookSignin(){
 
+        Log.e("Signin", "Method called")
+
         login_button.registerCallback(callbackManager, object : FacebookCallback<LoginResult?> {
+
                 override fun onSuccess(loginResult: LoginResult?) {
-                    handleFacebookAccessToken(loginResult!!.accessToken)                }
+                    Log.e("onFailureListener", "No")
+                    handleFacebookAccessToken(loginResult!!.accessToken)
+                }
 
                 override fun onCancel() {
-                    // App code
+                    Log.e("onCancel", "cancel")
                 }
 
                 override fun onError(exception: FacebookException) {
-                    // App code
+                    Log.e("onerror", exception.message)
                 }
             })
     }
 
     private fun handleFacebookAccessToken(accessToken : AccessToken?){
         val credentials = FacebookAuthProvider.getCredential(accessToken!!.token)
+
+        Log.e("onFailureListener", accessToken.toString())
+
         firebaseAuth!!.signInWithCredential(credentials)
             .addOnFailureListener{ e->
+                Log.e("onFailureListener", e.message)
                 Toast.makeText(activity, e.message, Toast.LENGTH_LONG).show()
             }
             .addOnSuccessListener { result ->

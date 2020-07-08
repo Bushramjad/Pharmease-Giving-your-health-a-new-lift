@@ -7,8 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.google.android.gms.maps.model.LatLng
-import com.schibstedspain.leku.*
-import com.schibstedspain.leku.locale.SearchZoneRect
+
 
 
 private const val MAP_BUTTON_REQUEST_CODE = 1

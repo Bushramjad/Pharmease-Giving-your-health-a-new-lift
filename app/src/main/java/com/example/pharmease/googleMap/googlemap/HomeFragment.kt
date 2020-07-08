@@ -38,7 +38,6 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.database.DatabaseReference
-import com.schibstedspain.leku.LocationPickerActivity
 import kotlinx.android.synthetic.main.fragment_home.*
 import java.io.IOException
 
