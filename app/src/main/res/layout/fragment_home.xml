@@ -86,21 +86,7 @@
 
     </AutoCompleteTextView>
 
-    <androidx.appcompat.widget.AppCompatAutoCompleteTextView
-        android:id="@+id/testsearchTextView"
-        android:layout_width="0dp"
-        android:layout_height="53dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="66dp"
-        android:hint="Search Medicine or Pharmacy"
 
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-    </androidx.appcompat.widget.AppCompatAutoCompleteTextView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

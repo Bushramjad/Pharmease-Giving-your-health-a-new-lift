@@ -142,41 +142,29 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback,
 
 
         AutoCompleteTextView SearchTextView = view.findViewById(R.id.searchTextView);
-        AutoCompleteTextView testsearchTextView = view.findViewById(R.id.testsearchTextView);
-
 
         ArrayAdapter<String> adapt = new ArrayAdapter<String>(this.requireActivity(), R.layout.dropdown, R.id.textAutoComplete, PHARMACIES);
-        SearchTextView.setThreshold(2); //will start working from first character
+        SearchTextView.setThreshold(1); //will start working from first character
         SearchTextView.setAdapter(adapt);
 
-//        SearchTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long rowId) {
-//                SearchTextView.setText( = (String)parent.getItemAtPosition(position);
-//                //TODO Do something with the selected text
-//            }
-//        });
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.requireActivity(), android.R.layout.select_dialog_item, PHARMACIES);
-        testsearchTextView.setThreshold(2); //will start working from first character
-        testsearchTextView.setAdapter(adapter);
 
 
-//        SearchTextView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-//
-//            @Override
-//            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-//                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-//
-//                    String search = SearchTextView.getText().toString();
-//                    searchByMedicine(search);
-//                    searchByPharmacy(search);
-//
-//                    return true;
-//                }
-//                return false;
-//            }
-//
-//        });
+        SearchTextView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+
+                    String search = SearchTextView.getText().toString();
+                    searchByMedicine(search);
+                    searchByPharmacy(search);
+
+                    return true;
+                }
+                return false;
+            }
+
+        });
 
     }
 
@@ -203,7 +191,7 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback,
                     Polyline line = mMap.addPolyline(new PolylineOptions()
                             .add(new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude()), new LatLng(post.getLat(), post.getLng()))
                             .width(5)
-                            .color(Color.RED));
+                            .color(Color.GRAY));
                 }
             }
 
@@ -340,6 +328,8 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback,
 
             @Override
             public void onClick(View v) {
+
+                mMap.clear();
                 MarkerOptions markerOptions = new MarkerOptions();
 
                 ref.addValueEventListener(new ValueEventListener() {
