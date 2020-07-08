@@ -59,7 +59,8 @@ class AllPharmacies() : Fragment() {
 
                 val pos : AllPharmaciesModel = PharmaciesList[position]
                 val key = pos.key
-                Log.e("key", key)
+
+//                Log.e("key", key)
 
                 val bundle = bundleOf("key" to key)
 
@@ -67,7 +68,6 @@ class AllPharmacies() : Fragment() {
             }
         })
     }
-
 
     override fun onPrepareOptionsMenu(menu: Menu) {
         //super.onPrepareOptionsMenu(menu)
@@ -95,6 +95,8 @@ class AllPharmacies() : Fragment() {
                 }
                 val adapter = AllPharmaciesAdaptor(requireActivity(), PharmaciesList)
                 recycler_view.adapter = adapter
+                progressBar7.visibility = View.GONE
+
             }
 
             override fun onCancelled(databaseError: DatabaseError) {

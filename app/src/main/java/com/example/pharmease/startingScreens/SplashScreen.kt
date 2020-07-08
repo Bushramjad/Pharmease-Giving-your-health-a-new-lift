@@ -13,7 +13,6 @@ import kotlinx.android.synthetic.main.activity_splash_screen.signout
 
 class SplashScreen : AppCompatActivity() {
 
-    private val SPLASH_TIME_OUT:Long = 1000 // 1 sec
     private var firebaseAuth: FirebaseAuth? = null
     var mAuthListener: AuthStateListener? = null
     private var mAuth: FirebaseAuth? = null
@@ -24,54 +23,21 @@ class SplashScreen : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
 
-//        Log.i("abc", FirebaseAuth.getInstance().currentUser.toString())
+        startActivity(Intent(this, Host::class.java))
 //
-//        signout.setOnClickListener() {
-//
-//            FirebaseAuth.getInstance().signOut()
-//            //mAuth?.signOut()
-//            Log.i("def", FirebaseAuth.getInstance().currentUser.toString())
-//        }
-//
-//
-//        Log.i("abc", FirebaseAuth.getInstance().currentUser.toString())
-
-
-        if( (FirebaseAuth.getInstance().getCurrentUser()) !=null)
-        {
-            Log.i("TAG", "success")
-            startActivity(Intent(this, Drawer::class.java))
-            finish()
-        }
-        else
-        {
-            Log.i("TAG", "failure")
-            startActivity(Intent(this, Host::class.java))
-            finish()
-        }
-
-//        Handler().postDelayed({
-            // This method will be executed once the timer is over
-            // Start your app main activity
-
-
-
-//            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser()
-//
-//            if (user != null) {
-//                // User is signed in
-//
-//            } else {
-//                // User is signed out
-//
-//            }
-//
-//
-//
-//                    startActivity(Intent(this, Host::class.java))
-            // close this activity
+//        if( (FirebaseAuth.getInstance().currentUser) !=null)
+//        {
+//            Log.i("TAG", "success")
+//            startActivity(Intent(this, Drawer::class.java))
 //            finish()
-//        }, SPLASH_TIME_OUT)
+//        }
+//        else
+//        {
+//            Log.i("TAG", "failure")
+//            startActivity(Intent(this, Host::class.java))
+//            finish()
+//        }
+
     }
 }
 

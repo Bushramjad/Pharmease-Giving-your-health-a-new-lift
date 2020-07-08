@@ -83,6 +83,8 @@ class pharmacy_profile : Fragment() {
 
                     medicine_list.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
                     medicine_list.adapter = MedicineAdapter(medicines, requireActivity())
+                    progressBar6.visibility = View.GONE
+
 
                     medicine_list.addOnItemClickListener(object: OnItemClickListener {
                         override fun onItemClicked(position: Int, view: View) {
@@ -107,12 +109,5 @@ class pharmacy_profile : Fragment() {
 
     }
 
-        fun addMedicine() {
-//            medicines.add(0, MedicineDataClass("A","120"))
-//            medicines.add(1, MedicineDataClass("B","125"))
-//            medicines.add(2, MedicineDataClass("C","126"))
-//            medicines.add(3, MedicineDataClass("D","127"))
-
-        }
     }
 

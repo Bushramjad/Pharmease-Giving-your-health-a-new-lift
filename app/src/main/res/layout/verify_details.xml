@@ -9,72 +9,100 @@
     android:paddingLeft="16dp"
     android:paddingRight="16dp">
 
-
-    <EditText
-        android:id="@+id/name"
-        android:layout_width="379dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="100dp"
-        android:layout_weight="0.05"
-        android:background="@drawable/rounded_edittext"
-        android:ems="10"
-        android:hint="Name"
-        android:inputType="textEmailAddress"
-        android:maxLines="1"
-        android:textColor="@android:color/black"
-        android:textColorHint="@color/com_facebook_button_background_color_focused_disabled"
-        android:textColorLink="@color/grey"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/phone"
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="48dp"
+        android:text="Checkout"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/phone"
-        android:layout_width="379dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="8dp"
-        android:layout_weight="0.05"
-        android:background="@drawable/rounded_edittext"
-        android:ems="10"
-        android:hint="Phone"
-        android:inputType="textEmailAddress"
-        android:maxLines="1"
-        android:textColor="@android:color/black"
-        android:textColorHint="@color/com_facebook_button_background_color_focused_disabled"
-        android:textColorLink="@color/grey"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name" />
 
-    <EditText
-        android:id="@+id/address"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_weight="0.05"
-        android:background="@drawable/rounded_edittext"
-        android:ems="10"
-        android:hint="Address"
-        android:inputType="textEmailAddress"
-        android:maxLines="1"
-        android:textColor="@android:color/black"
-        android:textColorHint="@color/com_facebook_button_background_color_focused_disabled"
-        android:textColorLink="@color/grey"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/phone"
-        app:layout_constraintStart_toStartOf="@+id/phone"
-        app:layout_constraintTop_toBottomOf="@+id/phone" />
+        android:text="ORDER SUMMARY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Kindly add all the valid details for the order to proceed."
+        android:textColor="@android:color/holo_orange_dark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilname"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:errorEnabled="true"
+        app:layout_constraintEnd_toEndOf="@+id/tilphone"
+        app:layout_constraintStart_toStartOf="@+id/tilphone"
+        app:layout_constraintTop_toBottomOf="@+id/textView17">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Enter Name"
+            android:inputType="textEmailAddress" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilphone"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:errorEnabled="true"
+        app:layout_constraintEnd_toEndOf="@+id/upload"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/upload"
+        app:layout_constraintTop_toBottomOf="@+id/tilname">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/phone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Enter Phone Number"
+            android:inputType="textEmailAddress" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilAddress"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:errorEnabled="true"
+        app:layout_constraintEnd_toEndOf="@+id/upload"
+        app:layout_constraintStart_toStartOf="@+id/upload"
+        app:layout_constraintTop_toBottomOf="@+id/tilphone">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/address"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Enter Address"
+            android:inputType="textEmailAddress" />
+    </com.google.android.material.textfield.TextInputLayout>
+
 
     <Button
         android:id="@+id/upload"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/uploadprescription"
         android:clickable="true"
         android:focusable="true"
@@ -86,7 +114,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.218"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/address" />
+        app:layout_constraintTop_toBottomOf="@+id/tilAddress" />
 
     <Button
         android:id="@+id/confirm"

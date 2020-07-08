@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:1044834117898:android:8b935b25facf27dd58f2f3",
         "android_client_info": {
-          "package_name": "com.example.pharmease"
+          "package_name": "com.student.pharmease"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "1044834117898-lt9s07nhni2rq4v89cqk24q3rgo7fdut.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.pharmease",
+            "package_name": "com.student.pharmease",
             "certificate_hash": "47e3c5bb2cb16af0cfafcad18b053d140ddad6af"
           }
         },

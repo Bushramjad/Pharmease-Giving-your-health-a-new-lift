@@ -25,7 +25,7 @@ import org.json.JSONException
 import org.json.JSONObject
 
 
-private val TAG = "CreateAccountActivity"
+val TAG = "CreateAccountActivity"
 class SignupSecond : Fragment() {
 
     private val SPLASH_TIME_OUT:Long = 1000 // 1 sec

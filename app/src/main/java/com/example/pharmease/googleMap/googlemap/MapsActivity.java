@@ -25,6 +25,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -88,17 +89,10 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback,
     private Marker mCurrLocationMarker;
     private LocationRequest mLocationRequest;
     private Button btnHospital;
-
-//    private DatabaseReference mDatabase;
-
     private ArrayList<String> pharmacylist = new ArrayList<>();
-
     private final FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference ref = database.getReference().child("GooglePlacesPharmacy");
-
     private DatabaseReference pharma = database.getReference().child("pharmacies");
-
-
     private TextView pharmacySearch ;
 
 
@@ -148,28 +142,41 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback,
 
 
         AutoCompleteTextView SearchTextView = view.findViewById(R.id.searchTextView);
+        AutoCompleteTextView testsearchTextView = view.findViewById(R.id.testsearchTextView);
 
-        ArrayAdapter<String> adapt = new ArrayAdapter<String>(this.requireActivity(), android.R.layout.select_dialog_item, PHARMACIES);
-        SearchTextView.setThreshold(1); //will start working from first character
+
+        ArrayAdapter<String> adapt = new ArrayAdapter<String>(this.requireActivity(), R.layout.dropdown, R.id.textAutoComplete, PHARMACIES);
+        SearchTextView.setThreshold(2); //will start working from first character
         SearchTextView.setAdapter(adapt);
 
+//        SearchTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long rowId) {
+//                SearchTextView.setText( = (String)parent.getItemAtPosition(position);
+//                //TODO Do something with the selected text
+//            }
+//        });
 
-        SearchTextView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.requireActivity(), android.R.layout.select_dialog_item, PHARMACIES);
+        testsearchTextView.setThreshold(2); //will start working from first character
+        testsearchTextView.setAdapter(adapter);
 
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
 
-                    String search = SearchTextView.getText().toString();
-                    searchByMedicine(search);
-                    searchByPharmacy(search);
-
-                    return true;
-                }
-                return false;
-            }
-
-        });
+//        SearchTextView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+//
+//            @Override
+//            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+//                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+//
+//                    String search = SearchTextView.getText().toString();
+//                    searchByMedicine(search);
+//                    searchByPharmacy(search);
+//
+//                    return true;
+//                }
+//                return false;
+//            }
+//
+//        });
 
     }
 
@@ -346,18 +353,15 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback,
                             String placeName = post.getPlace_name();
                             LatLng latLng = new LatLng(post.getLat(), post.getLng());
                             String vicinity = post.getVicinity();
-//                            String g = "k";
-
-//                            Log.i("vicinity", vicinity);
 
                             infoWindowAdaptar markerInfoWindowAdapter = new infoWindowAdaptar(getContext());
                             InfoWindowData info = new InfoWindowData();
                             info.setPlace_name(placeName);
                             info.setVicinity(vicinity);
 
-
                             markerOptions.position(latLng);
                             markerOptions.title(placeName + " : " + vicinity);
+                            markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.mapbox_marker_icon_default));
                             Marker m = mMap.addMarker(markerOptions);
 
                             mMap.setInfoWindowAdapter(markerInfoWindowAdapter);
@@ -368,7 +372,6 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback,
                             mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
                             mMap.animateCamera(CameraUpdateFactory.zoomTo(14));
 
-
                         }
                     }
 
@@ -378,10 +381,7 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback,
                     }
                 });
             }
-
-
         });
-
 
     }
 

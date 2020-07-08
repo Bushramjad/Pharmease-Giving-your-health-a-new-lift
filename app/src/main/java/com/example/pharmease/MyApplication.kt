@@ -2,18 +2,15 @@ package com.example.pharmease
 
 import android.app.Application
 import com.example.pharmease.pharmacy.AllPharmaciesModel
+import com.facebook.FacebookSdk
+import com.facebook.appevents.AppEventsLogger
 import java.util.ArrayList
 
 class MyApplication : Application(){
 
-    lateinit var PharmaciesList: ArrayList<AllPharmaciesModel>
+    override fun onCreate() {
+        super.onCreate()
 
-//    fun getPharmaciesList(): ArrayList<AllPharmaciesModel> {
-//        return PharmaciesList
-//    }
-//
-//    fun setPharmaciesList(someVariable: ArrayList<AllPharmaciesModel>) {
-//        this.PharmaciesList = someVariable
-//    }
+    }
 
 }

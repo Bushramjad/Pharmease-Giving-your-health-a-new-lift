@@ -7,6 +7,8 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
@@ -17,18 +19,16 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.example.pharmease.R
 import com.example.pharmease.cart.ShoppingCart
-import com.example.pharmease.pharmacy.AllPharmaciesAdaptor
-import com.example.pharmease.pharmacy.AllPharmaciesModel
 import com.example.pharmease.pharmacy.MedicineDataClass
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.database.*
-import com.google.firebase.database.ktx.getValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
-import kotlinx.android.synthetic.main.all_pharmacies.*
 import kotlinx.android.synthetic.main.verify_details.*
 import java.io.IOException
 import java.time.LocalDateTime
@@ -76,45 +76,109 @@ class VerifyDetailsFragment : Fragment() {
         mDatabaseReference = mDatabase!!.reference.child("pharmacies")
 
 
+        val tname: TextInputLayout = tilname
+        val tphone: TextInputLayout = tilphone
+        val taddress: TextInputLayout = tilAddress
+
+        val tn :TextInputEditText = name
+        val tp :TextInputEditText = phone
+        val ta :TextInputEditText = address
+
         upload.setOnClickListener {
             launchGallery()
         }
 
-        confirm.setOnClickListener {
-            uploadImage()
+        val watch1: TextWatcher = object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+            override fun afterTextChanged(s: Editable) {
+                    tname.error = null
+            }
         }
+        tn.addTextChangedListener(watch1)
+
+        val watch2: TextWatcher = object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+            override fun afterTextChanged(s: Editable) {
+                tphone.error = null
+            }
+        }
+        tp.addTextChangedListener(watch2)
+
+        val watch3: TextWatcher = object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+            override fun afterTextChanged(s: Editable) {
+                taddress.error = null
+            }
+        }
+        ta.addTextChangedListener(watch3)
 
 
         val current = LocalDateTime.now()
         val formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)
 
+        val amount = arguments?.getString("amount")
 
-        val name = name.text.toString().trim()
-        val phone = phone.text.toString().trim()
-        val address = address.text.toString().trim()
-        val amount : String = ""
-        val date : String = current.format(formatter)
-        val status : String = "Pending"
 
-        val orderdetails : OrderModel = OrderModel(name,status,date,amount,phone,address)
-
-        Log.e("product", medicines.toString())
         confirm.setOnClickListener() {
-            // findNavController().navigate(R.id.action_nav_firstscreen_to_nav_login)
-           // Toast.makeText(activity,"Pressed", Toast.LENGTH_SHORT).show()
 
-//            submitOrder(orderdetails)
-//            startActivity(Intent(activity, Thankyou::class.java))
-        }
+
+            val name = tn.text.toString().trim()
+            val phone = tp.text.toString().trim()
+            val address = ta.text.toString().trim()
+            val amount : String = amount!!
+            val date : String = current.format(formatter)
+            val status : String = "Pending"
+
+            var count = 0
+
+
+                if(tn.text!!.isEmpty()){
+                    tname.error = "You need to enter your Name"
+                    count++
+                }
+                if(tp.text!!.isEmpty()){
+                    tphone.error = "You need to enter your Phone Number"
+                    count++
+                }
+                if(ta.text!!.isEmpty()) {
+                    taddress.error = "You need to enter your Address"
+                    count++
+                }
+
+                if(count == 0){
+                    val orderdetails: OrderModel = OrderModel(name, status, date, amount, phone, address)
+                    Log.e("product", orderdetails.toString())
+
+                    // findNavController().navigate(R.id.action_nav_firstscreen_to_nav_login)
+                    // Toast.makeText(activity,"Pressed", Toast.LENGTH_SHORT).show()
+
+        //            submitOrder(orderdetails)
+        //            startActivity(Intent(activity, Thankyou::class.java))
+                }
+            }
+
     }
 
     private fun submitOrder(orderdetails : OrderModel) {
 
         val orderkey: String? = mDatabaseReference.push().key
+        uploadImage(orderkey!!, orderdetails)
 
-        for(i in 0 until cart.size) {
+    }
+
+    fun uploadOrderDetails(orderkey: String, orderdetails : OrderModel) {
+        for (i in 0 until cart.size) {
             val med = MedicineDataClass()
-            val medicinekey : String? = mDatabaseReference.push().key
+            val medicinekey: String? = mDatabaseReference.push().key
             med.brand = cart[i].product.brand
             med.name = cart[i].product.name
             med.supplier = cart[i].product.supplier
@@ -123,9 +187,6 @@ class VerifyDetailsFragment : Fragment() {
             med.location = cart[i].product.location
             medicines.add(med)
         }
-
-//        mDatabaseReference.child("testcustomer").child("testorder").child(orderkey!!)
-//            .child("medicines").child(medicinekey!!).setValue(medicines)
 
         mDatabaseReference.child("-MApc9XFV3g5SDugXx5a").child("orders")
             .child(orderkey!!).setValue(orderdetails)
@@ -138,9 +199,8 @@ class VerifyDetailsFragment : Fragment() {
 
                     val pharmacykey = i.key.toString()
 
-
                     mDatabaseReference.child(pharmacykey).child("orders")
-                        .child(orderkey!!).child("medicines").setValue(medicines)
+                        .child(orderkey).child("medicines").setValue(medicines)
                 }
             }
 
@@ -151,24 +211,6 @@ class VerifyDetailsFragment : Fragment() {
         mDatabaseReference.addValueEventListener(postListener)
 
 
-
-    }
-
-    fun loadDatabase() {
-        val orderhistory: List<OrderModel> = mutableListOf(
-            OrderModel("Bushra", "pending","12/3/2020","PKR 300"),
-            OrderModel("Kainat", "pending","12/3/2020","PKR 300"),
-            OrderModel("Bushra", "pending","12/3/2020","PKR 300"),
-            OrderModel("Kainat", "pending","12/3/2020","PKR 300")
-        )
-        orderhistory.forEach {
-            val key = mDatabaseReference?.child("orders")?.push()?.key
-//            if (key != null) {
-//                it.id = key
-//                mDatabaseReference?.child("salads")?.child(key)?.setValue(it)
-//
-//            }
-        }
     }
 
     private fun launchGallery() {
@@ -179,19 +221,21 @@ class VerifyDetailsFragment : Fragment() {
 
     }
 
-    private fun uploadImage(){
+    private fun uploadImage(orderkey: String, orderdetails : OrderModel){
         if(filePath != null){
 
             progressBar5.visibility = View.VISIBLE
 
-            val ref = storageReference?.child("uploads/" + UUID.randomUUID().toString())
+            val ref = storageReference?.child("orders/"+orderkey+"/"+ UUID.randomUUID().toString())
             val uploadTask = ref?.putFile(filePath!!)
 
             if(filePath != null){
-                val ref = storageReference?.child("uploads/" + UUID.randomUUID().toString())
+//                val ref = storageReference?.child("orders/"+orderkey+"/"+ UUID.randomUUID().toString())
 
                 ref?.putFile(filePath!!)?.addOnSuccessListener(OnSuccessListener<UploadTask.TaskSnapshot> {
-                    loadDatabase()
+
+                    uploadOrderDetails(orderkey , orderdetails)
+
                     Toast.makeText(this.requireActivity(), "Image Uploaded", Toast.LENGTH_SHORT).show()
                     progressBar5.visibility = View.GONE
 
@@ -203,7 +247,6 @@ class VerifyDetailsFragment : Fragment() {
             }else{
                 Toast.makeText(this.requireActivity(), "Please Select an Image", Toast.LENGTH_SHORT).show()
                 progressBar5.visibility = View.GONE
-
             }
         }else{
             Toast.makeText(this.requireActivity(), "Please Upload an Image", Toast.LENGTH_SHORT).show()
