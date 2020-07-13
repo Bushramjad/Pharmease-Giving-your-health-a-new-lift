@@ -19,6 +19,10 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="PreferenceScreen" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:textColor">@color/browser_actions_bg_grey</item>
+    </style>
+
 
 
 

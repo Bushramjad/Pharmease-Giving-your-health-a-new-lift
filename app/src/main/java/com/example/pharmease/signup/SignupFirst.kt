@@ -25,8 +25,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FacebookAuthProvider
+import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.signup_1.*
 
 
@@ -37,6 +40,7 @@ class SignupFirst : Fragment() {
     val RC_SIGN_IN: Int = 1
     var firebaseAuth : FirebaseAuth? = null
     var callbackManager : CallbackManager? = null
+    private lateinit var auth: FirebaseAuth
 
 
     override fun onCreateView(
@@ -55,14 +59,11 @@ class SignupFirst : Fragment() {
         callbackManager = CallbackManager.Factory.create()
 
 
-
         facebook.setOnClickListener {
 
             login_button.performClick()
             login_button.setReadPermissions("email")
             login_button.fragment = this;
-//            throw RuntimeException("Test Crash")
-
             facebookSignin()
         }
 
@@ -84,6 +85,7 @@ class SignupFirst : Fragment() {
             signIn()
         }
 
+//        auth = Firebase.auth
 
         gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken("478253187970-mba4a64o9b4ttlkv9j8rqa0m74eoi88e.apps.googleusercontent.com")
@@ -98,6 +100,29 @@ class SignupFirst : Fragment() {
         val signInIntent: Intent = mGoogleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
     }
+
+    private fun firebaseAuthWithGoogle(idToken: String) {
+        val credential = GoogleAuthProvider.getCredential(idToken, null)
+        firebaseAuth?.signInWithCredential(credential)
+            ?.addOnCompleteListener(this.requireActivity()) { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d(TAG, "signInWithCredential:success")
+                    val user = auth.currentUser
+                    updateUI(user)
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w(TAG, "signInWithCredential:failure", task.exception)
+                    // ...
+                    Snackbar.make(requireView(), "Authentication Failed.", Snackbar.LENGTH_SHORT).show()
+                    updateUI(null)
+                }
+
+                // ...
+            }
+    }
+
+
 
     private fun facebookSignin(){
 
@@ -139,6 +164,8 @@ class SignupFirst : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == RC_SIGN_IN) {
             val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
+
+            val account = task.getResult(ApiException::class.java)!!
             handleResult (task)
         }else {
             Toast.makeText(activity, "Problem in execution order :(", Toast.LENGTH_LONG).show()
@@ -151,18 +178,19 @@ class SignupFirst : Fragment() {
         try {
             val account: GoogleSignInAccount? = completedTask.getResult(ApiException::class.java)
             if (account != null) {
-                updateUI (account)
+//                updateUI (account)
+
+                firebaseAuthWithGoogle(account.idToken!!)
+
             }
         } catch (e: ApiException) {
             Toast.makeText(activity, e.toString(), Toast.LENGTH_LONG).show()
         }
     }
 
-    private fun updateUI (account: GoogleSignInAccount) {
-        Log.e("success", account.displayName)
+    private fun updateUI (account: FirebaseUser?) {
+//        Log.e("success", account.displayName)
         Toast.makeText(activity, "Logged In Successfully", Toast.LENGTH_LONG).show()
-//        signout.visibility = View.VISIBLE
-//        sign_in_button.visibility = View.INVISIBLE
 
         startActivity(Intent(activity, Drawer::class.java))
 

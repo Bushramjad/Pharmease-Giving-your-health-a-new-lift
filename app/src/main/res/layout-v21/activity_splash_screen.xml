@@ -12,7 +12,7 @@
         android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimary"></View>
+        android:background="@drawable/background"></View>
 
     <TextView
         android:id="@+id/textView"
@@ -26,22 +26,5 @@
         android:textColor="@color/common_google_signin_btn_text_dark_default"
         android:textSize="20sp"
         android:textStyle="bold" />
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/textView"
-        android:layout_marginTop="-26dp"
-        android:indeterminateTint="@color/grey" />
-
-    <Button
-        android:id="@+id/signout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="184dp"
-        android:text="Button" />
 
 </RelativeLayout>

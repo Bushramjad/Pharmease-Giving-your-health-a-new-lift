@@ -24,6 +24,7 @@ class AllPharmacies() : Fragment() {
 
 
     var PharmaciesList = ArrayList<AllPharmaciesModel>()
+
     private var mDatabaseReference: DatabaseReference? = null
     private var mDatabase: FirebaseDatabase? = null
 
@@ -82,9 +83,7 @@ class AllPharmacies() : Fragment() {
 
                 for(i in dataSnapshot.children)
                 {
-//                    val post = i.getValue<AllPharmaciesModel>()
                     val post = i.getValue<AllPharmaciesModel>()
-//                    Log.e("list", post.toString())
 
                     post?.let {
                         val pharm = AllPharmaciesModel(i.key.toString(),post.hours, post.address, post.name)
@@ -95,6 +94,7 @@ class AllPharmacies() : Fragment() {
                 }
                 val adapter = AllPharmaciesAdaptor(requireActivity(), PharmaciesList)
                 recycler_view.adapter = adapter
+
                 progressBar7.visibility = View.GONE
 
             }

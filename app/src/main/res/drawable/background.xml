@@ -9,12 +9,5 @@
         android:gradientRadius="100dp"
         android:startColor="#4CB8C4"
         android:type="linear" />
-    <corners
-        android:bottomRightRadius="10dp"
-        android:bottomLeftRadius="10dp"
-        android:topLeftRadius="10dp"
-        android:topRightRadius="10dp"/>
-<!--    <stroke-->
-<!--        android:width="0dip"-->
-<!--        android:color="#FDFFFF" />-->
+
 </shape>

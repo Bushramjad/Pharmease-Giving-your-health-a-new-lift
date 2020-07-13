@@ -47,13 +47,14 @@ class OrderFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         mDatabase = FirebaseDatabase.getInstance()
-        mDatabaseReference = mDatabase!!.reference.child("pharmacies")
+        mDatabaseReference = mDatabase!!.reference.child("orders")
 
         loadOrders()
 
         orderHistory.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
 
     }
+
 
 
     private fun loadOrders() {

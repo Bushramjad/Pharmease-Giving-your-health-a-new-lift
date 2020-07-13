@@ -2,6 +2,7 @@ package com.example.pharmease
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -54,28 +55,19 @@ class ViewHolder (view: View) : RecyclerView.ViewHolder(view) {
 
             itemView.addtocart.setOnClickListener { view ->
 
+                Log.e("name", product.name)
+
                 val item = Cartmodel(product)
                 ShoppingCart.addItem(item)
-                //notify users
-//                Snackbar.make(
-//                    (itemView.context as MainActivity).coordinator,
-//                    "${product.toString()} added to your cart",
-//                    Snackbar.LENGTH_LONG
-//                ).show()
-
                 it.onNext(ShoppingCart.getCart())
+
+
             }
 
             itemView.removeitem.setOnClickListener { view ->
 
                 val item = Cartmodel(product)
                 ShoppingCart.removeItem(item, itemView.context)
-
-//                Snackbar.make(
-//                    (itemView.context as MainActivity).coordinator,
-//                    "${product.toString()} removed from your cart",
-//                    Snackbar.LENGTH_LONG
-//                ).show()
                 it.onNext(ShoppingCart.getCart())
 
             }

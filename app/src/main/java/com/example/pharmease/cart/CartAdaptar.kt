@@ -40,7 +40,7 @@ class CartAdaptar (var context: Context, var cartItems: List<Cartmodel> ) : Recy
 
             itemView.pname.text = "Pharmacy name"
             itemView.mname.text = cartItem.product.name
-            itemView.price.text = "$${cartItem.product.price}"
+            itemView.price.text = "PKR${cartItem.product.price}"
             itemView.quantity.text = cartItem.quantity.toString()
 
         }

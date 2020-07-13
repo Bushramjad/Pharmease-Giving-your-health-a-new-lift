@@ -6,21 +6,42 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.navigation.NavigationView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.drawerlayout.widget.DrawerLayout
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
+import com.example.pharmease.startingScreens.Host
+import com.google.android.gms.auth.api.Auth
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ResultCallback
+import com.google.android.gms.common.api.Status
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.Task
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.navigation.NavigationView
+import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.drawer.*
+
 
 class Drawer : AppCompatActivity() {
 
+
     private lateinit var appBarConfiguration: AppBarConfiguration
+
+    lateinit var gso: GoogleSignInOptions
+
+    private lateinit var mGoogleApiClient: GoogleSignInClient
+
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,11 +49,22 @@ class Drawer : AppCompatActivity() {
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
+
+//        supportActionBar.setBackgroundDrawable(R.drawable.btn_gradient)
+
         val fab: FloatingActionButton = findViewById(R.id.fab)
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }
+
+        gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken("478253187970-mba4a64o9b4ttlkv9j8rqa0m74eoi88e.apps.googleusercontent.com")
+            .requestEmail()
+            .build()
+        mGoogleApiClient = GoogleSignIn.getClient(this, gso)
+
+
 
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
 
@@ -43,11 +75,19 @@ class Drawer : AppCompatActivity() {
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_profile, R.id.nav_pharmacies,R.id.nav_order,R.id.nav_signout,R.id.nav_help,R.id.nav_settings
+                R.id.nav_home, R.id.nav_profile, R.id.nav_pharmacies,R.id.nav_order,R.id.nav_signout,R.id.nav_help,R.id.nav_settings, R.id.nav_feedback
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        navView.menu.findItem(R.id.nav_signout)
+            .setOnMenuItemClickListener { menuItem: MenuItem? ->
+                logout()
+                true
+            }
+
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -68,7 +108,7 @@ class Drawer : AppCompatActivity() {
                 return true;
             }
             R.id.action_cart -> {
-                Toast.makeText(applicationContext, "Cart in progress!", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(applicationContext, "Cart in progress!", Toast.LENGTH_SHORT).show()
 //                val i = Intent(this, CartActivity::class.java)
 //                startActivity(i)
 
@@ -80,6 +120,11 @@ class Drawer : AppCompatActivity() {
                 logout()
                 return true;
             }
+            R.id.nav_help -> {
+                Toast.makeText(applicationContext,"Ok, we change the app background.",Toast.LENGTH_SHORT).show()
+
+                return true;
+            }
         }
         return super.onOptionsItemSelected(item)
     }
@@ -89,24 +134,33 @@ class Drawer : AppCompatActivity() {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
-
     private fun logout() {
 
-        Toast.makeText(applicationContext,"Ok, we change the app background.",Toast.LENGTH_SHORT).show()
 
         val builder = AlertDialog.Builder(this)
 
             builder.setTitle("Signing out")
-            builder.setMessage("Are you sure you want ro logout?")
+            builder.setMessage("Are you sure you want To Sign out?")
 
             builder.setPositiveButton("YES")
-            {
-                    dialog, which ->
-                Toast.makeText(applicationContext,"Ok, we change the app background.",Toast.LENGTH_SHORT).show()
+            { dialog, which ->
+                Toast.makeText(applicationContext, "Signing out", Toast.LENGTH_SHORT).show()
+
+                mGoogleApiClient.signOut()
+                    .addOnCompleteListener(this, object : OnCompleteListener<Void?> {
+
+                        override fun onComplete(p0: Task<Void?>) {
+
+                            FirebaseAuth.getInstance().signOut()
+                        }
+                    })
+
+
+                startActivity(Intent(this, Host::class.java))
             }
 
             builder.setNeutralButton("Cancel"){_,_ ->
-                Toast.makeText(applicationContext,"You cancelled the dialog.",Toast.LENGTH_SHORT).show()
+//                Toast.makeText(applicationContext,"You cancelled the dialog.",Toast.LENGTH_SHORT).show()
             }
 
         val dialog: AlertDialog = builder.create()
@@ -115,6 +169,11 @@ class Drawer : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
+        if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
+            drawer_layout.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressed()
+        }
         finish()
     }
 }

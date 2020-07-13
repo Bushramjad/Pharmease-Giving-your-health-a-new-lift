@@ -8,6 +8,4 @@ data class AllPharmaciesModel(
     val address: String = "",
     val name: String = "")
 
-    {
-
-    }
+    {}

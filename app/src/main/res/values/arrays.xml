@@ -1,0 +1,25 @@
+<resources>
+    <!-- Reply Preference -->
+    <string-array name="reply_entries">
+        <item>Reply</item>
+        <item>Reply to all</item>
+    </string-array>
+
+    <string-array name="reply_values">
+        <item>reply</item>
+        <item>reply_all</item>
+    </string-array>
+
+    <string-array name="vibrate_values">
+        <item>Off</item>
+        <item>Default</item>
+        <item>Short</item>
+        <item>Long</item>
+    </string-array>
+
+    <string-array name="maptype_values">
+        <item>Default</item>
+        <item>Satellite</item>
+        <item>Terrain</item>
+    </string-array>
+</resources>

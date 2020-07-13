@@ -9,8 +9,6 @@ import com.example.pharmease.Drawer
 import com.example.pharmease.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuth.AuthStateListener
-import kotlinx.android.synthetic.main.activity_splash_screen.signout
-
 
 class SplashScreen : AppCompatActivity() {
 
@@ -18,15 +16,12 @@ class SplashScreen : AppCompatActivity() {
     var mAuthListener: AuthStateListener? = null
     private var mAuth: FirebaseAuth? = null
 
-    private val SPLASH_TIME_OUT: Long = 3000 // 3 sec
-
+    private val SPLASH_TIME_OUT: Long = 1000 // 3 sec
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
-
-//        startActivity(Intent(this, Host::class.java))
 
         Handler().postDelayed({
 
@@ -41,7 +36,6 @@ class SplashScreen : AppCompatActivity() {
             }
             finish()
         }, SPLASH_TIME_OUT)
-
     }
 }
 

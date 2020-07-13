@@ -73,7 +73,9 @@ class VerifyDetailsFragment : Fragment() {
         mDatabase = FirebaseDatabase.getInstance()
         mDatabaseReference = mDatabase!!.reference
 
-        mDatabaseReference = mDatabase!!.reference.child("pharmacies")
+//        mDatabaseReference = mDatabase!!.reference.child("pharmacies")
+        mDatabaseReference = mDatabase!!.reference.child("orders")
+
 
 
         val tname: TextInputLayout = tilname
@@ -161,7 +163,7 @@ class VerifyDetailsFragment : Fragment() {
                     // findNavController().navigate(R.id.action_nav_firstscreen_to_nav_login)
                     // Toast.makeText(activity,"Pressed", Toast.LENGTH_SHORT).show()
 
-        //            submitOrder(orderdetails)
+                    submitOrder(orderdetails)
         //            startActivity(Intent(activity, Thankyou::class.java))
                 }
             }
@@ -175,21 +177,23 @@ class VerifyDetailsFragment : Fragment() {
 
     }
 
-    fun uploadOrderDetails(orderkey: String, orderdetails : OrderModel) {
-        for (i in 0 until cart.size) {
+    private fun uploadOrderDetails(orderkey: String, orderdetails : OrderModel) {
+
+        for (i in 0 until cart.size)
+        {
             val med = MedicineDataClass()
             val medicinekey: String? = mDatabaseReference.push().key
             med.brand = cart[i].product.brand
             med.name = cart[i].product.name
-            med.supplier = cart[i].product.supplier
             med.quantity = cart[i].product.quantity
             med.price = cart[i].product.price
-            med.location = cart[i].product.location
             medicines.add(med)
         }
 
-        mDatabaseReference.child("-MApc9XFV3g5SDugXx5a").child("orders")
-            .child(orderkey!!).setValue(orderdetails)
+//        mDatabaseReference.child("-MApc9XFV3g5SDugXx5a").child("orders")
+//            .child(orderkey!!).setValue(orderdetails)
+
+        mDatabaseReference.child(orderkey).setValue(orderdetails)
 
         val postListener = object : ValueEventListener {
 
@@ -199,8 +203,7 @@ class VerifyDetailsFragment : Fragment() {
 
                     val pharmacykey = i.key.toString()
 
-                    mDatabaseReference.child(pharmacykey).child("orders")
-                        .child(orderkey).child("medicines").setValue(medicines)
+                    mDatabaseReference.child(orderkey).child("medicines").setValue(medicines)
                 }
             }
 
@@ -227,6 +230,7 @@ class VerifyDetailsFragment : Fragment() {
             progressBar5.visibility = View.VISIBLE
 
             val ref = storageReference?.child("orders/"+orderkey+"/"+ UUID.randomUUID().toString())
+
             val uploadTask = ref?.putFile(filePath!!)
 
             if(filePath != null){

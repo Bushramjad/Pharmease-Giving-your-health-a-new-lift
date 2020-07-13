@@ -51,7 +51,7 @@ class CartFragment : Fragment() {
             .fold(0.toDouble()) { acc, cartItem -> acc + cartItem.quantity.times(cartItem.product.price!!.toDouble()) }
 
 
-        tprice.text = "$${totalPrice}"
+        tprice.text = "PKR ${totalPrice}"
         Log.e("send", totalPrice.toString())
 
 

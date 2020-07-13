@@ -19,9 +19,6 @@ import com.google.firebase.database.ktx.getValue
 import kotlinx.android.synthetic.main.pharmacy_profile.*
 
 
-/**
- * A simple [Fragment] subclass.
- */
 class pharmacy_profile : Fragment() {
 
 
@@ -68,10 +65,10 @@ class pharmacy_profile : Fragment() {
                             val pharm = MedicineDataClass()
                             pharm.brand = post.brand
                             pharm.name = post.name
-                            pharm.supplier = post.supplier
+//                            pharm.supplier = post.supplier
                             pharm.quantity = post.quantity
                             pharm.price = post.price
-                            pharm.location = post.location
+//                            pharm.location = post.location
 
                             medicines.add(pharm)
 
