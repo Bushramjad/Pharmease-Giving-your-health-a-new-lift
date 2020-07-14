@@ -33,6 +33,9 @@
         <action
             android:id="@+id/action_nav_cart_to_nav_verify_details"
             app:destination="@id/nav_verify_details" />
+        <action
+            android:id="@+id/action_nav_cart_to_nav_cart"
+            app:destination="@id/nav_cart" />
     </fragment>
     <fragment
         android:id="@+id/nav_pharmacies"
@@ -48,7 +51,7 @@
     <fragment
         android:id="@+id/nav_pharmacy_profile"
         android:name="com.example.pharmease.pharmacy.pharmacy_profile"
-        android:label="Pharmacy"
+        android:label="Available medicines"
         tools:layout="@layout/pharmacy_profile">
         <argument
             android:name="key"
@@ -58,7 +61,7 @@
     <fragment
         android:id="@+id/nav_order"
         android:name="com.example.pharmease.order.OrderFragment"
-        android:label="Order History"
+        android:label="History"
         tools:layout="@layout/order_history"/>
 
     <fragment
@@ -70,7 +73,7 @@
     <fragment
         android:id="@+id/nav_settings"
         android:name="com.example.pharmease.SettingsFragment"
-        android:label="SettingsFragment" />
+        android:label="Settings" />
     <fragment
         android:id="@+id/nav_feedback"
         android:name="com.example.pharmease.FeedbackFragment"

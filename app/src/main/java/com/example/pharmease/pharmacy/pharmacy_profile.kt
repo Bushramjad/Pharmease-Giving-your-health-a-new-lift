@@ -76,7 +76,7 @@ class pharmacy_profile : Fragment() {
                     }
 
 
-                    cart_size.text = ShoppingCart.getShoppingCartSize().toString()
+//                    cart_size.text = ShoppingCart.getShoppingCartSize().toString()
 
                     medicine_list.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
                     medicine_list.adapter = MedicineAdapter(medicines, requireActivity())

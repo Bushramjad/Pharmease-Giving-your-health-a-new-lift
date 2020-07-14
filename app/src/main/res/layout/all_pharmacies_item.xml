@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardUseCompatPadding="true"
-    app:cardElevation="2.5dp"
+    android:layout_margin="2dp"
     android:clickable="true"
     android:focusable="true"
     android:foreground="?android:attr/selectableItemBackground"
-    android:layout_margin="2dp"
-    app:cardCornerRadius="2dp">
-<!--    app:cardBackgroundColor="@android:color/white"-->
+    app:cardCornerRadius="2dp"
+    app:cardElevation="2.5dp"
+    app:cardUseCompatPadding="true">
+    <!--    app:cardBackgroundColor="@android:color/white"-->
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -41,7 +41,7 @@
         <TextView
             android:id="@+id/location"
             android:layout_width="0dp"
-            android:layout_height="17dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Location"
             app:layout_constraintEnd_toEndOf="@+id/fname"
@@ -66,9 +66,9 @@
             android:layout_height="17dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/location"
             app:layout_constraintEnd_toStartOf="@+id/location"
             app:layout_constraintStart_toStartOf="@+id/fname"
+            app:layout_constraintTop_toTopOf="@+id/location"
             app:srcCompat="@drawable/location" />
 
         <ImageView

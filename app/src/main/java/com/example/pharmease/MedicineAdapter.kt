@@ -49,7 +49,7 @@ class ViewHolder (view: View) : RecyclerView.ViewHolder(view) {
         //itemView.name.text = product.toString()
         itemView.date.text = product.name
         itemView.name.text = product.brand
-        itemView.price.text = "$${product.price.toString()}"
+        itemView.price.text = "PKR ${product.price.toString()}"
 
         Observable.create(ObservableOnSubscribe<MutableList<Cartmodel>> {
 
@@ -78,7 +78,7 @@ class ViewHolder (view: View) : RecyclerView.ViewHolder(view) {
                 quantity += cartItem.quantity
             }
 
-            (itemView.context as Drawer).cart_size.text = quantity.toString()
+//            (itemView.context as Drawer).cart_size.text = quantity.toString()
             Toast.makeText(itemView.context, "Cart size $quantity", Toast.LENGTH_SHORT).show()
 
         }
