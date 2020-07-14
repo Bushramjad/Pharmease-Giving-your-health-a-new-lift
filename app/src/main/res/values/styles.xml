@@ -23,7 +23,31 @@
         <item name="android:textColor">@color/browser_actions_bg_grey</item>
     </style>
 
+    <style name="MyHintStyle" parent="@android:style/TextAppearance">
+<!--        <item name="android:textColor">#FFFFFF</item>-->
+<!--        <item name="colorControlNormal">#FFFFFF</item>-->
+<!--        <item name="colorControlActivated">#FFFFFF</item>-->
+<!--        <item name="colorControlHighlight">#FFFFFF</item>-->
+<!--        <item name="hintTextAppearance">#FFFFFF</item>-->
+<!--        <item name="errorTextAppearance">#FFFFFF</item>-->
+<!--        <item name="counterTextAppearance">#FFFFFF</item>-->
+<!--        <item name="counterOverflowTextAppearance">#FFFFFF</item>-->
 
+        <item name="hintTextAppearance">@style/AppTheme.TextFloatLabelAppearance</item>
+        <item name="errorTextAppearance">@style/AppTheme.TextErrorAppearance</item>
+        <item name="counterTextAppearance">@style/TextAppearance.Design.Counter</item>
+        <item name="counterOverflowTextAppearance">@style/TextAppearance.Design.Counter.Overflow</item>
+    </style>
+
+    <style name="AppTheme.TextFloatLabelAppearance" parent="TextAppearance.Design.Hint">
+        <!-- Floating label appearance here -->
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
+    <style name="AppTheme.TextErrorAppearance" parent="TextAppearance.Design.Error">
+        <!-- Error message appearance here -->
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
 
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

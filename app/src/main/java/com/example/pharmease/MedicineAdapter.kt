@@ -61,7 +61,6 @@ class ViewHolder (view: View) : RecyclerView.ViewHolder(view) {
                 ShoppingCart.addItem(item)
                 it.onNext(ShoppingCart.getCart())
 
-
             }
 
             itemView.removeitem.setOnClickListener { view ->

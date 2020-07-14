@@ -1,10 +1,18 @@
 package com.example.pharmease.pharmacy;
+import com.google.gson.annotations.SerializedName;
 
 public class MedicineDataClass {
 
+    @SerializedName("name")
     private String name = "";
+
+    @SerializedName("price")
     private String price = "";
+
+    @SerializedName("quantity")
     private String quantity = "";
+
+    @SerializedName("brand")
     private String brand = "";
 
     public String getName() {

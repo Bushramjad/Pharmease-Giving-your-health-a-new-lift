@@ -129,6 +129,8 @@ class VerifyDetailsFragment : Fragment() {
 
         val amount = arguments?.getString("amount")
 
+        textView26.text = amount
+
 
         confirm.setOnClickListener() {
 
@@ -183,10 +185,10 @@ class VerifyDetailsFragment : Fragment() {
         {
             val med = MedicineDataClass()
             val medicinekey: String? = mDatabaseReference.push().key
-            med.brand = cart[i].product.brand
-            med.name = cart[i].product.name
-            med.quantity = cart[i].product.quantity
-            med.price = cart[i].product.price
+            med.brand = cart[i].medicines.brand
+            med.name = cart[i].medicines.name
+            med.quantity = cart[i].medicines.quantity
+            med.price = cart[i].medicines.price
             medicines.add(med)
         }
 
@@ -285,6 +287,7 @@ class VerifyDetailsFragment : Fragment() {
             filePath = data.data
             try {
                 val bitmap = MediaStore.Images.Media.getBitmap(activity?.contentResolver, filePath)
+                upload.visibility = View.GONE
                 imageView.setImageBitmap(bitmap)
             } catch (e: IOException) {
                 e.printStackTrace()

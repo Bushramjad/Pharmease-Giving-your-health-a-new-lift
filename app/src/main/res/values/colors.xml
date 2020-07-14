@@ -4,5 +4,6 @@
     <color name="colorPrimaryDark">@drawable/background</color>
     <color name="colorAccent">#FAAB42</color>
     <color name="grey">#FDFFFF</color>
+
     <color name="Transparent" />
 </resources>

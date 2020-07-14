@@ -51,8 +51,7 @@ class MyProfile : Fragment() {
         email.text = mUser.email
 
         mUserReference.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                name.text = snapshot.child("fname").value as String
+            override fun onDataChange(snapshot: DataSnapshot) {textView14.text = snapshot.child("fname").value as String
                 phone.text = snapshot.child("phone").value as String
             }
 

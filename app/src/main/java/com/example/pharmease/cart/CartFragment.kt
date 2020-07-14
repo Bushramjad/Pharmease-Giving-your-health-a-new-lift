@@ -1,18 +1,13 @@
 package com.example.pharmease.cart
 
-import android.graphics.PorterDuff
 import android.os.Bundle
 import android.util.Log
 import android.view.*
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.pharmease.OnItemClickListener
 import com.example.pharmease.R
-import com.example.pharmease.addOnItemClickListener
-import kotlinx.android.synthetic.main.all_pharmacies.*
 import kotlinx.android.synthetic.main.cart.*
 
 
@@ -48,7 +43,7 @@ class CartFragment : Fragment() {
 
 
         val totalPrice = ShoppingCart.getCart()
-            .fold(0.toDouble()) { acc, cartItem -> acc + cartItem.quantity.times(cartItem.product.price!!.toDouble()) }
+            .fold(0.toDouble()) { acc, cartItem -> acc + cartItem.quantity.times(cartItem.medicines.price!!.toDouble()) }
 
 
         tprice.text = "PKR ${totalPrice}"

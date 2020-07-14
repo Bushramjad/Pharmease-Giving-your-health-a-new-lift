@@ -85,7 +85,9 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback,
     double longitude;
     private int PROXIMITY_RADIUS = 10000;
     private GoogleApiClient mGoogleApiClient;
+
     private Location mLastLocation;
+
     private Marker mCurrLocationMarker;
     private LocationRequest mLocationRequest;
     private Button btnHospital;
@@ -432,10 +434,6 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback,
         longitude = location.getLongitude();
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
         MarkerOptions markerOptions = new MarkerOptions();
-//        markerOptions.position(latLng);
-//        markerOptions.title("Current Position");
-//        markerOptions.icon(BitmapDescriptorFactory.defaultMarker());
-//        mCurrLocationMarker = mMap.addMarker(markerOptions);
 
         //move map camera
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
@@ -443,7 +441,6 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback,
         Toast.makeText(getActivity(),"Your Current Location", Toast.LENGTH_LONG).show();
 
         Log.d("onLocationChanged", String.format("latitude:%.3f longitude:%.3f",latitude,longitude));
-
         //stop location updates
         if (mGoogleApiClient != null)
         {

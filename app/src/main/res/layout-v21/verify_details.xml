@@ -28,7 +28,6 @@
         android:layout_marginTop="50dp"
         android:textColorHint="@color/grey"
         app:boxStrokeColor="@color/grey"
-        app:hintTextAppearance="@style/MyHintStyle"
         app:layout_constraintEnd_toEndOf="@+id/tilphone"
         app:layout_constraintStart_toStartOf="@+id/tilphone"
         app:layout_constraintTop_toBottomOf="@+id/textView13">
@@ -38,8 +37,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="Enter Name"
-            android:backgroundTint="#FFFFFF"
-
             android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -49,7 +46,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:textColorHint="@color/grey"
-        app:boxStrokeColor="@color/grey"
         app:hintTextAppearance="@style/MyHintStyle"
         app:layout_constraintEnd_toEndOf="@+id/tilAddress"
         app:layout_constraintStart_toStartOf="@+id/tilAddress"
@@ -61,6 +57,7 @@
             android:layout_height="match_parent"
             android:hint="Enter Phone Number"
             android:backgroundTint="#FFFFFF"
+            
             android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -73,10 +70,8 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        app:hintTextAppearance="@style/MyHintStyle"
 
         android:textColorHint="@color/grey"
-        app:boxStrokeColor="@color/grey"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tilphone">
@@ -86,8 +81,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="Enter Address"
-            android:backgroundTint="#FFFFFF"
-
             android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
 
