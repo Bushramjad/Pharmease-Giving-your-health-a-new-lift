@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#059DA8</color>
-    <color name="colorPrimaryDark">@drawable/background</color>
+    <color name="colorPrimaryDark">#059DA8</color>
+    <color name="colorOnSurface">#ffffff</color>
     <color name="colorAccent">#FAAB42</color>
     <color name="grey">#FDFFFF</color>
 
-    <color name="Transparent" />
-</resources>
+ </resources>

@@ -28,6 +28,8 @@ class pharmacy_profile : Fragment() {
     private var mDatabaseReference: DatabaseReference? = null
     private var mDatabase: FirebaseDatabase? = null
 
+    var pharmacy_name = ""
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
         ): View? {
@@ -41,8 +43,10 @@ class pharmacy_profile : Fragment() {
 
 
             val key = arguments?.getString("key")
+            pharmacy_name = arguments?.getString("name").toString()
 
             Log.e("key2", key!!)
+            Log.e("name", pharmacy_name)
 
             mDatabase = FirebaseDatabase.getInstance()
             mDatabaseReference = mDatabase!!.reference.child("pharmacies").child(key).child("medicines")
@@ -65,10 +69,9 @@ class pharmacy_profile : Fragment() {
                             val pharm = MedicineDataClass()
                             pharm.brand = post.brand
                             pharm.name = post.name
-//                            pharm.supplier = post.supplier
                             pharm.quantity = post.quantity
                             pharm.price = post.price
-//                            pharm.location = post.location
+                            pharm.pharmacy = pharmacy_name
 
                             medicines.add(pharm)
 
@@ -76,22 +79,20 @@ class pharmacy_profile : Fragment() {
                     }
 
 
-//                    cart_size.text = ShoppingCart.getShoppingCartSize().toString()
-
                     medicine_list.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
                     medicine_list.adapter = MedicineAdapter(medicines, requireActivity())
                     progressBar6.visibility = View.GONE
 
 
-                    medicine_list.addOnItemClickListener(object: OnItemClickListener {
-                        override fun onItemClicked(position: Int, view: View) {
-                            Toast.makeText(activity, "Good to go!", Toast.LENGTH_SHORT).show()
-
-
-                            //startActivity(Intent(activity, CartActivity::class.java))
-
-                        }
-                    })
+//                    medicine_list.addOnItemClickListener(object: OnItemClickListener {
+//                        override fun onItemClicked(position: Int, view: View) {
+//                            Toast.makeText(activity, "Good to go!", Toast.LENGTH_SHORT).show()
+//
+//
+//                            //startActivity(Intent(activity, CartActivity::class.java))
+//
+//                        }
+//                    })
 
                 }
 

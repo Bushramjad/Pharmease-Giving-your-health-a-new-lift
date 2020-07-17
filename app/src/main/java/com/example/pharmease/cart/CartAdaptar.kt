@@ -44,7 +44,7 @@ class CartAdaptar (var context: Context, var cartItems: List<Cartmodel> ) : Recy
         @SuppressLint("CheckResult")
         fun bindItem(cartItem: Cartmodel) {
 
-            itemView.pname.text = "Pharmacy name"
+            itemView.pname.text = cartItem.medicines.pharmacy
             itemView.mname.text = cartItem.medicines.name
             itemView.price.text = "PKR ${cartItem.medicines.price}"
             itemView.quantity.text = cartItem.quantity.toString()

@@ -60,10 +60,12 @@ class AllPharmacies() : Fragment() {
 
                 val pos : AllPharmaciesModel = PharmaciesList[position]
                 val key = pos.key
+                val name = pos.name
 
 //                Log.e("key", key)
+                Log.e("name", name)
 
-                val bundle = bundleOf("key" to key)
+                val bundle = bundleOf("key" to key, "name" to name)
 
                 requireActivity().findNavController(R.id.nav_host_fragment).navigate(R.id.action_nav_pharmacies_to_nav_pharmacy_profile, bundle)
             }

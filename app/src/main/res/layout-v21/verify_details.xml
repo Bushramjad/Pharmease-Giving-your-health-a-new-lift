@@ -28,6 +28,14 @@
         android:layout_marginTop="50dp"
         android:textColorHint="@color/grey"
         app:boxStrokeColor="@color/grey"
+        app:boxStrokeErrorColor="@color/grey"
+        app:counterTextColor="@color/grey"
+        app:errorIconTintMode="screen"
+        app:errorTextColor="@color/grey"
+
+        app:helperTextTextColor="@color/grey"
+        app:hintTextAppearance="@style/MyHintStyle"
+        app:hintTextColor="@color/grey"
         app:layout_constraintEnd_toEndOf="@+id/tilphone"
         app:layout_constraintStart_toStartOf="@+id/tilphone"
         app:layout_constraintTop_toBottomOf="@+id/textView13">
@@ -36,8 +44,12 @@
             android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:backgroundTint="#FFFFFF"
             android:hint="Enter Name"
-            android:inputType="textEmailAddress" />
+
+            android:inputType="textEmailAddress"
+            android:textColor="@color/grey"
+            android:textColorLink="@color/grey" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -46,7 +58,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:textColorHint="@color/grey"
-        app:hintTextAppearance="@style/MyHintStyle"
+        app:boxStrokeColor="@color/grey"
+        app:boxStrokeErrorColor="@color/grey"
+        app:counterTextColor="@color/grey"
+        app:errorTextColor="@color/grey"
+        app:helperTextTextColor="@color/grey"
+        app:hintTextColor="@color/grey"        app:hintTextAppearance="@style/MyHintStyle"
         app:layout_constraintEnd_toEndOf="@+id/tilAddress"
         app:layout_constraintStart_toStartOf="@+id/tilAddress"
         app:layout_constraintTop_toBottomOf="@+id/tilname">
@@ -55,10 +72,12 @@
             android:id="@+id/phone"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="Enter Phone Number"
             android:backgroundTint="#FFFFFF"
-            
-            android:inputType="textEmailAddress" />
+            android:hint="Enter Phone Number"
+
+            android:inputType="textEmailAddress"
+            android:textColor="@color/grey"
+            android:textColorLink="@color/grey" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -72,6 +91,12 @@
         android:layout_marginRight="16dp"
 
         android:textColorHint="@color/grey"
+        app:boxStrokeColor="@color/grey"
+        app:boxStrokeErrorColor="@color/grey"
+        app:counterTextColor="@color/grey"
+        app:errorTextColor="@color/grey"
+        app:helperTextTextColor="@color/grey"
+        app:hintTextColor="@color/grey"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tilphone">
@@ -80,8 +105,12 @@
             android:id="@+id/address"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:backgroundTint="#FFFFFF"
             android:hint="Enter Address"
-            android:inputType="textEmailAddress" />
+
+            android:inputType="textEmailAddress"
+            android:textColor="@color/grey"
+            android:textColorLink="@color/grey" />
     </com.google.android.material.textfield.TextInputLayout>
 
 

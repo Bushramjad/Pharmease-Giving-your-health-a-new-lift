@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
+    android:background="@color/grey"
+    android:orientation="vertical">
 
     <fragment
         android:id="@+id/map"
@@ -18,29 +18,28 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        />
+        app:layout_constraintVertical_bias="0.0" />
 
 
-<!--        <EditText-->
-<!--            android:id="@+id/et_location"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="53dp"-->
-<!--            android:layout_centerHorizontal="true"-->
-<!--            android:layout_marginStart="16dp"-->
-<!--            android:layout_marginLeft="16dp"-->
-<!--            android:layout_marginTop="16dp"-->
-<!--            android:layout_marginEnd="16dp"-->
-<!--            android:layout_marginRight="16dp"-->
-<!--            android:background="@drawable/rounded_edittext_map"-->
-<!--            android:text=""-->
-<!--            android:imeOptions="actionSearch"-->
-<!--            android:inputType="text"-->
-<!--            android:padding="7dp"-->
-<!--            android:hint = "Search Medicine or Pharmacy"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent" />-->
+    <!--        <EditText-->
+    <!--            android:id="@+id/et_location"-->
+    <!--            android:layout_width="0dp"-->
+    <!--            android:layout_height="53dp"-->
+    <!--            android:layout_centerHorizontal="true"-->
+    <!--            android:layout_marginStart="16dp"-->
+    <!--            android:layout_marginLeft="16dp"-->
+    <!--            android:layout_marginTop="16dp"-->
+    <!--            android:layout_marginEnd="16dp"-->
+    <!--            android:layout_marginRight="16dp"-->
+    <!--            android:background="@drawable/rounded_edittext_map"-->
+    <!--            android:text=""-->
+    <!--            android:imeOptions="actionSearch"-->
+    <!--            android:inputType="text"-->
+    <!--            android:padding="7dp"-->
+    <!--            android:hint = "Search Medicine or Pharmacy"-->
+    <!--            app:layout_constraintEnd_toEndOf="parent"-->
+    <!--            app:layout_constraintStart_toStartOf="parent"-->
+    <!--            app:layout_constraintTop_toTopOf="parent" />-->
 
     <Button
         android:id="@+id/signout"
@@ -75,7 +74,7 @@
         android:background="@drawable/rounded_edittext_map"
         android:ems="10"
         android:hint="Search Medicine or Pharmacy"
-        android:imeOptions="actionSearch"
+        android:imeOptions="actionDone"
         android:inputType="text"
         android:padding="7dp"
         android:text=""
@@ -85,8 +84,6 @@
 
 
     </AutoCompleteTextView>
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

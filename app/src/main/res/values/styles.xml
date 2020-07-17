@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -11,12 +11,14 @@
         <style name="AppTheme.NoActionBar">
             <item name="windowActionBar">false</item>
             <item name="windowNoTitle">true</item>
+            <item name="android:windowBackground">@drawable/background</item>
         </style>
 
     <style name="AppTheme.ActionBar">
         <!-- Customize your theme here. -->
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:windowBackground">@drawable/background</item>
     </style>
 
     <style name="PreferenceScreen" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -24,14 +26,7 @@
     </style>
 
     <style name="MyHintStyle" parent="@android:style/TextAppearance">
-<!--        <item name="android:textColor">#FFFFFF</item>-->
-<!--        <item name="colorControlNormal">#FFFFFF</item>-->
-<!--        <item name="colorControlActivated">#FFFFFF</item>-->
-<!--        <item name="colorControlHighlight">#FFFFFF</item>-->
-<!--        <item name="hintTextAppearance">#FFFFFF</item>-->
-<!--        <item name="errorTextAppearance">#FFFFFF</item>-->
-<!--        <item name="counterTextAppearance">#FFFFFF</item>-->
-<!--        <item name="counterOverflowTextAppearance">#FFFFFF</item>-->
+
 
         <item name="hintTextAppearance">@style/AppTheme.TextFloatLabelAppearance</item>
         <item name="errorTextAppearance">@style/AppTheme.TextErrorAppearance</item>

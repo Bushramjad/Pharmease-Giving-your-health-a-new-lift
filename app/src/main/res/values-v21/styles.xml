@@ -3,6 +3,15 @@
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowBackground">@drawable/background</item>
+        <item name="android:statusBarColor">#00000000</item>
+    </style>
+
+    <style name="AppTheme.ActionBar">
+        <!-- Customize your theme here. -->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowBackground">@drawable/background</item>
+        <item name="android:statusBarColor">#00000000</item>
     </style>
 </resources>

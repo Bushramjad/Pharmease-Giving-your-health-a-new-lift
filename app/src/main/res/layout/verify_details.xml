@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:textColorHint="@color/grey"
-        app:boxStrokeColor="@color/grey"
+        app:errorTextColor="@color/grey"
         app:hintTextAppearance="@style/MyHintStyle"
         app:layout_constraintEnd_toEndOf="@+id/tilphone"
         app:layout_constraintStart_toStartOf="@+id/tilphone"
@@ -37,10 +37,15 @@
             android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="Enter Name"
             android:backgroundTint="#FFFFFF"
+            android:hint="Enter Name"
 
-            android:inputType="textEmailAddress" />
+            android:inputType="textEmailAddress"
+            android:textColor="@color/grey"
+            android:textColorHighlight="@color/grey"
+            android:textColorHint="@color/grey"
+            android:textColorLink="@color/grey"
+            android:textCursorDrawable="@color/grey" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout

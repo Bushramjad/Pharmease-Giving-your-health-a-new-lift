@@ -17,6 +17,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import com.example.pharmease.Drawer
 import com.example.pharmease.R
 import com.example.pharmease.cart.ShoppingCart
 import com.example.pharmease.pharmacy.MedicineDataClass
@@ -160,13 +161,12 @@ class VerifyDetailsFragment : Fragment() {
 
                 if(count == 0){
                     val orderdetails: OrderModel = OrderModel(name, status, date, amount, phone, address)
-                    Log.e("product", orderdetails.toString())
+//                    Log.e("product", orderdetails.toString())
 
                     // findNavController().navigate(R.id.action_nav_firstscreen_to_nav_login)
                     // Toast.makeText(activity,"Pressed", Toast.LENGTH_SHORT).show()
 
                     submitOrder(orderdetails)
-        //            startActivity(Intent(activity, Thankyou::class.java))
                 }
             }
 
@@ -242,11 +242,13 @@ class VerifyDetailsFragment : Fragment() {
 
                     uploadOrderDetails(orderkey , orderdetails)
 
-                    Toast.makeText(this.requireActivity(), "Image Uploaded", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this.requireActivity(), "Order submitted successfully", Toast.LENGTH_SHORT).show()
                     progressBar5.visibility = View.GONE
+                    startActivity(Intent(activity, Thankyou::class.java))
+
 
                 })?.addOnFailureListener(OnFailureListener { e ->
-                    Toast.makeText(this.requireActivity(), "Image Uploading Failed " + e.message, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this.requireActivity(), "Order submission Failed " + e.message, Toast.LENGTH_SHORT).show()
                     progressBar5.visibility = View.GONE
 
                 })

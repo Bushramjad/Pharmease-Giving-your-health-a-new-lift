@@ -25,6 +25,8 @@ class SplashScreen : AppCompatActivity() {
 
         Handler().postDelayed({
 
+//            startActivity(Intent(this, Host::class.java))
+
             if ((FirebaseAuth.getInstance().currentUser) != null) {
                 Log.i("TAG", "success")
                 startActivity(Intent(this, Drawer::class.java))

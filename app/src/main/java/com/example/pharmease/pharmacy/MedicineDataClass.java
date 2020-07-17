@@ -15,6 +15,18 @@ public class MedicineDataClass {
     @SerializedName("brand")
     private String brand = "";
 
+    @SerializedName("pharmacy")
+    private String pharmacy = "";
+
+    public String getPharmacy() {
+        return pharmacy;
+    }
+
+    public void setPharmacy(String pharmacy) {
+        this.pharmacy = pharmacy;
+    }
+
+
     public String getName() {
         return name;
     }
