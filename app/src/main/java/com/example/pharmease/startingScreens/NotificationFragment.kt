@@ -30,7 +30,7 @@ class NotificationFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         enable.setOnClickListener() {
-            findNavController().navigate(R.id.action_nav_enable_location_notification_to_nav_enable_location2)
+//            findNavController().navigate(R.id.action_nav_enable_location_notification_to_nav_enable_location2)
 
         }
     }

@@ -26,7 +26,7 @@ class locationFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         enable.setOnClickListener() {
-            findNavController().navigate(R.id.action_nav_enable_location_to_nav_congratulation)
+//            findNavController().navigate(R.id.action_nav_enable_location_to_nav_congratulation)
         }
     }
 

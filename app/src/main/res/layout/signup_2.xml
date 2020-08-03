@@ -35,7 +35,6 @@
         android:inputType="text"
 
         android:textColor="@android:color/black"
-        android:textColorHint="@color/com_facebook_button_background_color_focused_disabled"
         android:textColorLink="@color/grey"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/lname"
@@ -57,7 +56,6 @@
         android:inputType="text"
 
         android:textColor="@android:color/black"
-        android:textColorHint="@color/com_facebook_button_background_color_focused_disabled"
         android:textColorLink="@color/grey"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/phone"
@@ -77,7 +75,6 @@
         android:hint="Phone"
         android:maxLines="1"
         android:textColor="@android:color/black"
-        android:textColorHint="@color/com_facebook_button_background_color_focused_disabled"
         android:textColorLink="@color/grey"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/signup2"

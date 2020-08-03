@@ -142,16 +142,12 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback,
         Paper.init(this.requireActivity());
 
         btnHospital = view.findViewById(R.id.signout);
-//        pharmacySearch = view.findViewById(R.id.et_location);
-
 
         AutoCompleteTextView SearchTextView = view.findViewById(R.id.searchTextView);
 
         ArrayAdapter<String> adapt = new ArrayAdapter<String>(this.requireActivity(), R.layout.dropdown, R.id.textAutoComplete, PHARMACIES);
         SearchTextView.setThreshold(1); //will start working from first character
         SearchTextView.setAdapter(adapt);
-
-
 
         SearchTextView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 
@@ -165,7 +161,6 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback,
                     searchByMedicine(search);
                     searchByPharmacy(search);
 
-
                 }
                 return false;
             }
@@ -174,18 +169,22 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback,
 
     }
 
+
     private void searchByPharmacy(String search)
     {
         mMap.clear();
+
         Query query = ref.orderByChild("place_name").equalTo(search);
+
         Log.e("search ", "" + search);
 
 
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                Log.e("Count ", "" + snapshot.getChildrenCount());
+
                 for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+
                     NearByPharmacy post = postSnapshot.getValue(NearByPharmacy.class);
 
                     String placeName = post.getPlace_name();
@@ -228,7 +227,6 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback,
                                 MedicineDataClass post = postshot.getValue(MedicineDataClass.class);
                                 String name = post.getName();
 
-                                Log.e("search",search);
                                 if (search.equals(name)) {
                                     String keypharmacy = postshot.getKey();
 
@@ -270,7 +268,7 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback,
             }
         });
 
-        Log.e("pharmacydata", String.valueOf(pharmacylist));
+
 
         for (int i = 0; i < pharmacylist.size(); i++) {
             searchByPharmacy(pharmacylist.get(i));
@@ -278,38 +276,29 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback,
 
     }
 
+
+
+
     private void showMarkerOnSearch(String placeName, String vicinity, LatLng latLng)
     {
         infoWindowAdaptar markerInfoWindowAdapter = new infoWindowAdaptar(getContext());
         InfoWindowData info = new InfoWindowData();
         info.setPlace_name(placeName);
         info.setVicinity(vicinity);
+
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(latLng);
         markerOptions.title(placeName + " : " + vicinity);
         Marker m = mMap.addMarker(markerOptions);
         mMap.setInfoWindowAdapter(markerInfoWindowAdapter);
+
         m.setTag(info);
         m.showInfoWindow();
+
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
     }
 
-
-    private boolean CheckGooglePlayServices()
-    {
-        GoogleApiAvailability googleAPI = GoogleApiAvailability.getInstance();
-        int result = googleAPI.isGooglePlayServicesAvailable(this.requireActivity());
-        if(result != ConnectionResult.SUCCESS)
-        {
-            if(googleAPI.isUserResolvableError(result))
-            {
-                googleAPI.getErrorDialog(this.requireActivity(), result, 0).show();
-            }
-            return false;
-        }
-        return true;
-    }
 
 
     @Override
@@ -343,8 +332,9 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback,
                     public void onDataChange(DataSnapshot snapshot) {
                         Log.e("Count ", "" + snapshot.getChildrenCount());
                         for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+
                             NearByPharmacy post = postSnapshot.getValue(NearByPharmacy.class);
-                            Log.e("Get Data", post.toString());
+
 
                             String placeName = post.getPlace_name();
                             LatLng latLng = new LatLng(post.getLat(), post.getLng());
@@ -382,8 +372,6 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback,
     }
 
 
-
-
     protected synchronized void buildGoogleApiClient()
     {
         mGoogleApiClient = new GoogleApiClient.Builder(this.requireActivity())
@@ -407,18 +395,7 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback,
         }
     }
 
-    private String getUrl(double latitude, double longitude, String nearbyPlace)
-    {
-        StringBuilder googlePlacesUrl = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
-        googlePlacesUrl.append("location=" + latitude + "," + longitude);
-        googlePlacesUrl.append("&radius=" + PROXIMITY_RADIUS);
-        googlePlacesUrl.append("&type=" + nearbyPlace);
-        googlePlacesUrl.append("&sensor=true");
-//        googlePlacesUrl.append("&key=" + "AIzaSyCF-c39wcyMQ9myCVzq1TtCF1Bw_K_LwJE");
-        googlePlacesUrl.append("&key=" + "AIzaSyAq6r49usffhc7KvK9YW9KNg-TmrBNBDd4");
-        Log.d("getUrl", googlePlacesUrl.toString());
-        return (googlePlacesUrl.toString());
-    }
+
 
     @Override
     public void onConnectionSuspended(int i) {
@@ -436,12 +413,14 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback,
         //Place current location marker
         latitude = location.getLatitude();
         longitude = location.getLongitude();
+
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
         MarkerOptions markerOptions = new MarkerOptions();
 
         //move map camera
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(14));
+
         Toast.makeText(getActivity(),"Your Current Location", Toast.LENGTH_LONG).show();
 
         Log.d("onLocationChanged", String.format("latitude:%.3f longitude:%.3f",latitude,longitude));
@@ -461,49 +440,7 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback,
     }
 
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
-    public boolean checkLocationPermission()
-    {
-        //statusCheck();
-        if (ContextCompat.checkSelfPermission(this.requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
-        {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this.requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION))
-            {
-                ActivityCompat.requestPermissions(this.requireActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSIONS_REQUEST_LOCATION);
 
-            } else
-            {
-                ActivityCompat.requestPermissions(this.requireActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSIONS_REQUEST_LOCATION);
-            }
-            return false;
-        } else
-        {
-            return true;
-        }
-    }
-
-
-    private void buildAlertMessageNoGps() {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this.requireActivity());
-        builder.setMessage("Your location seems to be disabled, do you want to enable it to proceed?")
-                .setCancelable(false)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener()
-                {
-                    public void onClick(final DialogInterface dialog, final int id)
-                    {
-                        startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-                    }
-                })
-                .setNegativeButton("No", new DialogInterface.OnClickListener()
-                {
-                    public void onClick(final DialogInterface dialog, final int id)
-                    {
-                        dialog.cancel();
-                    }
-                });
-        final AlertDialog alert = builder.create();
-        alert.setTitle("Location is disabled");
-        alert.show();
-    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults)

@@ -1,6 +1,7 @@
 package com.example.pharmease.profile
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.View
@@ -46,12 +47,15 @@ class MyProfile : Fragment() {
         super.onStart()
 
         val mUser = mAuth!!.currentUser
+        Log.e("current", mUser.toString())
         val mUserReference = mDatabaseReference!!.child(mUser!!.uid)
 
         email.text = mUser.email
 
         mUserReference.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {textView14.text = snapshot.child("fname").value as String
+            override fun onDataChange(snapshot: DataSnapshot)
+            {
+                textView14.text = snapshot.child("fname").value as String
                 phone.text = snapshot.child("phone").value as String
             }
 

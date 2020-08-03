@@ -56,29 +56,21 @@
             android:name="password"
             app:argType="string" />
         <action
-            android:id="@+id/action_nav_signup2_to_nav_enable_location_notification"
-            app:destination="@id/nav_enable_location_notification" />
+            android:id="@+id/action_nav_signup2_to_nav_congratulation"
+            app:destination="@id/nav_congratulation" />
     </fragment>
 
     <fragment
         android:id="@+id/nav_enable_location"
         android:label="Enable Location"
         android:name="com.example.pharmease.startingScreens.locationFragment"
-        tools:layout="@layout/enable_location">
-        <action
-            android:id="@+id/action_nav_enable_location_to_nav_congratulation"
-            app:destination="@id/nav_congratulation" />
-    </fragment>
+        tools:layout="@layout/enable_location"/>
 
     <fragment
         android:id="@+id/nav_enable_location_notification"
         android:label="Enable Notification"
         android:name="com.example.pharmease.startingScreens.NotificationFragment"
-        tools:layout="@layout/enable_notification">
-        <action
-            android:id="@+id/action_nav_enable_location_notification_to_nav_enable_location2"
-            app:destination="@id/nav_enable_location" />
-    </fragment>
+        tools:layout="@layout/enable_notification"/>
 
     <fragment
         android:id="@+id/nav_congratulation"

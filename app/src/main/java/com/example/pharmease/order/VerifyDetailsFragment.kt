@@ -1,8 +1,12 @@
 package com.example.pharmease.order
 
+import android.Manifest
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.ContentValues
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.location.Location
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -16,11 +20,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.example.pharmease.Drawer
 import com.example.pharmease.R
+import com.example.pharmease.cart.CartFragment
 import com.example.pharmease.cart.ShoppingCart
+import com.example.pharmease.pharmacy.AllPharmaciesModel
 import com.example.pharmease.pharmacy.MedicineDataClass
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationListener
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.android.material.textfield.TextInputEditText
@@ -30,15 +41,19 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
+import kotlinx.android.synthetic.main.invoice.view.*
 import kotlinx.android.synthetic.main.verify_details.*
 import java.io.IOException
 import java.time.LocalDateTime
+import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 import java.util.*
+import kotlin.collections.ArrayList
 
 
-class VerifyDetailsFragment : Fragment() {
+class VerifyDetailsFragment : Fragment()  {
+
 
     private val PICK_IMAGE_REQUEST = 71
     private var filePath: Uri? = null
@@ -48,7 +63,16 @@ class VerifyDetailsFragment : Fragment() {
     private var mDatabase: FirebaseDatabase? = null
     val cart = ShoppingCart.getCart()
 
+    var pharmacy = CartFragment.pharmacyArray
+
     var medicines = ArrayList<MedicineDataClass>()
+
+    private var lat : Double? = null
+    private var lng : Double? = null
+
+
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,16 +92,38 @@ class VerifyDetailsFragment : Fragment() {
         progressBar5.visibility = View.GONE
 
 
+//        val b : Bitmap = Screenshot.takeScreenshotOfRootView(imageView)
+//        imageView.setImageBitmap(b)
+
+
         firebaseStore = FirebaseStorage.getInstance()
         storageReference = FirebaseStorage.getInstance().reference
 
         mDatabase = FirebaseDatabase.getInstance()
         mDatabaseReference = mDatabase!!.reference
 
-//        mDatabaseReference = mDatabase!!.reference.child("pharmacies")
-        mDatabaseReference = mDatabase!!.reference.child("orders")
+        mDatabaseReference = mDatabase!!.reference.child("pharmacies")
+//        mDatabaseReference = mDatabase!!.reference.child("orders")
 
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this.requireActivity())
+        if (ActivityCompat.checkSelfPermission(
+                this.requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                this.requireContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
 
+            return
+        }
+        fusedLocationClient.lastLocation
+            .addOnSuccessListener { location : Location? ->
+                // Got last known location. In some rare situations this can be null.
+                lat = location?.latitude
+                lng = location?.longitude
+
+            }
 
         val tname: TextInputLayout = tilname
         val tphone: TextInputLayout = tilphone
@@ -129,12 +175,13 @@ class VerifyDetailsFragment : Fragment() {
         val formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)
 
         val amount = arguments?.getString("amount")
+//        pharmacy  = arguments?.getStringArray("pharmacy")
+
+        Log.e("pharmacyverify" , pharmacy.toString())
 
         textView26.text = amount
 
-
         confirm.setOnClickListener() {
-
 
             val name = tn.text.toString().trim()
             val phone = tp.text.toString().trim()
@@ -143,8 +190,8 @@ class VerifyDetailsFragment : Fragment() {
             val date : String = current.format(formatter)
             val status : String = "Pending"
 
-            var count = 0
 
+            var count = 0
 
                 if(tn.text!!.isEmpty()){
                     tname.error = "You need to enter your Name"
@@ -160,11 +207,8 @@ class VerifyDetailsFragment : Fragment() {
                 }
 
                 if(count == 0){
-                    val orderdetails: OrderModel = OrderModel(name, status, date, amount, phone, address)
-//                    Log.e("product", orderdetails.toString())
 
-                    // findNavController().navigate(R.id.action_nav_firstscreen_to_nav_login)
-                    // Toast.makeText(activity,"Pressed", Toast.LENGTH_SHORT).show()
+                    val orderdetails: OrderModel = OrderModel(name, status, date, amount, phone, address, this.lat!!, this.lng!!)
 
                     submitOrder(orderdetails)
                 }
@@ -172,6 +216,7 @@ class VerifyDetailsFragment : Fragment() {
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun submitOrder(orderdetails : OrderModel) {
 
         val orderkey: String? = mDatabaseReference.push().key
@@ -184,7 +229,6 @@ class VerifyDetailsFragment : Fragment() {
         for (i in 0 until cart.size)
         {
             val med = MedicineDataClass()
-            val medicinekey: String? = mDatabaseReference.push().key
             med.brand = cart[i].medicines.brand
             med.name = cart[i].medicines.name
             med.quantity = cart[i].medicines.quantity
@@ -192,20 +236,45 @@ class VerifyDetailsFragment : Fragment() {
             medicines.add(med)
         }
 
-//        mDatabaseReference.child("-MApc9XFV3g5SDugXx5a").child("orders")
-//            .child(orderkey!!).setValue(orderdetails)
 
-        mDatabaseReference.child(orderkey).setValue(orderdetails)
-
-        val postListener = object : ValueEventListener {
-
+        val PharmacyListener = object :ValueEventListener
+        {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
 
-                for (i in dataSnapshot.children) {
+                for (j in dataSnapshot.children) {
 
-                    val pharmacykey = i.key.toString()
+                    val pharmacykey = j.key.toString()
 
-                    mDatabaseReference.child(orderkey).child("medicines").setValue(medicines)
+                    val post: AllPharmaciesModel? = j.getValue(AllPharmaciesModel::class.java)
+
+                    for(k in pharmacy) {
+
+                        if (post?.name.equals(k))
+                            mDatabaseReference.child(pharmacykey).child("orders").child(orderkey).setValue(orderdetails)
+
+
+                        val postListener = object : ValueEventListener {
+
+                            override fun onDataChange(dataSnapshot: DataSnapshot) {
+
+                                for (i in dataSnapshot.children) {
+
+                                    val pharmacykey = i.key.toString()
+
+                                    mDatabaseReference.child(pharmacykey).child("orders").child(orderkey).child("medicines").setValue(medicines)
+                                }
+                            }
+
+                            override fun onCancelled(databaseError: DatabaseError) {
+                                Log.w(
+                                    ContentValues.TAG,
+                                    "loadPost:onCancelled",
+                                    databaseError.toException()
+                                )
+                            }
+                        }
+                        mDatabaseReference.addValueEventListener(postListener)
+                    }
                 }
             }
 
@@ -213,8 +282,7 @@ class VerifyDetailsFragment : Fragment() {
                 Log.w(ContentValues.TAG, "loadPost:onCancelled", databaseError.toException())
             }
         }
-        mDatabaseReference.addValueEventListener(postListener)
-
+        mDatabaseReference.addValueEventListener(PharmacyListener)
 
     }
 
@@ -226,17 +294,15 @@ class VerifyDetailsFragment : Fragment() {
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun uploadImage(orderkey: String, orderdetails : OrderModel){
         if(filePath != null){
 
             progressBar5.visibility = View.VISIBLE
 
-            val ref = storageReference?.child("orders/"+orderkey+"/"+ UUID.randomUUID().toString())
-
-            val uploadTask = ref?.putFile(filePath!!)
+            val ref = storageReference?.child("orders/"+orderkey)
 
             if(filePath != null){
-//                val ref = storageReference?.child("orders/"+orderkey+"/"+ UUID.randomUUID().toString())
 
                 ref?.putFile(filePath!!)?.addOnSuccessListener(OnSuccessListener<UploadTask.TaskSnapshot> {
 
@@ -244,7 +310,7 @@ class VerifyDetailsFragment : Fragment() {
 
                     Toast.makeText(this.requireActivity(), "Order submitted successfully", Toast.LENGTH_SHORT).show()
                     progressBar5.visibility = View.GONE
-                    startActivity(Intent(activity, Thankyou::class.java))
+                    orderConfirmation(orderdetails)
 
 
                 })?.addOnFailureListener(OnFailureListener { e ->
@@ -301,4 +367,32 @@ class VerifyDetailsFragment : Fragment() {
         //super.onPrepareOptionsMenu(menu)
         menu.clear();
     }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun orderConfirmation(orderdetails : OrderModel)
+    {
+        val now = LocalTime.now()
+
+        val messageBoxView = LayoutInflater.from(activity).inflate(R.layout.invoice, null)
+        messageBoxView.date.text = orderdetails.date
+        messageBoxView.address.text = orderdetails.amount
+        messageBoxView.amount.text = now.toString()
+        messageBoxView.name.text = orderdetails.name
+        messageBoxView.amount.text = orderdetails.amount
+
+        val messageBoxBuilder = AlertDialog.Builder(activity).setView(messageBoxView)
+        val  messageBoxInstance = messageBoxBuilder.show()
+
+
+        messageBoxView.ok.setOnClickListener {
+           Log.e("test", "test")
+//            messageBoxInstance.dismiss()
+            startActivity(Intent(activity, Drawer::class.java))
+        }
+
+    }
+
+
+
+
 }

@@ -5,5 +5,7 @@
     <color name="colorOnSurface">#ffffff</color>
     <color name="colorAccent">#FAAB42</color>
     <color name="grey">#FDFFFF</color>
-
+    <color name="com_facebook_button_background_color_focused">#059DA8</color>
+    <color name="com_facebook_button_background_color_focused_disabled">#059DA8</color>
+    <color name="com_facebook_button_border_color_focused">#059DA8</color>
  </resources>

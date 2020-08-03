@@ -8,5 +8,7 @@ data class OrderModel (
     val date: String = "",
     val amount : String = "",
     var phone : String = "",
-    var address : String = "") {
+    var address : String = "",
+    var lat : Double,
+    var lng : Double) {
 }

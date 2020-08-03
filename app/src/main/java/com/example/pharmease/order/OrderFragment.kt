@@ -61,15 +61,12 @@ class OrderFragment : Fragment() {
 
         mDatabaseReference?.addValueEventListener(object : ValueEventListener {
 
-
-
             override fun onDataChange(dataSnapshot: DataSnapshot) {
 
                 for (i in dataSnapshot.children) {
 
-                    pharmacyReference =
-                        mDatabase!!.reference.child("pharmacies").child(i.key.toString())
-                            .child("orders")
+                    pharmacyReference = mDatabase!!.reference.child("pharmacies").child(i.key.toString()).child("orders")
+
                     pharmacyReference?.addValueEventListener(object : ValueEventListener {
 
                         override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -79,14 +76,7 @@ class OrderFragment : Fragment() {
                                 val post = j.getValue<OrderModel>()
 
                                 post?.let {
-                                    val order = OrderModel(
-                                        post.name,
-                                        post.status,
-                                        post.date,
-                                        post.amount,
-                                        post.phone,
-                                        post.address
-                                    )
+                                    val order = OrderModel(post.name, post.status, post.date, post.amount, post.phone, post.address, post.lat, post.lng)
                                     OrdersList.add(order)
                                 }
                             }

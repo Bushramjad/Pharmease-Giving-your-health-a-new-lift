@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.pharmease.R
+import com.example.pharmease.pharmacy.MedicineDataClass
 import kotlinx.android.synthetic.main.cart.*
 
 
@@ -15,6 +16,7 @@ class CartFragment : Fragment() {
 
     private val medicines: ArrayList<String> = ArrayList()
     lateinit var adapter: CartAdaptar
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,7 +52,15 @@ class CartFragment : Fragment() {
         Log.e("send", totalPrice.toString())
 
 
-        val bundle = bundleOf("amount" to totalPrice.toString())
+        val pharmacy : Unit =  ShoppingCart.getCart().forEach { cartItem ->
+
+            pharmacyArray.add(cartItem.medicines.pharmacy)
+
+        }
+
+//        Log.e("send", pharmacyArray.toString())
+
+        val bundle = bundleOf("amount" to totalPrice.toString(), "pharmacy" to pharmacyArray)
 
         checkout.setOnClickListener() {
             findNavController().navigate(R.id.action_nav_cart_to_nav_verify_details, bundle)
@@ -58,6 +68,9 @@ class CartFragment : Fragment() {
 
     }
 
+    companion object{
+        val pharmacyArray : ArrayList<String> = ArrayList()
+    }
 
     override fun onPrepareOptionsMenu(menu: Menu) {
         //super.onPrepareOptionsMenu(menu)
