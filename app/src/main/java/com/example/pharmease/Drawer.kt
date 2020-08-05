@@ -75,7 +75,7 @@ class Drawer : AppCompatActivity() {
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_profile, R.id.nav_pharmacies,R.id.nav_order,R.id.nav_signout,R.id.nav_help,R.id.nav_settings, R.id.nav_feedback
+                R.id.nav_home, R.id.nav_profile, R.id.nav_pharmacies,R.id.nav_order,R.id.nav_signout,R.id.nav_settings, R.id.nav_feedback
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -120,11 +120,7 @@ class Drawer : AppCompatActivity() {
                 logout()
                 return true;
             }
-            R.id.nav_help -> {
-                Toast.makeText(applicationContext,"Ok, we change the app background.",Toast.LENGTH_SHORT).show()
-
-                return true;
-            }
+           
         }
         return super.onOptionsItemSelected(item)
     }

@@ -62,7 +62,7 @@
                 android:background="@drawable/rounded_edittext_map"
                 android:gravity="start"
                 android:hint="Describe your experience here"
-                android:inputType="text|textCapSentences"
+                android:inputType="textMultiLine|text|textCapSentences"
                 android:minHeight="150dp"
                 android:padding="10dp"
                 android:textColor="@color/browser_actions_text_color"

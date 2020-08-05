@@ -2,21 +2,19 @@ package com.example.pharmease.signup
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-
 import com.example.pharmease.R
-
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.signup_2.*
-
 
 
 val TAG = "CreateAccountActivity"
@@ -46,9 +44,18 @@ class SignupSecond : Fragment() {
 
         signup2.setOnClickListener() {
 
-//            progressBar4.visibility = View.VISIBLE
-            createNewAccount()
-
+            when {
+                fname.text.toString().trim() == "" -> {
+                    showSnackBar("Please enter First name")
+                }
+                lname.text.toString().trim() == "" -> {
+                    showSnackBar("Please enter Last name")
+                }
+                phone.text.toString().trim() == "" -> {
+                    showSnackBar("Please enter valid Phone number")
+                }
+                else -> createNewAccount()
+            }
         }
     }
 
@@ -87,8 +94,8 @@ class SignupSecond : Fragment() {
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "createUserWithEmail:failure", task.exception)
-                    Toast.makeText(activity, "Authentication failed.",
-                        Toast.LENGTH_SHORT).show()
+                    showSnackBar("Email already exist, Try login to your account or create one with different Email address.")
+
                 }
             }
     }
@@ -105,48 +112,18 @@ class SignupSecond : Fragment() {
             .addOnCompleteListener(requireActivity()) { task ->
 
                 if (task.isSuccessful) {
-                    Toast.makeText(requireActivity(), "Verification email sent to " + mUser.email, Toast.LENGTH_SHORT).show()
+                    showSnackBar( "Verification email sent to " + mUser.email)
                 } else {
                     Log.e(TAG, "sendEmailVerification", task.exception)
-                    Toast.makeText(requireActivity(), "Failed to send verification email.", Toast.LENGTH_SHORT).show()
+                    showSnackBar("Failed to send verification email.")
                 }
             }
     }
 
-//    private fun addUser() {
-//
-//        val fname = fname.text.toString().trim()
-//        val lname = lname.text.toString().trim()
-//        val phone = phone.text.toString().trim()
-//
-//        //creating volley string request
-//        val stringRequest = object : StringRequest(Request.Method.POST, EndPoints.CREATE_USER,
-//            Response.Listener<String> { response ->
-//                try {
-//                    val obj = JSONObject(response)
-//                    Toast.makeText(activity, obj.getString("message"), Toast.LENGTH_LONG).show()
-//                } catch (e: JSONException) {
-//                    e.printStackTrace()
-//                }
-//            },
-//            object : Response.ErrorListener {
-//                override fun onErrorResponse(volleyError: VolleyError) {
-//                    Toast.makeText(activity, volleyError.message, Toast.LENGTH_LONG).show()
-//                }
-//            })
-//        {
-//            @Throws(AuthFailureError::class)
-//            override fun getParams(): Map<String, String> {
-//                val params = HashMap<String, String>()
-//                params.put("email", fname)
-//                params.put("password", lname)
-//                params.put("name", phone)
-//                params.put("school", "0004")
-//
-//                return params
-//            }
-//        }
-//        //adding request to queue
-////        VolleySingleton.instance?.addToRequestQueue(stringRequest)
-//    }
+    private fun showSnackBar(msg :String) {
+        val snackBar = Snackbar.make(requireActivity().findViewById(android.R.id.content),
+            msg, Snackbar.LENGTH_LONG
+        )
+        snackBar.show()
+    }
 }

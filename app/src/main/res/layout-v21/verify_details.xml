@@ -74,8 +74,7 @@
             android:layout_height="match_parent"
             android:backgroundTint="#FFFFFF"
             android:hint="Enter Phone Number"
-
-            android:inputType="textEmailAddress"
+            android:inputType="phone"
             android:textColor="@color/grey"
             android:textColorLink="@color/grey" />
     </com.google.android.material.textfield.TextInputLayout>

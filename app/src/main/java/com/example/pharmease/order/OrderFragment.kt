@@ -108,5 +108,4 @@ class OrderFragment : Fragment() {
         //super.onPrepareOptionsMenu(menu)
         menu.clear();
     }
-
 }
