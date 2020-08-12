@@ -29,8 +29,6 @@ import com.example.pharmease.cart.ShoppingCart
 import com.example.pharmease.pharmacy.AllPharmaciesModel
 import com.example.pharmease.pharmacy.MedicineDataClass
 import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationListener
-import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
@@ -90,11 +88,6 @@ class VerifyDetailsFragment : Fragment()  {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         progressBar5.visibility = View.GONE
-
-
-//        val b : Bitmap = Screenshot.takeScreenshotOfRootView(imageView)
-//        imageView.setImageBitmap(b)
-
 
         firebaseStore = FirebaseStorage.getInstance()
         storageReference = FirebaseStorage.getInstance().reference
@@ -177,7 +170,7 @@ class VerifyDetailsFragment : Fragment()  {
         val amount = arguments?.getString("amount")
 //        pharmacy  = arguments?.getStringArray("pharmacy")
 
-        Log.e("pharmacyverify" , pharmacy.toString())
+        Log.e("pharmacyverify" , pharmacy[0].toString())
 
         textView26.text = amount
 
@@ -211,20 +204,22 @@ class VerifyDetailsFragment : Fragment()  {
                     val orderdetails: OrderModel = OrderModel(name, status, date, amount, phone, address, this.lat!!, this.lng!!)
 
                     submitOrder(orderdetails)
+//                    uploadOrderDetails(orderdetails)
                 }
             }
 
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun submitOrder(orderdetails : OrderModel) {
+    private fun submitOrder(orderdetails : OrderModel)  {
 
-        val orderkey: String? = mDatabaseReference.push().key
+        var orderkey: String? = mDatabaseReference.push().key
         uploadImage(orderkey!!, orderdetails)
 
     }
 
-    private fun uploadOrderDetails(orderkey: String, orderdetails : OrderModel) {
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun uploadOrderDetails(orderkey : String, orderdetails : OrderModel) {
 
         for (i in 0 until cart.size)
         {
@@ -249,31 +244,35 @@ class VerifyDetailsFragment : Fragment()  {
 
                     for(k in pharmacy) {
 
-                        if (post?.name.equals(k))
+                        if (post?.name.equals(k)) {
+
+
                             mDatabaseReference.child(pharmacykey).child("orders").child(orderkey).setValue(orderdetails)
+                            mDatabaseReference.child(pharmacykey).child("orders").child(orderkey).child("medicines").setValue(medicines)
+//                            orderkey = mDatabaseReference.push().key.toString()
 
-
-                        val postListener = object : ValueEventListener {
-
-                            override fun onDataChange(dataSnapshot: DataSnapshot) {
-
-                                for (i in dataSnapshot.children) {
-
-                                    val pharmacykey = i.key.toString()
-
-                                    mDatabaseReference.child(pharmacykey).child("orders").child(orderkey).child("medicines").setValue(medicines)
-                                }
-                            }
-
-                            override fun onCancelled(databaseError: DatabaseError) {
-                                Log.w(
-                                    ContentValues.TAG,
-                                    "loadPost:onCancelled",
-                                    databaseError.toException()
-                                )
-                            }
+//                            val postListener = object : ValueEventListener {
+//
+//                                override fun onDataChange(Snapshot: DataSnapshot) {
+//
+//                                    for (i in Snapshot.children) {
+//
+////                                        val pharmacykey1 = i.key.toString()
+//
+//                                        mDatabaseReference.child(pharmacykey).child("orders").child(orderkey).child("medicines").setValue(medicines)
+//                                    }
+//                                }
+//
+//                                override fun onCancelled(databaseError: DatabaseError) {
+//                                    Log.w(
+//                                        ContentValues.TAG,
+//                                        "loadPost:onCancelled",
+//                                        databaseError.toException()
+//                                    )
+//                                }
+//                            }
+//                            mDatabaseReference.addValueEventListener(postListener)
                         }
-                        mDatabaseReference.addValueEventListener(postListener)
                     }
                 }
             }
@@ -306,7 +305,7 @@ class VerifyDetailsFragment : Fragment()  {
 
                 ref?.putFile(filePath!!)?.addOnSuccessListener(OnSuccessListener<UploadTask.TaskSnapshot> {
 
-                    uploadOrderDetails(orderkey , orderdetails)
+                    uploadOrderDetails(orderkey, orderdetails)
 
                     Toast.makeText(this.requireActivity(), "Order submitted successfully", Toast.LENGTH_SHORT).show()
                     progressBar5.visibility = View.GONE
@@ -375,7 +374,7 @@ class VerifyDetailsFragment : Fragment()  {
 
         val messageBoxView = LayoutInflater.from(activity).inflate(R.layout.invoice, null)
         messageBoxView.date.text = orderdetails.date
-        messageBoxView.address.text = orderdetails.amount
+        messageBoxView.address.text = orderdetails.address
         messageBoxView.amount.text = now.toString()
         messageBoxView.name.text = orderdetails.name
         messageBoxView.amount.text = orderdetails.amount
@@ -391,8 +390,6 @@ class VerifyDetailsFragment : Fragment()  {
         }
 
     }
-
-
 
 
 }

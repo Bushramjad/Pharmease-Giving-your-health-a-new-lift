@@ -17,6 +17,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextWatcher;
@@ -191,12 +192,11 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback,
                     LatLng latLng = new LatLng(post.getLat(), post.getLng());
                     String vicinity = post.getVicinity();
 
-                    showMarkerOnSearch(placeName, vicinity, latLng);
+//                    showMarkerOnSearch(placeName, vicinity, latLng);
 
-                    Polyline line = mMap.addPolyline(new PolylineOptions()
-                            .add(new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude()), new LatLng(post.getLat(), post.getLng()))
-                            .width(5)
-                            .color(Color.GRAY));
+                    showMarkerOnSearch(placeName, vicinity,post.getLat(), post.getLng());
+
+
                 }
             }
 
@@ -276,27 +276,40 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback,
 
     }
 
-
-
-
-    private void showMarkerOnSearch(String placeName, String vicinity, LatLng latLng)
+    private void showMarkerOnSearch(String placeName, String vicinity, float lat, float lng)
     {
-        infoWindowAdaptar markerInfoWindowAdapter = new infoWindowAdaptar(getContext());
-        InfoWindowData info = new InfoWindowData();
-        info.setPlace_name(placeName);
-        info.setVicinity(vicinity);
+//        infoWindowAdaptar markerInfoWindowAdapter = new infoWindowAdaptar(getContext());
+//        InfoWindowData info = new InfoWindowData();
+//        info.setPlace_name(placeName);
+//        info.setVicinity(vicinity);
+//
+//        MarkerOptions markerOptions = new MarkerOptions();
+//        markerOptions.position(latLng);
+//        markerOptions.title(placeName + " : " + vicinity);
+//        Marker m = mMap.addMarker(markerOptions);
+//        mMap.setInfoWindowAdapter(markerInfoWindowAdapter);
+//
+//        m.setTag(info);
+//        m.showInfoWindow();
+//
+//        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+//        mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
 
-        MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(latLng);
-        markerOptions.title(placeName + " : " + vicinity);
-        Marker m = mMap.addMarker(markerOptions);
-        mMap.setInfoWindowAdapter(markerInfoWindowAdapter);
 
-        m.setTag(info);
-        m.showInfoWindow();
+        Uri.Builder builder = new Uri.Builder();
+        builder.scheme("https")
+                .authority("www.google.com")
+                .appendPath("maps")
+                .appendPath("dir")
+                .appendPath("")
+                .appendQueryParameter("api", "1")
+                .appendQueryParameter("destination", lat  + "," + lng);
+        String url = builder.build().toString();
+        Log.d("Directions", url);
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        startActivity(i);
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
     }
 
 
@@ -394,7 +407,6 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback,
             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
         }
     }
-
 
 
     @Override
