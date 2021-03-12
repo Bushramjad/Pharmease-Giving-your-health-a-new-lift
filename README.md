@@ -9,15 +9,20 @@ Pharmease reduces manual work and work load of users and administration, it save
 **Mobile Application**
 
 Tools - Android Studio
+
 Languages - Kotlin, Java, xml
+
 Database - Firebase
 
 
 **Web Application**
 
 Tools - Visual Studio Code, XAMPP
+
 Languages - PHP, JavaScript, CSS, HTML
+
 Database - Firebase
+
 Technologies - Bootstrap
 
 
