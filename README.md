@@ -5,3 +5,19 @@ Digital Health is the future of healthcare system. “Pharmease” is a system d
 The objective is to design a system to answer all those queries that remain unanswered before, that resulted in loss of time and human effort. Pharmease consist of a mobile Application along with the Web Application for administrative support. It allows the users to find all nearby pharmacies according to their current location, search a specific pharmacy by entering either a medicine or pharmacy name and placing an order directly. If the user places an order he will be notified about the progress of order through push notifications.
 
 Pharmease reduces manual work and work load of users and administration, it saves time which can be used in some other productive way. Today management is one of the most essential features of all form. Management provides an ease to perform any kind of task in a system provided.
+
+**Mobile Application**
+
+Tools - Android Studio
+Languages - Kotlin, Java, xml
+Database - Firebase
+
+
+**Web Application**
+
+Tools - Visual Studio Code, XAMPP
+Languages - PHP, JavaScript, CSS, HTML
+Database - Firebase
+Technologies - Bootstrap
+
+
